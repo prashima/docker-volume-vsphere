@@ -1,12 +1,11 @@
 #!/bin/bash
 
-# deploy docker-volume-plugin to ESXi
+# deploys whatever's in ./build/dist as an ESXi UI plugin called docker-volume-plugin
+
+# TODO: make these vars command line params
 
 ESX_IP=192.168.73.131
-#CURR_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-#echo $CURR_PATH
-#SRC_PATH=${CURR_PATH}/docker-volume-plugin
-SRC_PATH=./docker-volume-plugin
+SRC_PATH=.
 PLUGIN_NAME=docker-volume-plugin
 BUILD_PATH=${SRC_PATH}/build/dist/
 echo $BUILD_PATH
