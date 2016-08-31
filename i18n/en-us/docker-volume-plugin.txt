@@ -1,9 +1,8 @@
 {
    "example": {
       "menu": {
-         "title": "Example plugin",
-         "titleChildOne": "Child item one",
-         "titleChildTwo": "Child item two"
+         "title": "Volume Management",
+         "titleChildOne": "Tenants"
       },
       "dialogs": {
          "about": {
@@ -11,7 +10,7 @@
             "content": "Example dialog content"
          }
       },
-      "title": "Example plugin",
+      "title": "Docker Volume plugin",
       "tabs": {
          "one": {
             "label": "Tab one",

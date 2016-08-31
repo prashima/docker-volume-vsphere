@@ -1,3 +1,11 @@
+
+
+// FOO
+
+
+
+
+
 define([
    'angular',
    'plugins/docker-volume-plugin/scripts/controllers/example-main.js',

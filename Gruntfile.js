@@ -20,7 +20,7 @@ module.exports = function (grunt) {
    ];
 
    if (env == 'dev') {
-     copyfiles.concat([
+     copyfiles = copyfiles.concat([
        'scripts/**/{,*/}*.*',
        'plugin.js'
      ]);
