@@ -22,17 +22,9 @@ Prepare the Plugin locally for Installation
 
 ### Development build
 
-For development we want to bypass the uglify step to allow for in-browser debugging (TODO: setup dev and prod environments that don’t involve shitty hacks to Gruntfile)
+Build a version that excludes the minification/obfuscation steps for easier debugging
 
--   edit Gruntfile.js
--   add the following 2 lines to the copy.dist.files.src array
-        'scripts/**/{,*/}*.*',
-        'plugin.js'
-
--   comment out the following line in second argument to grunt.registerTask
-        'uglify'
-
--   [local-terminal]$ grunt
+-   [local-terminal]$ grunt --env=dev
 
 -   **development build** of esxui-docker-volume-plugin will be in ./build/dist/
 
