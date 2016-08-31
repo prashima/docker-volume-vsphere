@@ -77,13 +77,6 @@ define([
                onContext: function (e) {
                   $rootScope.contextMenu.show('example', ['object'], e);
                }
-            }, {
-               title: translate('example.menu.titleChildTwo'),
-               icon: 'icon-example-menu',
-               state: 'host.docker-volume-plugin.two',
-               onContext: function (e) {
-                  $rootScope.contextMenu.show('example', ['object'], e);
-               }
             }]
          }],
          states: [{
