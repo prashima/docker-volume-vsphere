@@ -15,14 +15,14 @@ define(['angular'], function (angular) {
       var testPageOne = {
          title: 'Test one',
          state: vuiConstants.wizard.pageState.INCOMPLETE,
-         contentUrl: 'plugins/example/views/wizard/test-page-one.html',
+         contentUrl: 'plugins/docker-volume-plugin/views/wizard/test-page-one.html',
          description: 'Test page description'
       };
 
       var testPageTwo = {
          title: 'Test two',
          state: vuiConstants.wizard.pageState.INCOMPLETE,
-         contentUrl: 'plugins/example/views/wizard/test-page-two.html',
+         contentUrl: 'plugins/docker-volume-plugin/views/wizard/test-page-two.html',
          description: 'Test page description'
       };
 

@@ -1,5 +1,5 @@
 {
-   "example": {
+   "docker-volume-plugin": {
       "menu": {
          "title": "Volume Management",
          "titleChildOne": "Tenants"
