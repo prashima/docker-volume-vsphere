@@ -10,15 +10,15 @@
             "content": "Example dialog content"
          }
       },
-      "title": "Docker Volume plugin",
+      "title": "Docker Volume Management",
       "tabs": {
          "one": {
-            "label": "Tab one",
-            "tooltip": "Tab one tooltip"
+            "label": "Tenants",
+            "tooltip": "tooltip TBD"
          },
          "two": {
-            "label": "Tab two",
-            "tooltip": "Tab two tooltip"
+            "label": "Optional 2nd tab",
+            "tooltip": "tooltip TBD"
          }
       }
    }
