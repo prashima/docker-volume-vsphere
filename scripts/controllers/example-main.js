@@ -37,16 +37,16 @@ define(['angular'], function(angular) {
          one: {
             label: translate('example.tabs.one.label'),
             tooltipText: translate('example.tabs.one.tooltip'),
-            contentUrl: 'plugins/esxui-example-plugin/views/example-tab-one.html',
+            contentUrl: 'plugins/docker-volume-plugin/views/example-tab-one.html',
             onClick: pClickFunction,
-            state: 'host.esxui-example-plugin.one'
+            state: 'host.docker-volume-plugin.one'
          },
          two: {
             label: translate('example.tabs.two.label'),
             tooltipText: translate('example.tabs.two.tooltip'),
-            contentUrl: 'plugins/esxui-example-plugin/views/example-tab-two.html',
+            contentUrl: 'plugins/docker-volume-plugin/views/example-tab-two.html',
             onClick: pClickFunction,
-            state: 'host.esxui-example-plugin.two'
+            state: 'host.docker-volume-plugin.two'
          }
       };
 
@@ -62,10 +62,10 @@ define(['angular'], function(angular) {
          if ($state.current.name === 'host.example') {
             $log.debug('top-level tab state, getting pre-selected tab');
             currentState = StorageManager.get('example_current_state',
-               'host.esxui-example-plugin.one');
+               'host.docker-volume-plugin.one');
          }
 
-         if (currentState !== 'host.esxui-example-plugin') {
+         if (currentState !== 'host.docker-volume-plugin') {
             $timeout(function () {
                $state.go(currentState);
             });

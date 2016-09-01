@@ -18,8 +18,8 @@ class EsxUIExamplePlugin(helpers.target.Target, helpers.make.MakeHelper):
 
    def GetBuildProductNames(self):
       return {
-          'name': 'esxui-example-plugin',
-          'longname' : 'Embedded Host Client example plugin'
+          'name': 'docker-volume-plugin',
+          'longname' : 'Docker Volume Management plugin'
       }
 
    def GetClusterRequirements(self):
@@ -28,8 +28,8 @@ class EsxUIExamplePlugin(helpers.target.Target, helpers.make.MakeHelper):
    def GetRepositories(self, hosttype):
       return [{
          'rcs': 'git',
-         'src': 'esxui-example-plugin.git;%(branch);',
-         'dst': 'esxui-example-plugin',
+         'src': 'docker-volume-plugin.git;%(branch);',
+         'dst': 'docker-volume-plugin',
       }]
 
    def GetOptions(self):
@@ -42,7 +42,7 @@ class EsxUIExamplePlugin(helpers.target.Target, helpers.make.MakeHelper):
 
    def GetCommands(self, hosttype):
       flags = {
-         'PRODUCT': 'esxui-example-plugin',
+         'PRODUCT': 'docker-volume-plugin',
          'USE_OFFICIAL_KEY': self.options[ALLOW_OFFICIAL_KEY]
       }
 
@@ -67,12 +67,12 @@ class EsxUIExamplePlugin(helpers.target.Target, helpers.make.MakeHelper):
       }]
 
    def GetComponentPath(self, hosttype):
-      return 'esxui-example-plugin/build/'
+      return 'docker-volume-plugin/build/'
 
    def GetStorageInfo(self, hosttype):
       storinfo = []
-      storinfo += [{'type': 'build', 'src': 'esxui-example-plugin/build'}]
-      storinfo += [{'type': 'source', 'src': 'esxui-example-plugin/'}]
+      storinfo += [{'type': 'build', 'src': 'docker-volume-plugin/build'}]
+      storinfo += [{'type': 'source', 'src': 'docker-volume-plugin/'}]
       return storinfo
 
    def GetBuildProductVersion(self, hosttype):

@@ -1,4 +1,4 @@
-export PROJECT := esxui-example-plugin
+export PROJECT := docker-volume-plugin
 PROJECT_ROOT = $(MAINSRCROOT)
 GOBUILD_TARGET ?= $(PROJECT)
 

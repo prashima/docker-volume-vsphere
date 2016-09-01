@@ -21,7 +21,7 @@ define(['angular'], function (angular) {
                   icon: 'esx-icon-about',
                   width: '585px',
                   height: '280px',
-                  content: 'plugins/esxui-example-plugin/views/about-dialog.html',
+                  content: 'plugins/docker-volume-plugin/views/about-dialog.html',
                   objects: {
                      ENV: ENV,
                      esxiVersion: VIMService.getESXVersion(),

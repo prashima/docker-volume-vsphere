@@ -16,7 +16,7 @@ import targets.esxuiExamplePlugin
 # tree!
 
 TARGETS = {
-   'esxui-example-plugin': targets.esxuiExamplePlugin.EsxUIExamplePlugin,
+   'docker-volume-plugin': targets.esxuiExamplePlugin.EsxUIExamplePlugin,
 }
 
 # Add an access target for each already-defined target.
