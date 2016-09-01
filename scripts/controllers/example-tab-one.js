@@ -68,7 +68,9 @@ define(['angular'], function(angular) {
           {field:'capacity', title:'Capacity'},
           {field:'availability', title:'Global Availability'},
           {field:'create', title:'Create', editor: { type:'checkbox', options:{ on: true, off: false } } },
-          {field:'delete', title:'Delete', editor: { type:'checkbox', options:{ on: true, off: false } } }
+          {field:'delete', title:'Delete', editor: { type:'checkbox', options:{ on: true, off: false } }, formatter: function(v,r,i) {
+            return '<a style="color:red">' + v + '</a>';
+          } }
         ],
         data: datastores.map(function(row) {
           return {
