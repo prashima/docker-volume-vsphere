@@ -65,7 +65,7 @@ define(['angular'], function(angular) {
           {field:'ID',title:'ID'},//,rowspan:2,width:80,sortable:true}
           {field:'capacity', title:'Capacity'},
           {field:'availability', title:'Global Availability'},
-          {field:'create', title:'Create', checkbox: true},
+          {field:'create', title:'Create', checkbox: 'True'},
           {field:'delete', title:'Delete', checkbox: true}
         ],
         data: datastores.map(function(row) {
