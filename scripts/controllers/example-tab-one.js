@@ -61,11 +61,13 @@ define(['angular'], function(angular) {
 
 
       $scope.datastoresGridSettings = {
+        singleSelect: true,
+        rownumbers: true,
         columns: [
           {field:'ID',title:'ID'},//,rowspan:2,width:80,sortable:true}
           {field:'capacity', title:'Capacity'},
           {field:'availability', title:'Global Availability'},
-          {field:'create', title:'Create', checkbox: 'True'},
+          {field:'create', title:'Create', checkbox: true},
           {field:'delete', title:'Delete', checkbox: true}
         ],
         data: datastores.map(function(row) {
