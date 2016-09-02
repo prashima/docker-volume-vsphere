@@ -125,7 +125,44 @@ define(['angular'], function(angular) {
           ]
         },
         columnDefs: [
-          {field:'ID',fieldName:'ID'},
+          {field:'ID',fieldName:'ID', searchable:
+            {
+                messages: {
+                    filter: translate("grid.filter"),
+                    clear: translate("grid.clear"),
+                    info: translate("grid.filterHeader"),
+                    isTrue: translate("grid.isTrue"),
+                    isFalse: translate("grid.isFalse"),
+                    and: translate("grid.and"),
+                    or: translate("grid.or")
+                },
+                operators: {
+                    string: {
+                        eq: translate("grid.eq"),
+                        neq: translate("grid.neq"),
+                        startswith: translate("grid.startswith"),
+                        contains: translate("grid.contains"),
+                        endswith: translate("grid.endswith")
+                    },
+                    number: {
+                        eq: translate("grid.eq"),
+                        neq: translate("grid.neq"),
+                        gte: translate("grid.gte"),
+                        gt: translate("grid.gt"),
+                        lte: translate("grid.lte"),
+                        lt: translate("grid.lt")
+                    },
+                    date: {
+                        eq: translate("grid.eq"),
+                        neq: translate("grid.neq"),
+                        gte: translate("grid.gte"),
+                        gt: translate("grid.gt"),
+                        lte: translate("grid.lte"),
+                        lt: translate("grid.lt")
+                    }
+                }
+            }
+          },
           {field:'capacity', fieldName:'Capacity'},
           {field:'availability', fieldName:'Global Availability'},
           {field:'create', fieldName:'Create', editor: { type:'checkbox', options:{ on: true, off: false } } },
