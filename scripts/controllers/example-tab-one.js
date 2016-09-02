@@ -45,8 +45,19 @@ define(['angular'], function(angular) {
       ]
 
       $scope.tenantsGridSettings = {
+        selectionMode: 'SINGLE',
+        actionBarOptions: {
+          actions: [
+            {
+              id: 'action1',
+              label: 'Add',
+              iconClass: 'vui-icon-action-add',
+              onClick: function() {alert('yo');}
+            }
+          ]
+        },
         columns: [
-          {field:'ID',fieldName:'ID'},//,rowspan:2,width:80,sortable:true}
+          {field:'ID',fieldName:'ID'},
           {field:'name', fieldName:'name'},
           {field:'description', fieldName:'description-foo'}
         ],
@@ -60,10 +71,9 @@ define(['angular'], function(angular) {
       };
 
       $scope.datastoresGridSettings = {
-        singleSelect: true,
-        rownumbers: true,
+        selectionMode: 'SINGLE',
         columns: [
-          {field:'ID',fieldName:'ID'},//,rowspan:2,width:80,sortable:true}
+          {field:'ID',fieldName:'ID'},
           {field:'capacity', fieldName:'Capacity'},
           {field:'availability', fieldName:'Global Availability'},
           {field:'create', fieldName:'Create', editor: { type:'checkbox', options:{ on: true, off: false } } },
