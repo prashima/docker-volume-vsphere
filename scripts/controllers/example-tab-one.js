@@ -5,29 +5,6 @@ define(['angular'], function(angular) {
       $log, $rootScope, $scope,
       ExampleService, ExampleContextMenuService) {
 
-      // $log = $log.getInstance('ExampleTabOneController', true);
-      // $log.debug('In example tab one controller global scope');
-      //
-      // var actionButton = {
-      //    id: 'exampleButton',
-      //    label: 'Test button one',
-      //    tooltipText: 'Test tooltip',
-      //    enabled: true,
-      //    iconClass: 'esx-icon-example',
-      //    onClick: function (e) {
-      //       var button = $(e.currentTarget);
-      //       var pos = button.offset();
-      //       var height = button.height();
-      //       $rootScope.contextMenu.show('example', ['object'], e,
-      //          pos.left - 1, pos.top + height + 4);
-      //    }
-      // };
-      //
-      // $scope.actionBar = {
-      //    actions: [
-      //       actionButton
-      //    ]
-      // };
       var tenants = [
         ["692c1e66-a3f4-4322-a4fb-85276659c9b9", "my-example-tenant-1", "I created this as an example"],
         ["1e758b16-6f4d-4155-994d-f966f1805115", "my-example-tenant-2", "Another example tenant"],
@@ -52,6 +29,33 @@ define(['angular'], function(angular) {
               id: 'action1',
               label: 'Add',
               iconClass: 'vui-icon-action-add',
+              onClick: function(evt, action) {
+                console.log('add action');
+                alert('yo');
+              }
+            },
+            {
+              id: 'action2',
+              label: 'Remove',
+              iconClass: 'vui-icon-action-delete',
+              onClick: function() {alert('yo');}
+            },
+            {
+              id: 'action3',
+              label: 'Edit',
+              iconClass: 'vui-icon-action-edit',
+              onClick: function() {alert('yo');}
+            },
+            {
+              id: 'action4',
+              label: 'Copy',
+              iconClass: 'vui-icon-action-copy',
+              onClick: function() {alert('yo');}
+            },
+            {
+              id: 'action5',
+              label: 'Move',
+              iconClass: 'vui-icon-action-move',
               onClick: function() {alert('yo');}
             }
           ]

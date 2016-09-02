@@ -4,6 +4,7 @@
 
 # TODO: make these vars command line params
 
+grunt --env=dev
 ESX_IP=192.168.73.131
 SRC_PATH=.
 PLUGIN_NAME=docker-volume-plugin
