@@ -2,7 +2,7 @@ define(['angular'], function(angular) {
    'use strict';
 
    return function(
-      $log, $rootScope, $scope,
+      $log, $rootScope, $scope, $filter,
       ExampleService, ExampleContextMenuService) {
 
       var tenants = [
@@ -74,8 +74,56 @@ define(['angular'], function(angular) {
         })
       };
 
+      var translate = $filter('translate');
+
       $scope.datastoresGridSettings = {
         selectionMode: 'SINGLE',
+        searchable: {
+            messages: {
+                filter: translate("grid.filter"),
+                clear: translate("grid.clear"),
+                info: translate("grid.filterHeader"),
+                isTrue: translate("grid.isTrue"),
+                isFalse: translate("grid.isFalse"),
+                and: translate("grid.and"),
+                or: translate("grid.or")
+            },
+            operators: {
+                string: {
+                    eq: translate("grid.eq"),
+                    neq: translate("grid.neq"),
+                    startswith: translate("grid.startswith"),
+                    contains: translate("grid.contains"),
+                    endswith: translate("grid.endswith")
+                },
+                number: {
+                    eq: translate("grid.eq"),
+                    neq: translate("grid.neq"),
+                    gte: translate("grid.gte"),
+                    gt: translate("grid.gt"),
+                    lte: translate("grid.lte"),
+                    lt: translate("grid.lt")
+                },
+                date: {
+                    eq: translate("grid.eq"),
+                    neq: translate("grid.neq"),
+                    gte: translate("grid.gte"),
+                    gt: translate("grid.gt"),
+                    lte: translate("grid.lte"),
+                    lt: translate("grid.lt")
+                }
+            }
+        },
+        actionBarOptions: {
+          actions: [
+            {
+              id: 'action3',
+              label: 'Edit',
+              iconClass: 'vui-icon-action-edit',
+              onClick: function() {alert('yo');}
+            }
+          ]
+        },
         columns: [
           {field:'ID',fieldName:'ID'},
           {field:'capacity', fieldName:'Capacity'},
