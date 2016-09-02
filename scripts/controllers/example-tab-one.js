@@ -46,9 +46,9 @@ define(['angular'], function(angular) {
 
       $scope.tenantsGridSettings = {
         columns: [
-          {field:'ID',title:'ID'},//,rowspan:2,width:80,sortable:true}
-          {field:'name', title:'name'},
-          {field:'description', title:'description-foo'}
+          {field:'ID',fieldName:'ID'},//,rowspan:2,width:80,sortable:true}
+          {field:'name', fieldName:'name'},
+          {field:'description', fieldName:'description-foo'}
         ],
         data: tenants.map(function(row) {
           return {
@@ -59,16 +59,15 @@ define(['angular'], function(angular) {
         })
       };
 
-
       $scope.datastoresGridSettings = {
         singleSelect: true,
         rownumbers: true,
         columns: [
-          {field:'ID',title:'ID'},//,rowspan:2,width:80,sortable:true}
-          {field:'capacity', title:'Capacity'},
-          {field:'availability', title:'Global Availability'},
-          {field:'create', title:'Create', editor: { type:'checkbox', options:{ on: true, off: false } } },
-          {field:'delete', title:'Delete', editor: { type:'checkbox', options:{ on: true, off: false } }, formatter: function(v,r,i) {
+          {field:'ID',fieldName:'ID'},//,rowspan:2,width:80,sortable:true}
+          {field:'capacity', fieldName:'Capacity'},
+          {field:'availability', fieldName:'Global Availability'},
+          {field:'create', fieldName:'Create', editor: { type:'checkbox', options:{ on: true, off: false } } },
+          {field:'delete', fieldName:'Delete', editor: { type:'checkbox', options:{ on: true, off: false } }, formatter: function(v,r,i) {
             return '<a style="color:red">' + v + '</a>';
           } }
         ],
@@ -82,11 +81,6 @@ define(['angular'], function(angular) {
           };
         })
       };
-
-
-
-
-
 
    };
 });
