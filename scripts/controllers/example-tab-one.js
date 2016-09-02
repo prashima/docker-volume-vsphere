@@ -60,7 +60,7 @@ define(['angular'], function(angular) {
             }
           ]
         },
-        columns: [
+        columnDefs: [
           {field:'ID',fieldName:'ID'},
           {field:'name', fieldName:'name'},
           {field:'description', fieldName:'description-foo'}
@@ -124,7 +124,7 @@ define(['angular'], function(angular) {
             }
           ]
         },
-        columns: [
+        columnDefs: [
           {field:'ID',fieldName:'ID'},
           {field:'capacity', fieldName:'Capacity'},
           {field:'availability', fieldName:'Global Availability'},
