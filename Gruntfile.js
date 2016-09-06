@@ -27,7 +27,7 @@ module.exports = function (grunt) {
    }
 
    var uglyfiles = (env === 'dev') ? {} : {
-     'build/dist/scripts/services/example.js': ['scripts/services/example.js'],
+     'build/dist/scripts/services/dvol.js': ['scripts/services/dvol.js'],
      'build/dist/scripts/services/dvol-dialog.js': ['scripts/services/dvol-dialog.js'],
      'build/dist/scripts/services/dvol-wizard.js': ['scripts/services/dvol-wizard.js'],
      'build/dist/scripts/services/dvol-context-menu.js': ['scripts/services/dvol-context-menu.js'],
