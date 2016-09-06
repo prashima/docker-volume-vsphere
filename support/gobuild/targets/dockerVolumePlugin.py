@@ -53,13 +53,13 @@ class EsxUIDvolPlugin(helpers.target.Target, helpers.make.MakeHelper):
       env = helpers.env.SafeEnvironment(hosttype)
 
       return [{
-          'desc'    : 'Building Embedded Host Client example plugin',
+          'desc'    : 'Building Embedded Host Client Docker Volume plugin',
           'root'    : root,
           'log'     : 'build.log',
           'command' : self._Command(hosttype, 'all', **flags),
           'env'     : env,
       }, {
-          'desc'    : 'Publishing Embedded Host Client example plugin',
+          'desc'    : 'Publishing Embedded Host Client Docker Volume plugin',
           'root'    : root,
           'log'     : 'package.log',
           'command' : self._Command(hosttype, 'publish', **flags),

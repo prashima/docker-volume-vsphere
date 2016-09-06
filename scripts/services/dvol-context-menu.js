@@ -6,19 +6,19 @@ define(['angular'], function (angular) {
       $log) {
 
       $log = $log.getInstance('DvolContextMenuService', true);
-      $log.debug('In example context menu service global scope');
+      $log.debug('In dvol context menu service global scope');
 
-      var exampleContextMenu = [{
+      var dvolContextMenu = [{
          title: 'Some menu item',
          toolTip: 'Menu item tooltip',
          id: 'menuItemID',
          iconClass: 'esx-icon-example',
          enabled: true,
          update: function (opaque) {
-            $log.debug('updating example menu item');
+            $log.debug('updating dvol menu item');
          },
          onClick: function () {
-            alert('example menu item clicked');
+            alert('dvol menu item clicked');
          },
          children: [{
             title: 'Some child menu item',
@@ -27,10 +27,10 @@ define(['angular'], function (angular) {
             iconClass: 'esx-icon-example',
             enabled: true,
             update: function (opaque) {
-               $log.debug('updating child example menu item');
+               $log.debug('updating child dvol menu item');
             },
             onClick: function () {
-               alert('child example menu item clicked');
+               alert('child dvol menu item clicked');
             },
          }]
       }];
@@ -94,9 +94,9 @@ define(['angular'], function (angular) {
             /* falls through */
             case 'vm.none':
             /* falls through */
-            case 'example':
+            case 'dvol':
                deferred.resolve({
-                  menu: traverse(exampleContextMenu, objects),
+                  menu: traverse(dvolContextMenu, objects),
                   title: 'Context title',
                   iconClass: 'esx-icon-example'
                });

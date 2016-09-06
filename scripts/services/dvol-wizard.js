@@ -8,7 +8,7 @@ define(['angular'], function (angular) {
       vuiConstants) {
 
       $log = $log.getInstance('DvolWizardService', true);
-      $log.debug('In example wizard service global scope');
+      $log.debug('In dvol wizard service global scope');
 
       var translate = $filter('translate');
 
@@ -28,7 +28,7 @@ define(['angular'], function (angular) {
 
       this.showWizard = function (wizard) {
          switch(wizard) {
-            case 'example.wizard':
+            case 'dvol.wizard':
                return {
                   show: true,
                   title: 'Title',

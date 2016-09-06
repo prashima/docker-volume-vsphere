@@ -19,7 +19,7 @@
    <!-- A one-line summary of the VIB package contents. 80 chars max. -->
    <summary>VMware Host Client Dvol Plugin</summary>
 
-   <description>An example plugin for the embedded web UI for ESXi</description>
+   <description>An docker volume management plugin for embedded web UI for ESXi</description>
 
    <!-- Used for specifying KB article URLs.  key is a short friendly -->
    <!-- identifier, no more than 20 characters long, to display instead -->

@@ -3,7 +3,7 @@ define(['angular'], function (angular) {
 
    return function ($log) {
       $log = $log.getInstance('DvolService', true);
-      $log.debug('In example service global scope');
+      $log.debug('In dvol service global scope');
 
       this.serviceMethod = function () {
          $log.debug('serviceMethod was called');

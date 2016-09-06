@@ -9,13 +9,13 @@ define(['angular'], function (angular) {
       ENV) {
 
       $log = $log.getInstance('DvolDialogService', true);
-      $log.debug('In example dialog service global scope');
+      $log.debug('In docker volume dialog service global scope');
 
       var translate = $filter('translate');
 
       this.showDialog = function (dialog, opaque) {
          switch(dialog) {
-            case 'example.about':
+            case 'dvol.about':
                return {
                   title: translate('dvol.dialogs.about.title'),
                   icon: 'esx-icon-about',

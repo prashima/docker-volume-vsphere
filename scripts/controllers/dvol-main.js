@@ -23,7 +23,7 @@ define(['angular'], function(angular) {
          var selected = 0;
          state = angular.isUndefined(state) ? $state.current.name : state;
 
-         angular.forEach($scope.exampleTabs.tabs, function(value, key) {
+         angular.forEach($scope.dvolTabs.tabs, function(value, key) {
             if (value.state === state) {
                selected = key;
                value.loaded = true;
@@ -50,7 +50,7 @@ define(['angular'], function(angular) {
          }
       };
 
-      $scope.exampleTabs = {
+      $scope.dvolTabs = {
          tabs: Object.keys($scope.tabs).map(function (key) {
             return $scope.tabs[key];
          }),
@@ -72,11 +72,11 @@ define(['angular'], function(angular) {
          }
 
          var defaultTab = getSelectedTab();
-         $scope.exampleTabs.selectedTabIndex = defaultTab;
-         $scope.exampleTabs.tabs[defaultTab].loaded = true;
+         $scope.dvolTabs.selectedTabIndex = defaultTab;
+         $scope.dvolTabs.tabs[defaultTab].loaded = true;
 
          StorageManager.set('example_current_state', currentState);
-         $scope.exampleTabs.selectedTabIndex = getSelectedTab(currentState);
+         $scope.dvolTabs.selectedTabIndex = getSelectedTab(currentState);
       });
    };
 });
