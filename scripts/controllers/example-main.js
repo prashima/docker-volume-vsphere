@@ -37,14 +37,14 @@ define(['angular'], function(angular) {
          one: {
             label: translate('dvol.tabs.one.label'),
             tooltipText: translate('dvol.tabs.one.tooltip'),
-            contentUrl: 'plugins/docker-volume-plugin/views/example-tab-one.html',
+            contentUrl: 'plugins/docker-volume-plugin/views/dvol-tab-one.html',
             onClick: pClickFunction,
             state: 'host.docker-volume-plugin.one'
          },
          two: {
             label: translate('dvol.tabs.two.label'),
             tooltipText: translate('dvol.tabs.two.tooltip'),
-            contentUrl: 'plugins/docker-volume-plugin/views/example-tab-two.html',
+            contentUrl: 'plugins/docker-volume-plugin/views/dvol-tab-two.html',
             onClick: pClickFunction,
             state: 'host.docker-volume-plugin.two'
          }

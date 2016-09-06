@@ -28,12 +28,12 @@ module.exports = function (grunt) {
 
    var uglyfiles = (env === 'dev') ? {} : {
      'build/dist/scripts/services/example.js': ['scripts/services/example.js'],
-     'build/dist/scripts/services/example-dialog.js': ['scripts/services/example-dialog.js'],
-     'build/dist/scripts/services/example-wizard.js': ['scripts/services/example-wizard.js'],
-     'build/dist/scripts/services/example-context-menu.js': ['scripts/services/example-context-menu.js'],
-     'build/dist/scripts/controllers/example-main.js': ['scripts/controllers/example-main.js'],
-     'build/dist/scripts/controllers/example-tab-one.js': ['scripts/controllers/example-tab-one.js'],
-     'build/dist/scripts/controllers/example-tab-two.js': ['scripts/controllers/example-tab-two.js'],
+     'build/dist/scripts/services/dvol-dialog.js': ['scripts/services/dvol-dialog.js'],
+     'build/dist/scripts/services/dvol-wizard.js': ['scripts/services/dvol-wizard.js'],
+     'build/dist/scripts/services/dvol-context-menu.js': ['scripts/services/dvol-context-menu.js'],
+     'build/dist/scripts/controllers/dvol-main.js': ['scripts/controllers/dvol-main.js'],
+     'build/dist/scripts/controllers/dvol-tab-one.js': ['scripts/controllers/dvol-tab-one.js'],
+     'build/dist/scripts/controllers/dvol-tab-two.js': ['scripts/controllers/dvol-tab-two.js'],
      'build/dist/scripts/controllers/wizard/test-page-one.js': ['scripts/controllers/wizard/test-page-one.js'],
      'build/dist/scripts/controllers/wizard/test-page-two.js': ['scripts/controllers/wizard/test-page-two.js'],
      'build/dist/plugin.js': ['plugin.js']

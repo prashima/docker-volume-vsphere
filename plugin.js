@@ -1,15 +1,15 @@
 
 define([
    'angular',
-   'plugins/docker-volume-plugin/scripts/controllers/example-main.js',
-   'plugins/docker-volume-plugin/scripts/controllers/example-tab-one.js',
-   'plugins/docker-volume-plugin/scripts/controllers/example-tab-two.js',
+   'plugins/docker-volume-plugin/scripts/controllers/dvol-main.js',
+   'plugins/docker-volume-plugin/scripts/controllers/dvol-tab-one.js',
+   'plugins/docker-volume-plugin/scripts/controllers/dvol-tab-two.js',
    'plugins/docker-volume-plugin/scripts/controllers/wizard/test-page-one.js',
    'plugins/docker-volume-plugin/scripts/controllers/wizard/test-page-two.js',
    'plugins/docker-volume-plugin/scripts/services/example.js',
-   'plugins/docker-volume-plugin/scripts/services/example-dialog.js',
-   'plugins/docker-volume-plugin/scripts/services/example-wizard.js',
-   'plugins/docker-volume-plugin/scripts/services/example-context-menu.js'
+   'plugins/docker-volume-plugin/scripts/services/dvol-dialog.js',
+   'plugins/docker-volume-plugin/scripts/services/dvol-wizard.js',
+   'plugins/docker-volume-plugin/scripts/services/dvol-context-menu.js'
 ], function(
    angular,
    ExampleMainController,
@@ -79,7 +79,7 @@ define([
                views: {
                   'content@host': {
                      controller: 'ExampleMainController',
-                     templateUrl: 'plugins/docker-volume-plugin/views/example-main.html'
+                     templateUrl: 'plugins/docker-volume-plugin/views/dvol-main.html'
                   }
                }
             }
