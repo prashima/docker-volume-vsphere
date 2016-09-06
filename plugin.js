@@ -2,7 +2,7 @@
 define([
    'angular',
    'plugins/docker-volume-plugin/scripts/controllers/dvol-main.js',
-   'plugins/docker-volume-plugin/scripts/controllers/dvol-tab-one.js',
+   'plugins/docker-volume-plugin/scripts/controllers/tenants-list.js',
    'plugins/docker-volume-plugin/scripts/controllers/dvol-tab-two.js',
    'plugins/docker-volume-plugin/scripts/controllers/wizard/test-page-one.js',
    'plugins/docker-volume-plugin/scripts/controllers/wizard/test-page-two.js',
@@ -13,7 +13,7 @@ define([
 ], function(
    angular,
    DvolMainController,
-   DvolTabOneController,
+   DvolTenantsListController,
    DvolTabTwoController,
    DvolWizardTestPageOneController,
    DvolWizardTestPageTwoController,
@@ -28,7 +28,7 @@ define([
       'ui.router',
    ]).controller({
       'DvolMainController': DvolMainController,
-      'DvolTabOneController': DvolTabOneController,
+      'DvolTenantsListController': DvolTenantsListController,
       'DvolTabTwoController': DvolTabTwoController,
       'DvolWizardTestPageOneController': DvolWizardTestPageOneController,
       'DvolWizardTestPageTwoController': DvolWizardTestPageTwoController
@@ -79,7 +79,7 @@ define([
                views: {
                   'content@host': {
                      controller: 'DvolMainController',
-                     templateUrl: 'plugins/docker-volume-plugin/views/dvol-main.html'
+                     templateUrl: 'plugins/docker-volume-plugin/app/main/dvol-main.html'
                   }
                }
             }
