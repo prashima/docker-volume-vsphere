@@ -6,7 +6,7 @@ Support code for building products with gobuild.
 import helpers
 import helpers.access
 
-import targets.esxuiExamplePlugin
+import targets.esxuiDvolPlugin
 
 # The targets dictionary maps target names to classes which
 # implement the gobuild Target interface.  The dictionary is not
@@ -16,7 +16,7 @@ import targets.esxuiExamplePlugin
 # tree!
 
 TARGETS = {
-   'docker-volume-plugin': targets.esxuiExamplePlugin.EsxUIExamplePlugin,
+   'docker-volume-plugin': targets.esxuiDvolPlugin.EsxUIDvolPlugin,
 }
 
 # Add an access target for each already-defined target.

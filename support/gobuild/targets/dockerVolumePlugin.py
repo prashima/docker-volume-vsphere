@@ -6,12 +6,12 @@ ESXUI Example Plugin gobuild product module.
 import helpers.target
 import helpers.env
 import helpers.make
-import specs.esxuiExamplePlugin as specs
+import specs.esxuiDvolPlugin as specs
 
 # This flag will be controlled by gobuild command
 ALLOW_OFFICIAL_KEY = 'allow.elfofficialkey'
 
-class EsxUIExamplePlugin(helpers.target.Target, helpers.make.MakeHelper):
+class EsxUIDvolPlugin(helpers.target.Target, helpers.make.MakeHelper):
    """
    Embedded Host Client Example Plugin
    """
