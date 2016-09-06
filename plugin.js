@@ -6,7 +6,7 @@ define([
    'plugins/docker-volume-plugin/scripts/controllers/dvol-tab-two.js',
    'plugins/docker-volume-plugin/scripts/controllers/wizard/test-page-one.js',
    'plugins/docker-volume-plugin/scripts/controllers/wizard/test-page-two.js',
-   'plugins/docker-volume-plugin/scripts/services/example.js',
+   'plugins/docker-volume-plugin/scripts/services/dvol.js',
    'plugins/docker-volume-plugin/scripts/services/dvol-dialog.js',
    'plugins/docker-volume-plugin/scripts/services/dvol-wizard.js',
    'plugins/docker-volume-plugin/scripts/services/dvol-context-menu.js'
