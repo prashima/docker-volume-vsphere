@@ -44,22 +44,22 @@ define([
          //
          //
          //
-        //  navigator: [{
-        //     title: translate('dvol.menu.title'),
-        //     icon: 'icon-example-menu',
-        //     state: 'host.docker-volume-plugin',
-        //     onContext: function (e) {
-        //        $rootScope.contextMenu.show('dvol', ['object'], e);
-        //     },
-        //     children: [{
-        //        title: translate('dvol.menu.titleChildOne'),
-        //        icon: 'icon-example-menu',
-        //        state: 'host.docker-volume-plugin.one',
-        //        onContext: function (e) {
-        //           $rootScope.contextMenu.show('dvol', ['object'], e);
-        //        }
-        //     }]
-        //  }],
+         navigator: [{
+            title: translate('dvol.menu.title'),
+            icon: 'icon-example-menu',
+            state: 'host.docker-volume-plugin',
+            onContext: function (e) {
+               $rootScope.contextMenu.show('dvol', ['object'], e);
+            },
+            children: [{
+               title: translate('dvol.menu.titleChildOne'),
+               icon: 'icon-example-menu',
+               state: 'host.docker-volume-plugin.one',
+               onContext: function (e) {
+                  $rootScope.contextMenu.show('dvol', ['object'], e);
+               }
+            }]
+         }],
          states: [
            {
             name: 'host.docker-volume-plugin',
