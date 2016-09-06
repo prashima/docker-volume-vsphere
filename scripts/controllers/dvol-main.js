@@ -6,7 +6,7 @@ define(['angular'], function(angular) {
       StorageManager, AuthService, DvolService, vuiConstants) {
 
       $log = $log.getInstance('DvolMainController', true);
-      $log.debug('In example main controller global scope');
+      $log.debug('In dvol main controller global scope');
 
       var translate = $filter('translate'),
          currentState = $state.current.name;
@@ -18,7 +18,7 @@ define(['angular'], function(angular) {
       var pClickFunction = function(event, tab) {
          tab.loaded = true;
          $state.go(tab.state);
-         StorageManager.set('example_current_state', tab.state);
+         StorageManager.set('dvol_current_state', tab.state);
       }, getSelectedTab = function(state) {
          var selected = 0;
          state = angular.isUndefined(state) ? $state.current.name : state;
@@ -59,9 +59,9 @@ define(['angular'], function(angular) {
       };
 
       $timeout(function () {
-         if ($state.current.name === 'host.example') {
+         if ($state.current.name === 'host.dvol') {
             $log.debug('top-level tab state, getting pre-selected tab');
-            currentState = StorageManager.get('example_current_state',
+            currentState = StorageManager.get('dvol_current_state',
                'host.docker-volume-plugin.one');
          }
 
@@ -75,7 +75,7 @@ define(['angular'], function(angular) {
          $scope.dvolTabs.selectedTabIndex = defaultTab;
          $scope.dvolTabs.tabs[defaultTab].loaded = true;
 
-         StorageManager.set('example_current_state', currentState);
+         StorageManager.set('dvol_current_state', currentState);
          $scope.dvolTabs.selectedTabIndex = getSelectedTab(currentState);
       });
    };

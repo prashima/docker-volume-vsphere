@@ -3,7 +3,7 @@ define(['angular'], function(angular) {
 
    return function($log, $scope, DvolService, DialogService, WizardService) {
       $log = $log.getInstance('DvolTabTwoController', true);
-      $log.debug('In example tab two controller global scope');
+      $log.debug('In dvol tab two controller global scope');
 
       var testButtonTwo = {
          id: 'testButtonTwo',
@@ -12,7 +12,7 @@ define(['angular'], function(angular) {
          enabled: true,
          iconClass: 'esx-icon-vm-console',
          onClick: function () {
-            DialogService.showDialog('example.about', {
+            DialogService.showDialog('dvol.about', {
                test: 'test'
             });
          }
@@ -25,7 +25,7 @@ define(['angular'], function(angular) {
          enabled: true,
          iconClass: 'esx-icon-new-vm',
          onClick: function () {
-            WizardService.showWizard('example.wizard');
+            WizardService.showWizard('dvol.wizard');
          }
       };
 
