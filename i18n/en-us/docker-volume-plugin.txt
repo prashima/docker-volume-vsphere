@@ -4,22 +4,6 @@
          "title": "Volume Management",
          "titleChildOne": "Tenants"
       },
-      "dialogs": {
-         "about": {
-            "title": "Some dialog title",
-            "content": "Some dialog content"
-         }
-      },
-      "title": "Docker Volume Management",
-      "tabs": {
-         "one": {
-            "label": "Tenants",
-            "tooltip": "Tab one tooltip TBD"
-         },
-         "two": {
-            "label": "Optional 2nd tab",
-            "tooltip": "Tab two tooltip TBD"
-         }
-      }
+      "title": "Docker Volume Management"
    }
 }

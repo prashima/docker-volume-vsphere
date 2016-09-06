@@ -4,7 +4,7 @@ define(['angular'], function(angular) {
 
    return function(
       $rootScope, $scope, $log, $state, $filter, $timeout,
-      StorageManager, AuthService, DvolService, vuiConstants) {
+      StorageManager, AuthService, vuiConstants) {
 
       //
       // TODO: move this out

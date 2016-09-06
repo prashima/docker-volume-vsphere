@@ -1,10 +1,13 @@
 
 define([
    'angular',
-   'plugins/docker-volume-plugin/scripts/controllers/dvol-main.js'
+   'plugins/docker-volume-plugin/scripts/controllers/dvol-main.js',
+   'plugins/docker-volume-plugin/scripts/services/dvol-context-menu.js'
 ], function(
    angular,
-   DvolMainController) {
+   DvolMainController,
+   DvolContextMenuService
+ ) {
 
    'use strict';
 
@@ -13,12 +16,12 @@ define([
    ]).controller({
       'DvolMainController': DvolMainController
    })
-  //  .service({
-  //     'DvolService': DvolService,
-  //     'DvolDialogService': DvolDialogService,
-  //     'DvolWizardService': DvolWizardService,
-  //     'DvolContextMenuService': DvolContextMenuService
-  //  })
+   .service({
+      //'DvolService': DvolService,
+      //'DvolDialogService': DvolDialogService,
+      //'DvolWizardService': DvolWizardService,
+      'DvolContextMenuService': DvolContextMenuService
+   })
    .run(function ($rootScope, $filter, PluginService) {
       var translate = $filter('translate');
 
@@ -32,9 +35,9 @@ define([
          //
          // register services in here, e.g.
          //
-        //  contextMenuServices: [
-        //     'DvolContextMenuService'
-        //  ],
+         contextMenuServices: [
+            'DvolContextMenuService'
+         ],
         //  dialogServices: [
         //     'DvolDialogService'
         //  ],
@@ -51,14 +54,16 @@ define([
             onContext: function (e) {
                $rootScope.contextMenu.show('dvol', ['object'], e);
             },
-            children: [{
-               title: translate('dvol.menu.titleChildOne'),
-               icon: 'icon-example-menu',
-               state: 'host.docker-volume-plugin.one',
-               onContext: function (e) {
+            children: [
+              {
+                title: translate('dvol.menu.titleChildOne'),
+                icon: 'icon-example-menu',
+                state: 'host.docker-volume-plugin.tenants',
+                onContext: function (e) {
                   $rootScope.contextMenu.show('dvol', ['object'], e);
-               }
-            }]
+                }
+              }
+            ]
          }],
          states: [
            {
@@ -72,13 +77,14 @@ define([
                   }
                }
             }
+         },
+         {
+            name: 'host.docker-volume-plugin.tenants',
+            options: {
+               url: '/tenants'
+            }
          }
-        //  , {
-        //     name: 'host.docker-volume-plugin.one',
-        //     options: {
-        //        url: '/one'
-        //     }
-        //  }, {
+         //, {
         //     name: 'host.docker-volume-plugin.two',
         //     options: {
         //        url: '/two'
