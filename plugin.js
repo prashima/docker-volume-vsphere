@@ -12,31 +12,31 @@ define([
    'plugins/docker-volume-plugin/scripts/services/dvol-context-menu.js'
 ], function(
    angular,
-   ExampleMainController,
-   ExampleTabOneController,
-   ExampleTabTwoController,
-   ExampleWizardTestPageOneController,
-   ExampleWizardTestPageTwoController,
-   ExampleService,
-   ExampleDialogService,
-   ExampleWizardService,
-   ExampleContextMenuService) {
+   DvolMainController,
+   DvolTabOneController,
+   DvolTabTwoController,
+   DvolWizardTestPageOneController,
+   DvolWizardTestPageTwoController,
+   DvolService,
+   DvolDialogService,
+   DvolWizardService,
+   DvolContextMenuService) {
 
    'use strict';
 
    return angular.module('esxUiApp.plugins.dvol', [
       'ui.router',
    ]).controller({
-      'ExampleMainController': ExampleMainController,
-      'ExampleTabOneController': ExampleTabOneController,
-      'ExampleTabTwoController': ExampleTabTwoController,
-      'ExampleWizardTestPageOneController': ExampleWizardTestPageOneController,
-      'ExampleWizardTestPageTwoController': ExampleWizardTestPageTwoController
+      'DvolMainController': DvolMainController,
+      'DvolTabOneController': DvolTabOneController,
+      'DvolTabTwoController': DvolTabTwoController,
+      'DvolWizardTestPageOneController': DvolWizardTestPageOneController,
+      'DvolWizardTestPageTwoController': DvolWizardTestPageTwoController
    }).service({
-      'ExampleService': ExampleService,
-      'ExampleDialogService': ExampleDialogService,
-      'ExampleWizardService': ExampleWizardService,
-      'ExampleContextMenuService': ExampleContextMenuService
+      'DvolService': DvolService,
+      'DvolDialogService': DvolDialogService,
+      'DvolWizardService': DvolWizardService,
+      'DvolContextMenuService': DvolContextMenuService
    }).run(function ($rootScope, $filter, PluginService) {
       var translate = $filter('translate');
 
@@ -48,13 +48,13 @@ define([
             'styles/main.css'
          ],
          contextMenuServices: [
-            'ExampleContextMenuService'
+            'DvolContextMenuService'
          ],
          dialogServices: [
-            'ExampleDialogService'
+            'DvolDialogService'
          ],
          wizardServices: [
-            'ExampleWizardService'
+            'DvolWizardService'
          ],
          navigator: [{
             title: translate('dvol.menu.title'),
@@ -78,7 +78,7 @@ define([
                url: '/docker-volume-plugin',
                views: {
                   'content@host': {
-                     controller: 'ExampleMainController',
+                     controller: 'DvolMainController',
                      templateUrl: 'plugins/docker-volume-plugin/views/dvol-main.html'
                   }
                }

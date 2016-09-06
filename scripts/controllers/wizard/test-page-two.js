@@ -2,7 +2,7 @@ define(['angular'], function(angular) {
    'use strict';
 
    return function($log, $scope, vuiConstants) {
-      $log = $log.getInstance('ExampleWizardTestPageTwoController', true);
+      $log = $log.getInstance('DvolWizardTestPageTwoController', true);
       $log.debug('In example test wizard controller two global scope');
 
       $scope.wizardOptions.currentPage.state = vuiConstants.wizard.pageState.INCOMPLETE;

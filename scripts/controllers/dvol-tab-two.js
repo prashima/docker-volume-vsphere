@@ -1,8 +1,8 @@
 define(['angular'], function(angular) {
    'use strict';
 
-   return function($log, $scope, ExampleService, DialogService, WizardService) {
-      $log = $log.getInstance('ExampleTabTwoController', true);
+   return function($log, $scope, DvolService, DialogService, WizardService) {
+      $log = $log.getInstance('DvolTabTwoController', true);
       $log.debug('In example tab two controller global scope');
 
       var testButtonTwo = {

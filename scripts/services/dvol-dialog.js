@@ -8,7 +8,7 @@ define(['angular'], function (angular) {
       VIMService,
       ENV) {
 
-      $log = $log.getInstance('ExampleDialogService', true);
+      $log = $log.getInstance('DvolDialogService', true);
       $log.debug('In example dialog service global scope');
 
       var translate = $filter('translate');

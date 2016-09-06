@@ -3,7 +3,7 @@ define(['angular'], function(angular) {
 
    return function(
       $log, $rootScope, $scope, $filter,
-      ExampleService, ExampleContextMenuService) {
+      DvolService, DvolContextMenuService) {
 
       var tenants = [
         ["692c1e66-a3f4-4322-a4fb-85276659c9b9", "my-dummy-tenant-1", "I created this as an example"],

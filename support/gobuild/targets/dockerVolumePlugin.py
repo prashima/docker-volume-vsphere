@@ -1,6 +1,6 @@
 # Copyright 2016 VMware, Inc.  All rights reserved. -- VMware Confidential
 """
-ESXUI Example Plugin gobuild product module.
+ESXUI Dvol Plugin gobuild product module.
 """
 
 import helpers.target
@@ -13,7 +13,7 @@ ALLOW_OFFICIAL_KEY = 'allow.elfofficialkey'
 
 class EsxUIDvolPlugin(helpers.target.Target, helpers.make.MakeHelper):
    """
-   Embedded Host Client Example Plugin
+   Embedded Host Client Dvol Plugin
    """
 
    def GetBuildProductNames(self):

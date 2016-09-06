@@ -3,9 +3,9 @@ define(['angular'], function(angular) {
 
    return function(
       $rootScope, $scope, $log, $state, $filter, $timeout,
-      StorageManager, AuthService, ExampleService, vuiConstants) {
+      StorageManager, AuthService, DvolService, vuiConstants) {
 
-      $log = $log.getInstance('ExampleMainController', true);
+      $log = $log.getInstance('DvolMainController', true);
       $log.debug('In example main controller global scope');
 
       var translate = $filter('translate'),

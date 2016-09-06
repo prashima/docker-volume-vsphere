@@ -7,7 +7,7 @@ define(['angular'], function (angular) {
       $filter,
       vuiConstants) {
 
-      $log = $log.getInstance('ExampleWizardService', true);
+      $log = $log.getInstance('DvolWizardService', true);
       $log.debug('In example wizard service global scope');
 
       var translate = $filter('translate');

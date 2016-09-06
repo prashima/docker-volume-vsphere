@@ -6,8 +6,8 @@
       },
       "dialogs": {
          "about": {
-            "title": "Example dialog title",
-            "content": "Example dialog content"
+            "title": "Some dialog title",
+            "content": "Some dialog content"
          }
       },
       "title": "Docker Volume Management",

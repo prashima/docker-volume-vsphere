@@ -5,11 +5,11 @@ define(['angular'], function (angular) {
       $q,
       $log) {
 
-      $log = $log.getInstance('ExampleContextMenuService', true);
+      $log = $log.getInstance('DvolContextMenuService', true);
       $log.debug('In example context menu service global scope');
 
       var exampleContextMenu = [{
-         title: 'Example menu item',
+         title: 'Some menu item',
          toolTip: 'Menu item tooltip',
          id: 'menuItemID',
          iconClass: 'esx-icon-example',
@@ -21,7 +21,7 @@ define(['angular'], function (angular) {
             alert('example menu item clicked');
          },
          children: [{
-            title: 'Example child menu item',
+            title: 'Some child menu item',
             toolTip: 'Menu item tooltip',
             id: 'childMenuItemID',
             iconClass: 'esx-icon-example',
