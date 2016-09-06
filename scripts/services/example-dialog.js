@@ -17,7 +17,7 @@ define(['angular'], function (angular) {
          switch(dialog) {
             case 'example.about':
                return {
-                  title: translate('example.dialogs.about.title'),
+                  title: translate('dvol.dialogs.about.title'),
                   icon: 'esx-icon-about',
                   width: '585px',
                   height: '280px',

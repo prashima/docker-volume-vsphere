@@ -1,5 +1,5 @@
 {
-   "example": {
+   "dvol": {
       "menu": {
          "title": "Volume Management",
          "titleChildOne": "Tenants"
@@ -14,11 +14,11 @@
       "tabs": {
          "one": {
             "label": "Tenants",
-            "tooltip": "tooltip TBD"
+            "tooltip": "Tab one tooltip TBD"
          },
          "two": {
             "label": "Optional 2nd tab",
-            "tooltip": "tooltip TBD"
+            "tooltip": "Tab two tooltip TBD"
          }
       }
    }

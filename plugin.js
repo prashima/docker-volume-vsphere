@@ -24,7 +24,7 @@ define([
 
    'use strict';
 
-   return angular.module('esxUiApp.plugins.example', [
+   return angular.module('esxUiApp.plugins.dvol', [
       'ui.router',
    ]).controller({
       'ExampleMainController': ExampleMainController,
@@ -57,25 +57,25 @@ define([
             'ExampleWizardService'
          ],
          navigator: [{
-            title: translate('example.menu.title'),
+            title: translate('dvol.menu.title'),
             icon: 'icon-example-menu',
             state: 'host.docker-volume-plugin',
             onContext: function (e) {
-               $rootScope.contextMenu.show('example', ['object'], e);
+               $rootScope.contextMenu.show('dvol', ['object'], e);
             },
             children: [{
-               title: translate('example.menu.titleChildOne'),
+               title: translate('dvol.menu.titleChildOne'),
                icon: 'icon-example-menu',
                state: 'host.docker-volume-plugin.one',
                onContext: function (e) {
-                  $rootScope.contextMenu.show('example', ['object'], e);
+                  $rootScope.contextMenu.show('dvol', ['object'], e);
                }
             }]
          }],
          states: [{
             name: 'host.docker-volume-plugin',
             options: {
-               url: '/example',
+               url: '/docker-volume-plugin',
                views: {
                   'content@host': {
                      controller: 'ExampleMainController',

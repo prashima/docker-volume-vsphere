@@ -13,7 +13,7 @@ define(['angular'], function(angular) {
 
       $rootScope.mainPanel.icon = 'esx-icon-example';
       $rootScope.mainPanel.title = AuthService.getHostname() + ' - ' +
-         translate('example.title');
+         translate('dvol.title');
 
       var pClickFunction = function(event, tab) {
          tab.loaded = true;
@@ -35,15 +35,15 @@ define(['angular'], function(angular) {
 
       $scope.tabs = {
          one: {
-            label: translate('example.tabs.one.label'),
-            tooltipText: translate('example.tabs.one.tooltip'),
+            label: translate('dvol.tabs.one.label'),
+            tooltipText: translate('dvol.tabs.one.tooltip'),
             contentUrl: 'plugins/docker-volume-plugin/views/example-tab-one.html',
             onClick: pClickFunction,
             state: 'host.docker-volume-plugin.one'
          },
          two: {
-            label: translate('example.tabs.two.label'),
-            tooltipText: translate('example.tabs.two.tooltip'),
+            label: translate('dvol.tabs.two.label'),
+            tooltipText: translate('dvol.tabs.two.tooltip'),
             contentUrl: 'plugins/docker-volume-plugin/views/example-tab-two.html',
             onClick: pClickFunction,
             state: 'host.docker-volume-plugin.two'
