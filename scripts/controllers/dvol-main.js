@@ -268,6 +268,6 @@ define(['angular'], function(angular) {
       //
       //    StorageManager.set('dvol_current_state', currentState);
       //    $scope.dvolTabs.selectedTabIndex = getSelectedTab(currentState);
-      });
+      //});
    };
 });

@@ -79,7 +79,7 @@ define([
                views: {
                   'content@host': {
                      controller: 'DvolMainController',
-                     templateUrl: 'plugins/docker-volume-plugin/app/main/dvol-main.html'
+                     templateUrl: 'plugins/docker-volume-plugin/views/dvol-main.html'
                   }
                }
             }
