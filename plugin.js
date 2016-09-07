@@ -2,11 +2,13 @@
 define([
    'angular',
    'plugins/docker-volume-plugin/scripts/controllers/dvol-main.js',
-   'plugins/docker-volume-plugin/scripts/services/dvol-context-menu.js'
+   'plugins/docker-volume-plugin/scripts/services/dvol-context-menu.js',
+   'plugins/docker-volume-plugin/scripts/services/dvol-dialog-service.js',
 ], function(
    angular,
    DvolMainController,
-   DvolContextMenuService
+   DvolContextMenuService,
+   DvolDialogService
  ) {
 
    'use strict';
@@ -34,6 +36,9 @@ define([
          ],
          contextMenuServices: [
             'DvolContextMenuService'
+         ],
+         dialogServices: [
+           'DvolDialogService'
          ],
          navigator: [{
             title: translate('dvol.menu.title'),

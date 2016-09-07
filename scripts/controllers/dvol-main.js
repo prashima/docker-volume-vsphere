@@ -4,7 +4,7 @@ define(['angular'], function(angular) {
 
    return function(
       $rootScope, $scope, $log, $state, $filter, $timeout,
-      StorageManager, AuthService, vuiConstants) {
+      StorageManager, AuthService, vuiConstants, DialogService) {
 
       var translate = $filter('translate');
 

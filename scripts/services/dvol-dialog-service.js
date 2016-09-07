@@ -18,7 +18,7 @@ define(['angular'], function (angular) {
          switch(dialog) {
             case 'dvol.add-tenant':
                return {
-                  title: 'Add Tenant'//translate('example.dialogs.about.title'),
+                  title: 'Add Tenant',  //translate('example.dialogs.about.title'),
                   icon: 'esx-icon-about',
                   width: '585px',
                   height: '280px',
