@@ -6,12 +6,12 @@ ESXUI Dvol Plugin gobuild product module.
 import helpers.target
 import helpers.env
 import helpers.make
-import specs.esxuiDvolPlugin as specs
+import specs.dockerVolumePlugin as specs
 
 # This flag will be controlled by gobuild command
 ALLOW_OFFICIAL_KEY = 'allow.elfofficialkey'
 
-class EsxUIDvolPlugin(helpers.target.Target, helpers.make.MakeHelper):
+class DockerVolumePlugin(helpers.target.Target, helpers.make.MakeHelper):
    """
    Embedded Host Client Dvol Plugin
    """

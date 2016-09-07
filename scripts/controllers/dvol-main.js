@@ -2,27 +2,12 @@
 define(['angular'], function(angular) {
    'use strict';
 
-   var pClickFunction = function(event, tab) {
-      tab.loaded = true;
-      $state.go(tab.state);
-      StorageManager.set('example_current_state', tab.state);
-   }, getSelectedTab = function(state) {
-      var selected = 0;
-      state = angular.isUndefined(state) ? $state.current.name : state;
-
-      angular.forEach($scope.exampleTabs.tabs, function(value, key) {
-         if (value.state === state) {
-            selected = key;
-            value.loaded = true;
-         }
-      });
-
-      return selected;
-   };
-
    return function(
       $rootScope, $scope, $log, $state, $filter, $timeout,
       StorageManager, AuthService, vuiConstants) {
+
+
+      var translate = $filter('translate');
 
       //
       // TODO: move this out into a data service
@@ -97,18 +82,50 @@ define(['angular'], function(angular) {
          })
        };
 
+
+
+       //
+       // DETAIL TABS
+       //
+
+       var tabClickFunction = function(event, tab) {
+          tab.loaded = true;
+          $state.go(tab.state);
+          StorageManager.set('dvol_current_state', tab.state);
+       }
+       var getSelectedTab = function(state) {
+          var selected = 0;
+          state = angular.isUndefined(state) ? $state.current.name : state;
+
+          angular.forEach($scope.exampleTabs.tabs, function(value, key) {
+             if (value.state === state) {
+                selected = key;
+                value.loaded = true;
+             }
+          });
+
+          return selected;
+       };
+
+
+
+
+
+
+
+
        var tabs = {
           datastores: {
              label: translate('dvol.detailTabs.datastores.label'),
              tooltipText: translate('dvol.detailTabs.datastores.tooltip'),
              contentUrl: 'plugins/dvol/views/dvol-datastores.html',
-             onClick: pClickFunction
+             onClick: tabClickFunction
           },
           vms: {
             label: translate('dvol.detailTabs.vms.label'),
             tooltipText: translate('dvol.detailTabs.vms.tooltip'),
             contentUrl: 'plugins/dvol/views/dvol-vms.html',
-            onClick: pClickFunction
+            onClick: tabClickFunction
           }
        };
 
@@ -120,20 +137,12 @@ define(['angular'], function(angular) {
           selectedTabIndex: 0
        };
 
-       var defaultTab = getSelectedTab();
-       $scope.exampleTabs.selectedTabIndex = defaultTab;
-       $scope.exampleTabs.tabs[defaultTab].loaded = true;
-
-       StorageManager.set('example_current_state', currentState);
-       $scope.exampleTabs.selectedTabIndex = getSelectedTab(currentState);
 
 
 
-       var translate = $filter('translate');
-
-
-
-
+       //
+       // DATASTORES GRID
+       //
 
 
 
