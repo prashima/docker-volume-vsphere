@@ -6,8 +6,6 @@ define(['angular'], function(angular) {
       $rootScope, $scope, $log, $state, $filter, $timeout,
       StorageManager, AuthService, vuiConstants) {
 
-      console.log("-------- vuiConstants: " + JSON.stringify(vuiConstants));
-
       var translate = $filter('translate');
 
       //
@@ -83,10 +81,8 @@ define(['angular'], function(angular) {
          })
        };
 
-
-
        //
-       // DETAIL TABS
+       // TENANT DETAIL TABS
        //
 
        var tabClickFunction = function(event, tab) {
@@ -97,25 +93,17 @@ define(['angular'], function(angular) {
           // StorageManager.set('dvol_current_state', tab.state);
        }
 
-
-
-
-
-
-
-
-
        var tabs = {
           datastores: {
              label: translate('dvol.tenantDetailTabs.datastores.label'),
              tooltipText: translate('dvol.tenantDetailTabs.datastores.tooltip'),
-             contentUrl: 'plugins/dvol/views/dvol-datastores.html',
+             contentUrl: 'plugins/docker-volume-plugin/views/dvol-datastores.html',
              onClick: tabClickFunction
           },
           vms: {
             label: translate('dvol.tenantDetailTabs.vms.label'),
             tooltipText: translate('dvol.tenantDetailTabs.vms.tooltip'),
-            contentUrl: 'plugins/dvol/views/dvol-vms.html',
+            contentUrl: 'plugins/docker-volume-plugin/views/dvol-vms.html',
             onClick: tabClickFunction
           }
        };
@@ -128,30 +116,13 @@ define(['angular'], function(angular) {
           selectedTabIndex: 0
        };
 
-       $timeout(function () {
-
-          var defaultTabIndex = 0;
-          $scope.tenantDetailTabs.selectedTabIndex = defaultTabIndex;
-          $scope.tenantDetailTabs.tabs[defaultTabIndex].loaded = true;
-
-          //StorageManager.set('example_current_state', currentState);
-          
-       });
-
-
-
-
-
-
-
-
-
+       var defaultTabIndex = 0;
+       $scope.tenantDetailTabs.selectedTabIndex = defaultTabIndex;
+       $scope.tenantDetailTabs.tabs[defaultTabIndex].loaded = true;
 
        //
        // DATASTORES GRID
        //
-
-
 
        //
        // TODO: fix this
@@ -160,42 +131,6 @@ define(['angular'], function(angular) {
 
        $scope.datastoresGridSettings = {
          selectionMode: 'SINGLE',
-         searchable: {
-             messages: {
-                 filter: translate("grid.filter"),
-                 clear: translate("grid.clear"),
-                 info: translate("grid.filterHeader"),
-                 isTrue: translate("grid.isTrue"),
-                 isFalse: translate("grid.isFalse"),
-                 and: translate("grid.and"),
-                 or: translate("grid.or")
-             },
-             operators: {
-                 string: {
-                     eq: translate("grid.eq"),
-                     neq: translate("grid.neq"),
-                     startswith: translate("grid.startswith"),
-                     contains: translate("grid.contains"),
-                     endswith: translate("grid.endswith")
-                 },
-                 number: {
-                     eq: translate("grid.eq"),
-                     neq: translate("grid.neq"),
-                     gte: translate("grid.gte"),
-                     gt: translate("grid.gt"),
-                     lte: translate("grid.lte"),
-                     lt: translate("grid.lt")
-                 },
-                 date: {
-                     eq: translate("grid.eq"),
-                     neq: translate("grid.neq"),
-                     gte: translate("grid.gte"),
-                     gt: translate("grid.gt"),
-                     lte: translate("grid.lte"),
-                     lt: translate("grid.lt")
-                 }
-             }
-         },
          actionBarOptions: {
            actions: [
              {
@@ -207,44 +142,7 @@ define(['angular'], function(angular) {
            ]
          },
          columnDefs: [
-           {field:'ID',fieldName:'ID', searchable:
-             {
-                 messages: {
-                     filter: translate("grid.filter"),
-                     clear: translate("grid.clear"),
-                     info: translate("grid.filterHeader"),
-                     isTrue: translate("grid.isTrue"),
-                     isFalse: translate("grid.isFalse"),
-                     and: translate("grid.and"),
-                     or: translate("grid.or")
-                 },
-                 operators: {
-                     string: {
-                         eq: translate("grid.eq"),
-                         neq: translate("grid.neq"),
-                         startswith: translate("grid.startswith"),
-                         contains: translate("grid.contains"),
-                         endswith: translate("grid.endswith")
-                     },
-                     number: {
-                         eq: translate("grid.eq"),
-                         neq: translate("grid.neq"),
-                         gte: translate("grid.gte"),
-                         gt: translate("grid.gt"),
-                         lte: translate("grid.lte"),
-                         lt: translate("grid.lt")
-                     },
-                     date: {
-                         eq: translate("grid.eq"),
-                         neq: translate("grid.neq"),
-                         gte: translate("grid.gte"),
-                         gt: translate("grid.gt"),
-                         lte: translate("grid.lte"),
-                         lt: translate("grid.lt")
-                     }
-                 }
-             }
-           },
+           {field:'ID',fieldName:'ID'},
            {field:'capacity', fieldName:'Capacity'},
            {field:'availability', fieldName:'Global Availability'},
            {field:'create', fieldName:'Create', editor: { type:'checkbox', options:{ on: true, off: false } } },
