@@ -18,7 +18,7 @@ define([
    })
    .service({
       //'DvolService': DvolService,
-      //'DvolDialogService': DvolDialogService,
+      'DvolDialogService': DvolDialogService,
       //'DvolWizardService': DvolWizardService,
       'DvolContextMenuService': DvolContextMenuService
    })

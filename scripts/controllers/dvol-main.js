@@ -176,5 +176,9 @@ define(['angular'], function(angular) {
          })
        };
 
+       DialogService.showDialog('dvol.add-tenant', {
+         test: 'test'
+       });
+
    };
 });
