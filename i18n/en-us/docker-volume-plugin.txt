@@ -4,6 +4,16 @@
          "title": "Volume Management",
          "titleChildOne": "Tenants"
       },
-      "title": "Docker Volume Management"
-   }
+      "title": "Docker Volume Management",
+      "detailTabs": {
+        "datastores": {
+          "label": "Datastores",
+          "tooltip": "Datastores associated with this tenant"
+        },
+        "vms": {
+          "label": "Virtual Machines",
+          "tooltip": "Virtual machines associated with this tenant"
+        }
+      }
+    }
 }

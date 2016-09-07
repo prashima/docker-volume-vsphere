@@ -32,21 +32,9 @@ define([
          stylesheets: [
             'styles/main.css'
          ],
-         //
-         // register services in here, e.g.
-         //
          contextMenuServices: [
             'DvolContextMenuService'
          ],
-        //  dialogServices: [
-        //     'DvolDialogService'
-        //  ],
-        //  wizardServices: [
-        //     'DvolWizardService'
-        //  ],
-         //
-         //
-         //
          navigator: [{
             title: translate('dvol.menu.title'),
             icon: 'icon-example-menu',
@@ -83,14 +71,7 @@ define([
             options: {
                url: '/tenants'
             }
-         }
-         //, {
-        //     name: 'host.docker-volume-plugin.two',
-        //     options: {
-        //        url: '/two'
-        //     }
-        //  }
-         ]
+         }]
       });
    });
 });
