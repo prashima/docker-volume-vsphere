@@ -161,5 +161,7 @@ define(['angular'], function(angular) {
          })
        };
 
+       $scope.vmsGridSettings = $scope.datastoresGridSettings;
+
    };
 });
