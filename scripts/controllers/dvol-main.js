@@ -70,7 +70,7 @@ define(['angular'], function(angular) {
          columnDefs: [
            {field:'ID',fieldName:'ID'},
            {field:'name', fieldName:'name'},
-           {field:'description', fieldName:'description-foo'}
+           {field:'description', fieldName:'description'}
          ],
          data: tenants.map(function(row) {
            return {
@@ -128,7 +128,6 @@ define(['angular'], function(angular) {
        // TODO: fix this
        //
 
-
        $scope.datastoresGridSettings = {
          selectionMode: 'SINGLE',
          actionBarOptions: {
@@ -161,7 +160,21 @@ define(['angular'], function(angular) {
          })
        };
 
-       $scope.vmsGridSettings = $scope.datastoresGridSettings;
+      $scope.vmsGridSettings = {
+         selectionMode: 'SINGLE',
+         columnDefs: [
+           {field:'ID',fieldName:'ID'},
+           {field:'name', fieldName:'name'},
+           {field:'description', fieldName:'description'}
+         ],
+         data: tenants.map(function(row) {
+           return {
+             ID: row[0],
+             name: row[1].replace('tenant', 'virtual-machine'),
+             description: row[2].replace('tenant', 'virtual machine')
+           };
+         })
+       };
 
    };
 });
