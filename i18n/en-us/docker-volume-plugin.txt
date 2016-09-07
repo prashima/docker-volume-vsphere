@@ -5,7 +5,7 @@
          "titleChildOne": "Tenants"
       },
       "title": "Docker Volume Management",
-      "detailTabs": {
+      "tenantDetailTabs": {
         "datastores": {
           "label": "Datastores",
           "tooltip": "Datastores associated with this tenant"

@@ -6,6 +6,7 @@ define(['angular'], function(angular) {
       $rootScope, $scope, $log, $state, $filter, $timeout,
       StorageManager, AuthService, vuiConstants) {
 
+      console.log("-------- vuiConstants: " + JSON.stringify(vuiConstants));
 
       var translate = $filter('translate');
 
@@ -89,23 +90,13 @@ define(['angular'], function(angular) {
        //
 
        var tabClickFunction = function(event, tab) {
-          tab.loaded = true;
-          $state.go(tab.state);
-          StorageManager.set('dvol_current_state', tab.state);
+          var e = event;
+          var t = tab;
+          // tab.loaded = true;
+          // $state.go(tab.state);
+          // StorageManager.set('dvol_current_state', tab.state);
        }
-       var getSelectedTab = function(state) {
-          var selected = 0;
-          state = angular.isUndefined(state) ? $state.current.name : state;
 
-          angular.forEach($scope.exampleTabs.tabs, function(value, key) {
-             if (value.state === state) {
-                selected = key;
-                value.loaded = true;
-             }
-          });
-
-          return selected;
-       };
 
 
 
@@ -116,26 +107,42 @@ define(['angular'], function(angular) {
 
        var tabs = {
           datastores: {
-             label: translate('dvol.detailTabs.datastores.label'),
-             tooltipText: translate('dvol.detailTabs.datastores.tooltip'),
+             label: translate('dvol.tenantDetailTabs.datastores.label'),
+             tooltipText: translate('dvol.tenantDetailTabs.datastores.tooltip'),
              contentUrl: 'plugins/dvol/views/dvol-datastores.html',
              onClick: tabClickFunction
           },
           vms: {
-            label: translate('dvol.detailTabs.vms.label'),
-            tooltipText: translate('dvol.detailTabs.vms.tooltip'),
+            label: translate('dvol.tenantDetailTabs.vms.label'),
+            tooltipText: translate('dvol.tenantDetailTabs.vms.tooltip'),
             contentUrl: 'plugins/dvol/views/dvol-vms.html',
             onClick: tabClickFunction
           }
        };
 
-       $scope.exampleTabs = {
+       $scope.tenantDetailTabs = {
           tabs: Object.keys(tabs).map(function (key) {
              return tabs[key];
           }),
           tabType: vuiConstants.tabs.type.PRIMARY,
           selectedTabIndex: 0
        };
+
+       $timeout(function () {
+
+          var defaultTabIndex = 0;
+          $scope.tenantDetailTabs.selectedTabIndex = defaultTabIndex;
+          $scope.tenantDetailTabs.tabs[defaultTabIndex].loaded = true;
+
+          //StorageManager.set('example_current_state', currentState);
+          
+       });
+
+
+
+
+
+
 
 
 
