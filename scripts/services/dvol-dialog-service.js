@@ -19,14 +19,17 @@ define(['angular'], function (angular) {
             case 'dvol.add-tenant':
                return {
                   title: 'Add Tenant',  //translate('example.dialogs.about.title'),
-                  icon: 'esx-icon-about',
                   width: '585px',
                   height: '280px',
+                  icon: 'esx-icon-add',
                   content: 'plugins/docker-volume-plugin/views/dvol-add-tenant-dialog.html',
                   objects: {
                      ENV: ENV,
                      esxiVersion: VIMService.getESXVersion(),
                      esxiBuildNumber: VIMService.getESXBuildNumber()
+                  },
+                  scope: {
+                     vmsGridSettings: opaque.vmsGridSettings
                   },
                   confirmOptions: {
                      label: translate('client.about.close'),

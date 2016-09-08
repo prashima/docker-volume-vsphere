@@ -54,7 +54,9 @@ define(['angular'], function(angular) {
                tooltipText: 'Add Tenant',
                enabled: true,
                onClick: function(evt, action) {
-                 DialogService.showDialog('dvol.add-tenant', {});
+                 DialogService.showDialog('dvol.add-tenant', {
+                   vmsGridSettings: $scope.vmsGridSettings
+                 });
                }
               //  onClick: function (e) {
               //     var button = $(e.currentTarget);
