@@ -9,4 +9,4 @@ define(['angular'], function(angular) {
 
     }
 
-  }
+  });

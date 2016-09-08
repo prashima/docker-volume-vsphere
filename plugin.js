@@ -2,6 +2,7 @@
 define([
    'angular',
    'plugins/docker-volume-plugin/scripts/controllers/dvol-main.js',
+   'plugins/docker-volume-plugin/scripts/controllers/dvol-add-tenant.js',
    'plugins/docker-volume-plugin/scripts/services/dvol-context-menu.js',
    'plugins/docker-volume-plugin/scripts/services/dvol-dialog-service.js',
 ], function(

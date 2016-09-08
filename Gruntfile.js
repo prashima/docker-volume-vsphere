@@ -27,15 +27,20 @@ module.exports = function (grunt) {
    }
 
    var uglyfiles = (env === 'dev') ? {} : {
-     'build/dist/scripts/services/dvol.js': ['scripts/services/dvol.js'],
-     'build/dist/scripts/services/dvol-dialog.js': ['scripts/services/dvol-dialog.js'],
-     'build/dist/scripts/services/dvol-wizard.js': ['scripts/services/dvol-wizard.js'],
-     'build/dist/scripts/services/dvol-context-menu.js': ['scripts/services/dvol-context-menu.js'],
-     'build/dist/scripts/controllers/dvol-main.js': ['scripts/controllers/dvol-main.js'],
-     'build/dist/scripts/controllers/dvol-tab-one.js': ['scripts/controllers/dvol-tab-one.js'],
-     'build/dist/scripts/controllers/dvol-tab-two.js': ['scripts/controllers/dvol-tab-two.js'],
-     'build/dist/scripts/controllers/wizard/test-page-one.js': ['scripts/controllers/wizard/test-page-one.js'],
-     'build/dist/scripts/controllers/wizard/test-page-two.js': ['scripts/controllers/wizard/test-page-two.js'],
+
+     //
+     // ALL NEEDS TO BE REDONE AWAY FROM THE Reference (example) App
+     //
+
+    //  'build/dist/scripts/services/dvol.js': ['scripts/services/dvol.js'],
+    //  'build/dist/scripts/services/dvol-dialog.js': ['scripts/services/dvol-dialog.js'],
+    //  'build/dist/scripts/services/dvol-wizard.js': ['scripts/services/dvol-wizard.js'],
+    //  'build/dist/scripts/services/dvol-context-menu.js': ['scripts/services/dvol-context-menu.js'],
+    //  'build/dist/scripts/controllers/dvol-main.js': ['scripts/controllers/dvol-main.js'],
+    //  'build/dist/scripts/controllers/dvol-tab-one.js': ['scripts/controllers/dvol-tab-one.js'],
+    //  'build/dist/scripts/controllers/dvol-tab-two.js': ['scripts/controllers/dvol-tab-two.js'],
+    //  'build/dist/scripts/controllers/wizard/test-page-one.js': ['scripts/controllers/wizard/test-page-one.js'],
+    //  'build/dist/scripts/controllers/wizard/test-page-two.js': ['scripts/controllers/wizard/test-page-two.js'],
      'build/dist/plugin.js': ['plugin.js']
    };
 
