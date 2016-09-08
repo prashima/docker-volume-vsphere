@@ -28,43 +28,58 @@ define(['angular'], function(angular) {
          ["e0422589-7ae8-4651-abdf-12cecdd41cce", "1TB", "250GB", false, true],
        ]
 
+       var actionButton = {
+          id: 'exampleButton',
+          label: 'Test button one',
+          tooltipText: 'Test tooltip',
+          enabled: true,
+          iconClass: 'esx-icon-example',
+          onClick: function (e) {
+             var button = $(e.currentTarget);
+             var pos = button.offset();
+             var height = button.height();
+             $rootScope.contextMenu.show('example', ['object'], e,
+                pos.left - 1, pos.top + height + 4);
+          }
+       };
+
        $scope.tenantsGridSettings = {
          selectionMode: 'SINGLE',
          actionBarOptions: {
            actions: [
              {
-               id: 'action1',
+               id: 'add-tenant-button',
                label: 'Add',
                iconClass: 'vui-icon-action-add',
+               tooltipText: 'Add Tenant',
+               enabled: true,
                onClick: function(evt, action) {
-                 console.log('add action');
-                 alert('yo');
+                 DialogService.showDialog('dvol.add-tenant', {});
                }
+              //  onClick: function (e) {
+              //     var button = $(e.currentTarget);
+              //     var pos = button.offset();
+              //     var height = button.height();
+              //     $rootScope.contextMenu.show('example', ['object'], e,
+              //        pos.left - 1, pos.top + height + 4);
+              //  }
              },
              {
-               id: 'action2',
+               id: 'remove-tenant-button',
                label: 'Remove',
                iconClass: 'vui-icon-action-delete',
+               tooltipText: 'Remove Tenant',
+               enabled: true,
                onClick: function() {alert('yo');}
              },
              {
-               id: 'action3',
+               id: 'edit-tenant-button',
                label: 'Edit',
                iconClass: 'vui-icon-action-edit',
+               tooltipText: 'Edit Tenant',
+               enabled: true,
                onClick: function() {alert('yo');}
              },
-             {
-               id: 'action4',
-               label: 'Copy',
-               iconClass: 'vui-icon-action-copy',
-               onClick: function() {alert('yo');}
-             },
-             {
-               id: 'action5',
-               label: 'Move',
-               iconClass: 'vui-icon-action-move',
-               onClick: function() {alert('yo');}
-             }
            ]
          },
          columnDefs: [
@@ -175,10 +190,6 @@ define(['angular'], function(angular) {
            };
          })
        };
-
-       DialogService.showDialog('dvol.add-tenant', {
-         test: 'test'
-       });
 
    };
 });

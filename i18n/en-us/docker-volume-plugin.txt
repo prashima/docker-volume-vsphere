@@ -5,6 +5,12 @@
          "titleChildOne": "Tenants"
       },
       "title": "Docker Volume Management",
+      "dialogs": {
+        "add-tenant": {
+          "title": "Add Tenant",
+          "content": "Add tenant content"
+        }
+      },
       "tenantDetailTabs": {
         "datastores": {
           "label": "Datastores",
