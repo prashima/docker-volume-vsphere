@@ -76,6 +76,7 @@ import volume_kv as kv
 import vmdk_utils
 import vsan_policy
 import vsan_info
+import auth
 
 # Python version 3.5.1
 PYTHON64_VERSION = 50659824
@@ -140,7 +141,7 @@ def RunCommand(cmd):
 # returns error, or None for OK
 # opts is  dictionary of {option: value}.
 # for now we care about size and (maybe) policy
-def createVMDK(vmdk_path, vm_name, vol_name, opts={}):
+def createVMDK(vmdk_path, vm_uuid, vm_name, vol_name, datastore, opts={}):
     logging.info("*** createVMDK: %s opts = %s", vmdk_path, opts)
     if os.path.isfile(vmdk_path):
         return err("File %s already exists" % vmdk_path)
@@ -149,6 +150,15 @@ def createVMDK(vmdk_path, vm_name, vol_name, opts={}):
         validate_opts(opts, vmdk_path)
     except ValidationError as e:
         return err(e.msg)
+    
+    req = auth.AuthorizationRequest(vm_uuid,
+                                    datastore,
+                                    auth.Operation.create,
+                                    opts)
+    
+    result = auth.authorize(req)
+    if result:
+        return err("VM {0} does not have privilege to create volume in datastore {1}".format(vm_uuid, datastore))
 
     cmd = make_create_cmd(opts, vmdk_path)
     rc, out = RunCommand(cmd)
@@ -404,8 +414,17 @@ def vol_info(vol_meta, vol_size_info, datastore):
 
 
 # Return error, or None for OK
-def removeVMDK(vmdk_path):
+def removeVMDK(vmdk_path, vm_uuid, datastore):
     logging.info("*** removeVMDK: %s", vmdk_path)
+    req = auth.AuthorizationRequest(vm_uuid,
+                                    datastore,
+                                    auth.Operation.remove,
+                                    {})
+    
+    result = auth.authorize(req)
+    if result:
+        return err("VM {0} does not have privilege to remove volume in datastore {1}".format(vm_uuid, datastore))
+
     cmd = "{0} {1}".format(VMDK_DELETE_CMD, vmdk_path)
     rc, out = RunCommand(cmd)
     if rc != 0:
@@ -414,22 +433,40 @@ def removeVMDK(vmdk_path):
     return None
 
 
-def getVMDK(vmdk_path, vol_name, datastore):
+def getVMDK(vmdk_path, vm_uuid, vol_name, datastore):
     """Checks if the volume exists, and returns error if it does not"""
     # Note: will return more Volume info here, when Docker API actually accepts it
     if not os.path.isfile(vmdk_path):
         return err("Volume {0} not found (file: {1})".format(vol_name, vmdk_path))
+
+    req = auth.AuthorizationRequest(vm_uuid,
+                                    datastore,
+                                    auth.Operation.get,
+                                    {})
+    
+    result = auth.authorize(req)
+    if result:
+        return err("VM {0} does not have privilege to get volume in datastore {1}".format(vm_uuid, datastore))
     # Return volume info - volume policy, size, allocated capacity, allocation
     # type, creat-by, create time.
     return vol_info(kv.getAll(vmdk_path), kv.get_vol_info(vmdk_path), datastore)
 
 
-def listVMDK(vm_datastore):
+def listVMDK(vm_uuid, vm_datastore):
     """
     Returns a list of volume names (note: may be an empty list).
     Each volume name is returned as either `volume@datastore`, or just `volume`
     for volumes on vm_datastore
     """
+    req = auth.AuthorizationRequest(vm_uuid,
+                                    vm_datastore,
+                                    auth.Operation.list,
+                                    {})
+    
+    result = auth.authorize(req)
+    if result:
+        return err("VM {0} does not have privilege to list volumes in datastore {1}".format(vm_uuid, vm_datastore))
+
     vmdks = vmdk_utils.get_volumes()
     # build  fully qualified vol name for each volume found
     return [{u'Name': get_full_vol_name(x['filename'], x['datastore'], vm_datastore),
@@ -458,7 +495,16 @@ def findVmByUuid(vm_uuid):
 
 
 # Return error, or None for OK.
-def attachVMDK(vmdk_path, vm_uuid):
+def attachVMDK(vmdk_path, vm_uuid, datastore):
+    req = auth.AuthorizationRequest(vm_uuid,
+                                    datastore,
+                                    auth.Operation.attach,
+                                    {})
+    
+    result = auth.authorize(req)
+    if result:
+        return err("VM {0} does not have privilege to attach volume in datastore {1}".format(vm_uuid, datastore))
+
     vm = findVmByUuid(vm_uuid)
     logging.info("*** attachVMDK: %s to %s VM uuid = %s",
                  vmdk_path, vm.config.name, vm_uuid)
@@ -466,7 +512,15 @@ def attachVMDK(vmdk_path, vm_uuid):
 
 
 # Return error, or None for OK.
-def detachVMDK(vmdk_path, vm_uuid):
+def detachVMDK(vmdk_path, vm_uuid, datastore):
+    req = auth.AuthorizationRequest(vm_uuid,
+                                    datastore,
+                                    auth.Operation.detach,
+                                    {})
+    
+    result = auth.authorize(req)
+    if result:
+        return err("VM {0} does not have privilege to detach volume in datastore {1}".format(vm_uuid, datastore))
     vm = findVmByUuid(vm_uuid)
     logging.info("*** detachVMDK: %s from %s VM uuid = %s",
                  vmdk_path, vm.config.name, vm_uuid)
@@ -566,7 +620,7 @@ def executeRequest(vm_uuid, vm_name, config_path, cmd, full_vol_name, opts):
 
     vm_datastore = get_datastore_name(config_path)
     if cmd == "list":
-        return listVMDK(vm_datastore)
+        return listVMDK(vm_uuid, vm_datastore)
 
     try:
         vol_name, datastore = parse_vol_name(full_vol_name)
@@ -589,15 +643,15 @@ def executeRequest(vm_uuid, vm_name, config_path, cmd, full_vol_name, opts):
     vmdk_path = vmdk_utils.get_vmdk_path(path, vol_name)
 
     if cmd == "get":
-        response = getVMDK(vmdk_path, vol_name, datastore)
+        response = getVMDK(vmdk_path, vm_uuid, vol_name, datastore)
     elif cmd == "create":
-        response = createVMDK(vmdk_path, vm_name, vol_name, opts)
+        response = createVMDK(vmdk_path, vm_uuid, vm_name, vol_name, datastore, opts)
     elif cmd == "remove":
-        response = removeVMDK(vmdk_path)
+        response = removeVMDK(vmdk_path, vm_uuid, datastore)
     elif cmd == "attach":
-        response = attachVMDK(vmdk_path, vm_uuid)
+        response = attachVMDK(vmdk_path, vm_uuid, datastore)
     elif cmd == "detach":
-        response = detachVMDK(vmdk_path, vm_uuid)
+        response = detachVMDK(vmdk_path, vm_uuid, datastore)
     else:
         return err("Unknown command:" + cmd)
 
