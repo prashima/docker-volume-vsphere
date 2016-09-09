@@ -16,6 +16,10 @@ define(['angular'], function(angular) {
 
    return function($scope, DvolDatacenterVmService) {
 
+      $scope.tenant = {
+        name: 'prepop'
+      };
+
       $scope.datacenterVmsGridSettings = {
          selectionMode: 'MULTI',
          columnDefs: [

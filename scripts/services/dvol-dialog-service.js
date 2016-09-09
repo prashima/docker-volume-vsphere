@@ -22,9 +22,17 @@ define(['angular'], function (angular) {
                   height: '280px',
                   icon: 'esx-icon-add',
                   content: 'plugins/docker-volume-plugin/views/dvol-add-tenant-dialog.html',
+                  rejectOptions: {
+                    label: 'Cancel',
+                    onClick: function () {
+                      deferred.reject();
+                      return true;
+                    }
+                  },
                   confirmOptions: {
-                     label: translate('client.about.close'),
+                     label: 'Add',
                      onClick: function () {
+                        //opaque.save(this.tenant);
                         return true;
                      }
                   }

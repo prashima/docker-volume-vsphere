@@ -54,9 +54,17 @@ define(['angular'], function(angular) {
                tooltipText: 'Add Tenant',
                enabled: true,
                onClick: function(evt, action) {
-                 DialogService.showDialog('dvol.add-tenant', {
-                   vmsGridSettings: $scope.vmsGridSettings
+                 var ds = DialogService.showDialog('dvol.add-tenant', {
+                   save: function(newTenant) {
+                     console.log("adding new tenant ???");
+                     $scope.tenantsGridSettings.data.push({
+                       name: newTenant.name,
+                       description: newTenant.description,
+                       ID: 'generate UUID here'
+                     });
+                   }
                  });
+                 console.log('ds -- ' + ds);
                }
               //  onClick: function (e) {
               //     var button = $(e.currentTarget);
