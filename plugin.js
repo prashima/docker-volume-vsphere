@@ -8,6 +8,7 @@ define([
 ], function(
    angular,
    DvolMainController,
+   DvolAddTenantController,
    DvolContextMenuService,
    DvolDialogService
  ) {
