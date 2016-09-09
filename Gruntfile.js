@@ -29,7 +29,8 @@ module.exports = function (grunt) {
    var uglyfiles = (env === 'dev') ? {} : {
 
      //
-     // ALL NEEDS TO BE REDONE AWAY FROM THE Reference (example) App
+     // NEED TO ADD DEPENDENCIES LIKE THESE FOR PRODUCTION
+     // THESE SPECIFIC LINES ARE FROM THE REFERENCE APP - SHOULD BE REMOVED
      //
 
     //  'build/dist/scripts/services/dvol.js': ['scripts/services/dvol.js'],

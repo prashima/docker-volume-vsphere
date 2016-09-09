@@ -4,7 +4,12 @@ define(['angular'], function(angular) {
 
    return function(
       $rootScope, $scope, $log, $state, $filter, $timeout,
-      StorageManager, AuthService, vuiConstants, DialogService) {
+      StorageManager, AuthService, vuiConstants, DialogService, DvolDatacenterVmService) {
+
+      // temp
+
+      $scope.dcvms = DvolDatacenterVmService.availableVms;
+
 
       var translate = $filter('translate');
 
