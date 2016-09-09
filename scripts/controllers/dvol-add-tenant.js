@@ -19,9 +19,9 @@ define(['angular'], function(angular) {
       $scope.datacenterVmsGridSettings = {
          selectionMode: 'MULTI',
          columnDefs: [
-           {field:'ID',fieldName:'ID'},
            {field:'name', fieldName:'name'},
-           {field:'description', fieldName:'description'}
+           {field:'description', fieldName:'description'},
+           {field:'ID',fieldName:'ID'}
          ],
          data: vms.map(function(row) {
            return {

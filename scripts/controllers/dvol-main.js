@@ -91,9 +91,9 @@ define(['angular'], function(angular) {
          ],
          data: tenants.map(function(row) {
            return {
-             ID: row[0],
              name: row[1],
-             description: row[2]
+             description: row[2],
+             ID: row[0]
            };
          })
        };
