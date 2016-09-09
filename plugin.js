@@ -27,7 +27,8 @@ define([
    return angular.module('esxUiApp.plugins.dvol', [
       'ui.router',
    ]).controller({
-      'DvolMainController': DvolMainController
+      'DvolMainController': DvolMainController,
+      'DvolAddTenantController': DvolAddTenantController
    })
    .service({
       //'DvolService': DvolService,
