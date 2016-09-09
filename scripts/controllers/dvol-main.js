@@ -8,8 +8,6 @@ define(['angular'], function(angular) {
 
       var translate = $filter('translate');
 
-      $scope.testingDialog = "foo";
-
       //
       // TODO: move this out into a data service
       //

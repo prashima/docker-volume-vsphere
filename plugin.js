@@ -15,8 +15,14 @@ define([
    //
 ], function(
    angular,
+   //
+   // Controllers
+   //
    DvolMainController,
    DvolAddTenantController,
+   //
+   // Services
+   //
    DvolContextMenuService,
    DvolDialogService,
    DvolDatacenterVmService
@@ -31,9 +37,7 @@ define([
       'DvolAddTenantController': DvolAddTenantController
    })
    .service({
-      //'DvolService': DvolService,
       'DvolDialogService': DvolDialogService,
-      //'DvolWizardService': DvolWizardService,
       'DvolContextMenuService': DvolContextMenuService,
       'DvolDatacenterVmService': DvolDatacenterVmService
    })

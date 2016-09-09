@@ -5,10 +5,6 @@ define(['angular'], function(angular) {
 
    return function($scope) {
 
-     $scope.testdata = 'foo';
-
-      console.log($scope);
-
     }
 
   });
