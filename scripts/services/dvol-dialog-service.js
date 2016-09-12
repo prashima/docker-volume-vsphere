@@ -32,7 +32,7 @@ define(['angular'], function (angular) {
                   confirmOptions: {
                      label: 'Add',
                      onClick: function () {
-                        //opaque.save(this.tenant);
+                        opaque.save(opaque.tenant);
                         return true;
                      }
                   }

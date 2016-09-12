@@ -14,11 +14,9 @@ define(['angular'], function(angular) {
       ["e0422589-7ae8-4651-abdf-12cecdd41cce", "my-dummy-vm-3", "This is one of my favorite test vms"]
     ];
 
-   return function($scope, DvolDatacenterVmService) {
+   return function($scope, DialogService) {
 
-      $scope.tenant = {
-        name: 'prepop'
-      };
+      $scope.tenant = DialogService.currentDialog().opaque.tenant;
 
       $scope.datacenterVmsGridSettings = {
          selectionMode: 'MULTI',
