@@ -45,14 +45,13 @@ define(['angular'], function(angular) {
                    tenant: {},
                    save: function(newTenant) {
                      console.log("adding new tenant: " + JSON.stringify(newTenant));
-                     $scope.tenantsGridSettings.data.push({
+                     $scope.tenantsGridSettings.data = $scope.tenantsGridSettings.data.concat({
                        name: newTenant.name,
                        description: newTenant.description,
                        ID: 'generate UUID here'
                      });
                    }
                  });
-                 console.log('ds -- ' + ds);
                }
               //  onClick: function (e) {
               //     var button = $(e.currentTarget);
@@ -93,6 +92,10 @@ define(['angular'], function(angular) {
            };
          })
        };
+
+       $scope.$watch('tenantsGridSettings', function(ev) {
+         console.log('in watch' + ev);
+       }, true);
 
        //
        // TENANT DETAIL TABS

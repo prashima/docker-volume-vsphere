@@ -25,7 +25,6 @@ define(['angular'], function (angular) {
                   rejectOptions: {
                     label: 'Cancel',
                     onClick: function () {
-                      deferred.reject();
                       return true;
                     }
                   },
