@@ -14,17 +14,44 @@ define(['angular'], function(angular) {
       ["e0422589-7ae8-4651-abdf-12cecdd41cce", "my-dummy-vm-3", "This is one of my favorite test vms"]
     ];
 
-   return function($scope, DialogService) {
+   return function($scope, DialogService, GridUtils) {
 
       $scope.tenant = DialogService.currentDialog().opaque.tenant;
 
-      $scope.datacenterVmsGridSettings = {
+      DialogService.setConfirmOptions({
+        label: 'Add',
+        onClick: function () {
+          console.log('selected: ' + $scope.datacenterVmsGrid.selectedItems);
+          $scope.tenant.selectedItems = $scope.datacenterVmsGrid.selectedItems;
+          DialogService.currentDialog().opaque.save($scope.tenant);
+          return true;
+        }
+      });
+
+      DialogService.setRejectOptions({
+        label: 'Cancel',
+        onClick: function () {
+          return true;
+        }
+      });
+
+       $scope.datacenterVmsGrid = GridUtils.Grid({
+         columnDefs: [{
+            displayName: 'name',
+            field: 'name'
+            //width: '30%'
+         },{
+            displayName: 'description',
+            field: 'description'
+            //width: '30%'
+         },{
+            displayName: 'ID',
+            field: 'ID'
+            //width: '30%'
+         }],
+         //sortMode: vuiConstants.grid.sortMode.SINGLE,
          selectionMode: 'MULTI',
-         columnDefs: [
-           {field:'name', fieldName:'name'},
-           {field:'description', fieldName:'description'},
-           {field:'ID',fieldName:'ID'}
-         ],
+         selectedItems: [],
          data: vms.map(function(row) {
            return {
              ID: row[0],
@@ -32,7 +59,12 @@ define(['angular'], function(angular) {
              description: row[2]
            };
          })
-       };
+      });
+
+
+
+
+
 
    }
 

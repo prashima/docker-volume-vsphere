@@ -12,7 +12,8 @@ define([
    'plugins/docker-volume-plugin/scripts/services/dvol-context-menu.js',
    'plugins/docker-volume-plugin/scripts/services/dvol-dialog-service.js',
    'plugins/docker-volume-plugin/scripts/services/dvol-datacenter-vm-service.js',
-   'plugins/docker-volume-plugin/scripts/services/dvol-tenant-service.js'
+   'plugins/docker-volume-plugin/scripts/services/dvol-tenant-service.js',
+   'services/grid-utils'
    //
 ], function(
    angular,
@@ -27,7 +28,8 @@ define([
    DvolContextMenuService,
    DvolDialogService,
    DvolDatacenterVmService,
-   DvolTenantService
+   DvolTenantService,
+   GridUtils
  ) {
 
    'use strict';
@@ -42,7 +44,8 @@ define([
       'DvolDialogService': DvolDialogService,
       'DvolContextMenuService': DvolContextMenuService,
       'DvolDatacenterVmService': DvolDatacenterVmService,
-      'DvolTenantService': DvolTenantService
+      'DvolTenantService': DvolTenantService,
+      'GridUtils': GridUtils
    })
    .run(function ($rootScope, $filter, PluginService) {
       var translate = $filter('translate');

@@ -15,26 +15,12 @@ define(['angular'], function (angular) {
       this.showDialog = function (dialog, opaque) {
          switch(dialog) {
             case 'dvol.add-tenant':
-
                return {
                   title: 'Add Tenant',  //translate('example.dialogs.about.title'),
                   width: '585px',
                   height: '280px',
                   icon: 'esx-icon-add',
-                  content: 'plugins/docker-volume-plugin/views/dvol-add-tenant-dialog.html',
-                  rejectOptions: {
-                    label: 'Cancel',
-                    onClick: function () {
-                      return true;
-                    }
-                  },
-                  confirmOptions: {
-                     label: 'Add',
-                     onClick: function () {
-                        opaque.save(opaque.tenant);
-                        return true;
-                     }
-                  }
+                  content: 'plugins/docker-volume-plugin/views/dvol-add-tenant-dialog.html'
                };
                break;
          }

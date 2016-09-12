@@ -176,7 +176,7 @@ define(['angular'], function(angular) {
          })
        };
 
-      $scope.vmsGridSettings = {
+      $scope.VmsGrid = {
          selectionMode: 'SINGLE',
          columnDefs: [
            {field:'name', fieldName:'name'},
