@@ -44,7 +44,7 @@ define(['angular'], function(angular) {
                  var ds = DialogService.showDialog('dvol.add-tenant', {
                    tenant: {},
                    save: function(newTenant) {
-                     console.log("adding new tenant ???");
+                     console.log("adding new tenant: " + JSON.stringify(newTenant));
                      $scope.tenantsGridSettings.data.push({
                        name: newTenant.name,
                        description: newTenant.description,
