@@ -44,7 +44,6 @@ define(['angular'], function(angular) {
                  var ds = DialogService.showDialog('dvol.add-tenant', {
                    tenant: {},
                    save: function(newTenant) {
-                     console.log("adding new tenant: " + JSON.stringify(newTenant));
                      $scope.tenantsGridSettings.data = $scope.tenantsGridSettings.data.concat({
                        name: newTenant.name,
                        description: newTenant.description,
@@ -92,10 +91,6 @@ define(['angular'], function(angular) {
            };
          })
        };
-
-       $scope.$watch('tenantsGridSettings', function(ev) {
-         console.log('in watch' + ev);
-       }, true);
 
        //
        // TENANT DETAIL TABS

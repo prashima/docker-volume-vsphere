@@ -14,6 +14,10 @@ define(['angular'], function(angular) {
       ["e0422589-7ae8-4651-abdf-12cecdd41cce", "my-dummy-vm-3", "This is one of my favorite test vms"]
     ];
 
+   function getSelectedItemsFromSelectedRows(selectedRows) {
+     return selectedRows;
+   }
+
    return function($scope, DialogService, GridUtils) {
 
       $scope.tenant = DialogService.currentDialog().opaque.tenant;
@@ -21,8 +25,8 @@ define(['angular'], function(angular) {
       DialogService.setConfirmOptions({
         label: 'Add',
         onClick: function () {
-          console.log('selected: ' + $scope.datacenterVmsGrid.selectedItems);
-          $scope.tenant.selectedItems = $scope.datacenterVmsGrid.selectedItems;
+          var selectedRows = $('[vui-datagrid="datacenterVmsGrid"] table tr[aria-selected="true"]');
+          $scope.tenant.selectedVms = getSelectedItemsFromSelectedRows(selectedRows);
           DialogService.currentDialog().opaque.save($scope.tenant);
           return true;
         }
@@ -36,7 +40,10 @@ define(['angular'], function(angular) {
       });
 
        $scope.datacenterVmsGrid = GridUtils.Grid({
+         id: 'datacenterVmsGrid',
          columnDefs: [{
+           field: 'id'
+         },{
             displayName: 'name',
             field: 'name'
             //width: '30%'
@@ -54,6 +61,7 @@ define(['angular'], function(angular) {
          selectedItems: [],
          data: vms.map(function(row) {
            return {
+             id: row[0],
              ID: row[0],
              name: row[1],
              description: row[2]
@@ -61,10 +69,9 @@ define(['angular'], function(angular) {
          })
       });
 
-
-
-
-
+      $scope.$watch('datacenterVmsGrid.selectedItems', function(newSelected, oldSelected) {
+        console.log("!!! - " + newSelected);
+      });
 
    }
 
