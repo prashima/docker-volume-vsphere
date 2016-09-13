@@ -1,4 +1,4 @@
-define(['angular'], function (angular) {
+define(['angular'], function(angular) {
   'use strict';
 
   var vms = [
@@ -35,13 +35,13 @@ define(['angular'], function (angular) {
     return selectedRows;
   }
 
-  return function ($scope, DialogService, GridUtils) {
+  return function($scope, DialogService, GridUtils) {
 
     $scope.tenant = DialogService.currentDialog().opaque.tenant;
 
     DialogService.setConfirmOptions({
       label: 'Add',
-      onClick: function () {
+      onClick: function() {
         var selectedRows = $(
           '[vui-datagrid="datacenterVmsGrid"] table tr[aria-selected="true"]'
         );
@@ -72,7 +72,7 @@ define(['angular'], function (angular) {
       //sortMode: vuiConstants.grid.sortMode.SINGLE,
       selectionMode: 'MULTI',
       selectedItems: [],
-      data: vms.map(function (row) {
+      data: vms.map(function(row) {
         return {
           id: row[0],
           ID: row[0],
@@ -82,7 +82,7 @@ define(['angular'], function (angular) {
       })
     });
 
-    $scope.$watch('datacenterVmsGrid.selectedItems', function (
+    $scope.$watch('datacenterVmsGrid.selectedItems', function(
       newSelected, oldSelected) {
       console.log('newSelected: ' + newSelected);
     });

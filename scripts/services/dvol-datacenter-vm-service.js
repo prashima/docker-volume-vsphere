@@ -1,7 +1,7 @@
-define(['angular'], function (angular) {
+define(['angular'], function(angular) {
   'use strict';
 
-  return function () {
+  return function() {
 
     var mock__datacenterVms = [{
       name: 'VM 1',

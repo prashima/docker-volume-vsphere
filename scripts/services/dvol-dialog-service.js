@@ -1,7 +1,7 @@
-define(['angular'], function (angular) {
+define(['angular'], function(angular) {
   'use strict';
 
-  return function (
+  return function(
     $q,
     $log,
     $filter) {
@@ -13,12 +13,12 @@ define(['angular'], function (angular) {
 
     var rejectOptions = {
       label: 'Cancel',
-      onClick: function () {
+      onClick: function() {
         return true;
       }
     };
 
-    this.showDialog = function (dialog, opaque) {
+    this.showDialog = function(dialog, opaque) {
       switch (dialog) {
       case 'dvol.add-tenant':
         return {

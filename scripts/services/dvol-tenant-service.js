@@ -1,7 +1,7 @@
-define(['angular'], function (angular) {
+define(['angular'], function(angular) {
   'use strict';
 
-  return function () {
+  return function() {
 
     var mock__tenants = [
       ["692c1e66-a3f4-4322-a4fb-85276659c9b9", "my-dummy-tenant-1",

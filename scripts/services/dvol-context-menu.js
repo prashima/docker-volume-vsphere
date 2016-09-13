@@ -1,7 +1,7 @@
-define(['angular'], function (angular) {
+define(['angular'], function(angular) {
   'use strict';
 
-  return function (
+  return function(
     $q,
     $log) {
 
@@ -14,10 +14,10 @@ define(['angular'], function (angular) {
       id: 'menuItemID',
       iconClass: 'esx-icon-example',
       enabled: true,
-      update: function (opaque) {
+      update: function(opaque) {
         $log.debug('updating dvol menu item');
       },
-      onClick: function () {
+      onClick: function() {
         alert('dvol menu item clicked');
       },
       children: [{
@@ -26,23 +26,23 @@ define(['angular'], function (angular) {
         id: 'childMenuItemID',
         iconClass: 'esx-icon-example',
         enabled: true,
-        update: function (opaque) {
+        update: function(opaque) {
           $log.debug('updating child dvol menu item');
         },
-        onClick: function () {
+        onClick: function() {
           alert('child dvol menu item clicked');
         },
       }]
     }];
 
-    this.reconcile = function (context, objects, highlightPath) {
+    this.reconcile = function(context, objects, highlightPath) {
       $log.debug('reconciling ' + context + ' context menu, ' +
         objects.length + ' objects');
 
       var deferred = $q.defer();
 
-      var traverse = function (menu, opaque) {
-        menu.forEach(function (menuItem, index) {
+      var traverse = function(menu, opaque) {
+        menu.forEach(function(menuItem, index) {
           if (menuItem.update) {
             menuItem.update(opaque);
           }
