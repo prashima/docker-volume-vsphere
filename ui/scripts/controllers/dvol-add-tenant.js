@@ -37,7 +37,7 @@ define(['angular'], function() {
     return selectedRows;
   }
 
-  return function($scope, DialogService, GridUtils) {
+  return function($scope, DialogService, GridUtils, vuiConstants) {
 
     $scope.tenant = DialogService.currentDialog().opaque.tenant;
 
@@ -77,7 +77,7 @@ define(['angular'], function() {
         }
       ],
       // sortMode: vuiConstants.grid.sortMode.SINGLE,
-      selectionMode: 'MULTI',
+      selectionMode: vuiConstants.grid.selectionMode.SINGLE,
       selectedItems: [],
       data: vms.map(function(row) {
         return {

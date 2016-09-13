@@ -3,10 +3,8 @@
 define(['angular'], function() {
   'use strict';
 
-  return function($rootScope, $scope, $log, $state, $filter, $timeout,
-    GridUtils,
-    StorageManager, AuthService, vuiConstants, DialogService,
-    DvolTenantService) {
+  return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils, StorageManager,
+    AuthService, vuiConstants, DialogService, DvolTenantService) {
 
     var translate = $filter('translate');
 
@@ -21,8 +19,10 @@ define(['angular'], function() {
       ]
     ];
 
-    $scope.tenantsGridSettings = {
-      selectionMode: 'SINGLE',
+    $scope.tenantsGrid = GridUtils.Grid({
+      id: 'tenantsGrid',
+      selectionMode: vuiConstants.grid.selectionMode.SINGLE,
+      selectedItems: [],
       actionBarOptions: {
         actions: [{
           id: 'add-tenant-button',
@@ -34,7 +34,10 @@ define(['angular'], function() {
             DialogService.showDialog('dvol.add-tenant', {
               tenant: {},
               save: function(newTenant) {
-                $scope.tenantsGridSettings.data = $scope.tenantsGridSettings
+                //
+                // TODO: refactor, this is confusing
+                //
+                $scope.tenantsGrid.data = $scope.tenantsGrid
                   .data.concat({
                     name: newTenant.name,
                     description: newTenant.description,
@@ -65,6 +68,9 @@ define(['angular'], function() {
       },
       columnDefs: [
         {
+          field: 'id'
+        },
+        {
           field: 'name',
           displayName: 'name'
         },
@@ -83,7 +89,7 @@ define(['angular'], function() {
           ID: row[0]
         };
       })
-    };
+    });
 
     //
     // TENANT DETAIL TABS
@@ -129,20 +135,26 @@ define(['angular'], function() {
     // TODO: fix this
     //
 
-    $scope.datastoresGrid = {
-      selectionMode: 'SINGLE',
+    $scope.datastoresGrid = GridUtils.Grid({
+      id: 'datastoresGrid',
+      selectionMode: vuiConstants.grid.selectionMode.SINGLE,
+      selectedItems: [],
       actionBarOptions: {
         actions: [{
-          id: 'action3',
+          id: 'edit-datastore',
           label: 'Edit',
           iconClass: 'vui-icon-action-edit',
+          enabled: true,
           onClick: function() {
-            alert('yo');
+            //
+            // ready to implement datastore edit dialog
+            //
+            console.log('edit datastore for selected item: ' + $scope.datastoresGrid.selectedItems[0].id);
           }
         }]
       },
       columnDefs: [{
-        field: 'ID',
+        field: 'id',
         displayName: 'ID'
       }, {
         field: 'capacity',
@@ -152,38 +164,21 @@ define(['angular'], function() {
         displayName: 'Global Availability'
       }, {
         field: 'create',
-        displayName: 'Create',
-        editor: {
-          type: 'checkbox',
-          options: {
-            on: true,
-            off: false
-          }
-        }
+        displayName: 'Create'
       }, {
         field: 'delete',
-        displayName: 'Delete',
-        editor: {
-          type: 'checkbox',
-          options: {
-            on: true,
-            off: false
-          }
-        },
-        formatter: function(v) {  // full args are (v, r, i)
-          return '<a style="color:red">' + v + '</a>';
-        }
+        displayName: 'Delete'
       }],
       data: datastores.map(function(row) {
         return {
-          ID: row[0],
+          id: row[0],
           capacity: row[1],
           availability: row[2],
           create: row[3],
           delete: row[4]
         };
       })
-    };
+    });
 
     $scope.VmsGrid = GridUtils.Grid({
       id: 'vmsGrid',
