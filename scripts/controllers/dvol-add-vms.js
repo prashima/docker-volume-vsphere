@@ -34,13 +34,6 @@ define(['angular'], function(angular) {
         }
       });
 
-      DialogService.setRejectOptions({
-        label: 'Cancel',
-        onClick: function () {
-          return true;
-        }
-      });
-
        $scope.datacenterVmsGrid = GridUtils.Grid({
          id: 'datacenterVmsGrid',
          columnDefs: [{
