@@ -2,7 +2,8 @@
 
 # deploys whatever's in ./build/dist as an ESXi UI plugin called docker-volume-plugin
 
-# TODO: make these vars command line params
+# TODO: make these vars command line params, meanwhile you must
+# change the ESX_IP to the actual IP address of your VM
 
 rm -rf build/dist/*
 grunt --env=dev
