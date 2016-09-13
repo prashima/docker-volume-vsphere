@@ -1,17 +1,23 @@
 /* global define */
-define(['angular'], function() {
+define(['angular'], function () {
   'use strict';
 
-  return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils,
-    StorageManager, AuthService, vuiConstants, DialogService, DvolTenantService) {
+  return function ($rootScope, $scope, $log, $state, $filter, $timeout,
+    GridUtils,
+    StorageManager, AuthService, vuiConstants, DialogService,
+    DvolTenantService) {
 
     var translate = $filter('translate');
 
     var tenants = DvolTenantService.tenants;
 
     var datastores = [
-      ['99665316-9a27-46c2-a0ab-92103857c86b', '3GB', '1GB', false, false],
-      ['e0422589-7ae8-4651-abdf-12cecdd41cce', '1TB', '250GB', false, true]
+      ['99665316-9a27-46c2-a0ab-92103857c86b', '3GB', '1GB', false,
+        false
+      ],
+      ['e0422589-7ae8-4651-abdf-12cecdd41cce', '1TB', '250GB', false,
+        true
+      ]
     ];
 
     $scope.tenantsGridSettings = {
@@ -23,15 +29,16 @@ define(['angular'], function() {
           iconClass: 'vui-icon-action-add',
           tooltipText: 'Add Tenant',
           enabled: true,
-          onClick: function(evt, action) {
+          onClick: function (evt, action) {
             var ds = DialogService.showDialog('dvol.add-tenant', {
               tenant: {},
-              save: function(newTenant) {
-                $scope.tenantsGridSettings.data = $scope.tenantsGridSettings.data.concat({
-                  name: newTenant.name,
-                  description: newTenant.description,
-                  ID: 'generate UUID here'
-                });
+              save: function (newTenant) {
+                $scope.tenantsGridSettings.data = $scope.tenantsGridSettings
+                  .data.concat({
+                    name: newTenant.name,
+                    description: newTenant.description,
+                    ID: 'generate UUID here'
+                  });
               }
             });
           }
@@ -41,7 +48,7 @@ define(['angular'], function() {
           iconClass: 'vui-icon-action-delete',
           tooltipText: 'Remove Tenant',
           enabled: true,
-          onClick: function() {
+          onClick: function () {
             alert('yo');
           }
         }, {
@@ -50,7 +57,7 @@ define(['angular'], function() {
           iconClass: 'vui-icon-action-edit',
           tooltipText: 'Edit Tenant',
           enabled: true,
-          onClick: function() {
+          onClick: function () {
             alert('yo');
           }
         }]
@@ -65,7 +72,7 @@ define(['angular'], function() {
         field: 'ID',
         displayName: 'ID'
       }, ],
-      data: tenants.map(function(row) {
+      data: tenants.map(function (row) {
         return {
           name: row[1],
           description: row[2],
@@ -78,7 +85,7 @@ define(['angular'], function() {
     // TENANT DETAIL TABS
     //
 
-    var tabClickFunction = function(event, tab) {
+    var tabClickFunction = function (event, tab) {
       var e = event;
       var t = tab;
       // tab.loaded = true;
@@ -89,7 +96,8 @@ define(['angular'], function() {
     var tabs = {
       datastores: {
         label: translate('dvol.tenantDetailTabs.datastores.label'),
-        tooltipText: translate('dvol.tenantDetailTabs.datastores.tooltip'),
+        tooltipText: translate(
+          'dvol.tenantDetailTabs.datastores.tooltip'),
         contentUrl: 'plugins/docker-volume-plugin/views/dvol-datastores.html',
         onClick: tabClickFunction
       },
@@ -102,7 +110,7 @@ define(['angular'], function() {
     };
 
     $scope.tenantDetailTabs = {
-      tabs: Object.keys(tabs).map(function(key) {
+      tabs: Object.keys(tabs).map(function (key) {
         return tabs[key];
       }),
       tabType: vuiConstants.tabs.type.PRIMARY,
@@ -128,7 +136,7 @@ define(['angular'], function() {
           id: 'action3',
           label: 'Edit',
           iconClass: 'vui-icon-action-edit',
-          onClick: function() {
+          onClick: function () {
             alert('yo');
           }
         }]
@@ -162,11 +170,11 @@ define(['angular'], function() {
             off: false
           }
         },
-        formatter: function(v, r, i) {
+        formatter: function (v, r, i) {
           return '<a style="color:red">' + v + '</a>';
         }
       }],
-      data: datastores.map(function(row) {
+      data: datastores.map(function (row) {
         return {
           ID: row[0],
           capacity: row[1],
@@ -192,7 +200,7 @@ define(['angular'], function() {
         field: 'ID',
         displayName: 'ID'
       }, ],
-      data: tenants.map(function(row) {
+      data: tenants.map(function (row) {
         return {
           id: row[0],
           ID: row[0],
@@ -208,9 +216,9 @@ define(['angular'], function() {
           iconClass: 'vui-icon-action-add',
           tooltipText: 'Add Virtual Machines',
           enabled: true,
-          onClick: function(evt, action) {
+          onClick: function (evt, action) {
             var ds = DialogService.showDialog('dvol.add-vms', {
-              save: function(selectedVms) {
+              save: function (selectedVms) {
                 console.log('in save fn for add-vm')
                   // add vms to the tenant
               }
@@ -222,7 +230,7 @@ define(['angular'], function() {
           iconClass: 'vui-icon-action-delete',
           tooltipText: 'Remove Virtual Machine',
           enabled: true,
-          onClick: function() {
+          onClick: function () {
             alert('are you sure you want to remove VM?');
           }
         }]
