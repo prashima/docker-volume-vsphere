@@ -30,8 +30,8 @@ define(['angular'], function() {
           iconClass: 'vui-icon-action-add',
           tooltipText: 'Add Tenant',
           enabled: true,
-          onClick: function(evt, action) {
-            var ds = DialogService.showDialog('dvol.add-tenant', {
+          onClick: function() {  // has 1st param evt and also has 2nd param action
+            DialogService.showDialog('dvol.add-tenant', {
               tenant: {},
               save: function(newTenant) {
                 $scope.tenantsGridSettings.data = $scope.tenantsGridSettings
@@ -63,16 +63,19 @@ define(['angular'], function() {
           }
         }]
       },
-      columnDefs: [{
-        field: 'name',
-        displayName: 'name'
-      }, {
-        field: 'description',
-        displayName: 'description'
-      }, {
-        field: 'ID',
-        displayName: 'ID'
-      }, ],
+      columnDefs: [
+        {
+          field: 'name',
+          displayName: 'name'
+        },
+        {
+          field: 'description',
+          displayName: 'description'
+        }, {
+          field: 'ID',
+          displayName: 'ID'
+        }
+      ],
       data: tenants.map(function(row) {
         return {
           name: row[1],
@@ -86,13 +89,9 @@ define(['angular'], function() {
     // TENANT DETAIL TABS
     //
 
-    var tabClickFunction = function(event, tab) {
-      var e = event;
-      var t = tab;
-      // tab.loaded = true;
-      // $state.go(tab.state);
-      // StorageManager.set('dvol_current_state', tab.state);
-    }
+    var tabClickFunction = function() {
+      // has args evt and tab
+    };
 
     var tabs = {
       datastores: {
@@ -171,7 +170,7 @@ define(['angular'], function() {
             off: false
           }
         },
-        formatter: function(v, r, i) {
+        formatter: function(v) {  // full args are (v, r, i)
           return '<a style="color:red">' + v + '</a>';
         }
       }],
@@ -189,18 +188,23 @@ define(['angular'], function() {
     $scope.VmsGrid = GridUtils.Grid({
       id: 'vmsGrid',
       selectionMode: 'SINGLE',
-      columnDefs: [{
-        field: 'id'
-      }, {
-        field: 'name',
-        displayName: 'name'
-      }, {
-        field: 'description',
-        displayName: 'description'
-      }, {
-        field: 'ID',
-        displayName: 'ID'
-      }, ],
+      columnDefs: [
+        {
+          field: 'id'
+        },
+        {
+          field: 'name',
+          displayName: 'name'
+        },
+        {
+          field: 'description',
+          displayName: 'description'
+        },
+        {
+          field: 'ID',
+          displayName: 'ID'
+        }
+      ],
       data: tenants.map(function(row) {
         return {
           id: row[0],
@@ -209,7 +213,7 @@ define(['angular'], function() {
           description: row[2].replace('tenant', 'virtual machine')
         };
       }),
-      //selectedItem: ??,
+      // selectedItem: ??,
       actionBarOptions: {
         actions: [{
           id: 'add-vms-button',
@@ -217,10 +221,10 @@ define(['angular'], function() {
           iconClass: 'vui-icon-action-add',
           tooltipText: 'Add Virtual Machines',
           enabled: true,
-          onClick: function(evt, action) {
-            var ds = DialogService.showDialog('dvol.add-vms', {
+          onClick: function() {  // (evt, action)
+            DialogService.showDialog('dvol.add-vms', {
               save: function(selectedVms) {
-                console.log('in save fn for add-vm')
+                console.log('in save fn for add-vm: ' + selectedVms);
                   // add vms to the tenant
               }
             });

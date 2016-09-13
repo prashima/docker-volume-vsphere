@@ -59,17 +59,17 @@ define(['angular'], function() {
       }, {
         displayName: 'name',
         field: 'name'
-          //width: '30%'
+          // width: '30%'
       }, {
         displayName: 'description',
         field: 'description'
-          //width: '30%'
+          // width: '30%'
       }, {
         displayName: 'ID',
         field: 'ID'
-          //width: '30%'
+          // width: '30%'
       }],
-      //sortMode: vuiConstants.grid.sortMode.SINGLE,
+      // sortMode: vuiConstants.grid.sortMode.SINGLE,
       selectionMode: 'MULTI',
       selectedItems: [],
       data: vms.map(function(row) {
@@ -82,6 +82,6 @@ define(['angular'], function() {
       })
     });
 
-  }
+  };
 
 });
