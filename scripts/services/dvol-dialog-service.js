@@ -14,15 +14,22 @@ define(['angular'], function (angular) {
 
       this.showDialog = function (dialog, opaque) {
          switch(dialog) {
-            case 'dvol.add-tenant':
-               return {
-                  title: 'Add Tenant',  //translate('example.dialogs.about.title'),
-                  width: '585px',
-                  height: '280px',
-                  icon: 'esx-icon-add',
-                  content: 'plugins/docker-volume-plugin/views/dvol-add-tenant-dialog.html'
-               };
-               break;
+           case 'dvol.add-tenant':
+             return {
+                title: 'Add Tenant',  //translate('example.dialogs.about.title'),
+                width: '585px',
+                height: '280px',
+                icon: 'esx-icon-add',
+                content: 'plugins/docker-volume-plugin/views/dvol-add-tenant-dialog.html'
+             };
+           case 'dvol.add-vms':
+            return {
+               title: 'Add Virtual Machines',  //translate('example.dialogs.about.title'),
+               width: '585px',
+               height: '280px',
+               icon: 'esx-icon-add',
+               content: 'plugins/docker-volume-plugin/views/dvol-add-vms-dialog.html'
+            };
          }
       };
    };

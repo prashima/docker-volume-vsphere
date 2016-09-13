@@ -3,7 +3,7 @@ define(['angular'], function(angular) {
    'use strict';
 
    return function(
-      $rootScope, $scope, $log, $state, $filter, $timeout,
+      $rootScope, $scope, $log, $state, $filter, $timeout, GridUtils,
       StorageManager, AuthService, vuiConstants, DialogService, DvolTenantService) {
 
       var translate = $filter('translate');
@@ -14,21 +14,6 @@ define(['angular'], function(angular) {
          ["99665316-9a27-46c2-a0ab-92103857c86b", "3GB", "1GB", false, false],
          ["e0422589-7ae8-4651-abdf-12cecdd41cce", "1TB", "250GB", false, true],
        ]
-
-       var actionButton = {
-          id: 'exampleButton',
-          label: 'Test button one',
-          tooltipText: 'Test tooltip',
-          enabled: true,
-          iconClass: 'esx-icon-example',
-          onClick: function (e) {
-             var button = $(e.currentTarget);
-             var pos = button.offset();
-             var height = button.height();
-             $rootScope.contextMenu.show('example', ['object'], e,
-                pos.left - 1, pos.top + height + 4);
-          }
-       };
 
        $scope.tenantsGridSettings = {
          selectionMode: 'SINGLE',
@@ -79,9 +64,9 @@ define(['angular'], function(angular) {
            ]
          },
          columnDefs: [
-           {field:'name', fieldName:'name'},
-           {field:'description', fieldName:'description'},
-           {field:'ID',fieldName:'ID'},
+           {field:'name', displayName:'name'},
+           {field:'description', displayName:'description'},
+           {field:'ID',displayName:'ID'},
          ],
          data: tenants.map(function(row) {
            return {
@@ -139,7 +124,7 @@ define(['angular'], function(angular) {
        // TODO: fix this
        //
 
-       $scope.datastoresGridSettings = {
+       $scope.datastoresGrid = {
          selectionMode: 'SINGLE',
          actionBarOptions: {
            actions: [
@@ -152,11 +137,11 @@ define(['angular'], function(angular) {
            ]
          },
          columnDefs: [
-           {field:'ID',fieldName:'ID'},
-           {field:'capacity', fieldName:'Capacity'},
-           {field:'availability', fieldName:'Global Availability'},
-           {field:'create', fieldName:'Create', editor: { type:'checkbox', options:{ on: true, off: false } } },
-           {field:'delete', fieldName:'Delete', editor: { type:'checkbox', options:{ on: true, off: false } }, formatter: function(v,r,i) {
+           {field:'ID',displayName:'ID'},
+           {field:'capacity', displayName:'Capacity'},
+           {field:'availability', displayName:'Global Availability'},
+           {field:'create', displayName:'Create', editor: { type:'checkbox', options:{ on: true, off: false } } },
+           {field:'delete', displayName:'Delete', editor: { type:'checkbox', options:{ on: true, off: false } }, formatter: function(v,r,i) {
              return '<a style="color:red">' + v + '</a>';
            } }
          ],
@@ -171,21 +156,52 @@ define(['angular'], function(angular) {
          })
        };
 
-      $scope.VmsGrid = {
-         selectionMode: 'SINGLE',
+      $scope.VmsGrid = GridUtils.Grid({
+        id: 'vmsGrid',
+        selectionMode: 'SINGLE',
          columnDefs: [
-           {field:'name', fieldName:'name'},
-           {field:'description', fieldName:'description'},
-           {field:'ID',fieldName:'ID'},
+           {field: 'id'},
+           {field:'name', displayName:'name'},
+           {field:'description', displayName:'description'},
+           {field:'ID',displayName:'ID'},
          ],
          data: tenants.map(function(row) {
            return {
+             id: row[0],
              ID: row[0],
              name: row[1].replace('tenant', 'virtual-machine'),
              description: row[2].replace('tenant', 'virtual machine')
            };
-         })
-       };
+         }),
+         //selectedItem: ??,
+         actionBarOptions: {
+           actions: [
+             {
+               id: 'add-vms-button',
+               label: 'Add',
+               iconClass: 'vui-icon-action-add',
+               tooltipText: 'Add Virtual Machines',
+               enabled: true,
+               onClick: function(evt, action) {
+                 var ds = DialogService.showDialog('dvol.add-vms', {
+                   save: function(selectedVms) {
+                     console.log("in save fn for add-vm")
+                     // add vms to the tenant
+                   }
+                 });
+               }
+             },
+             {
+               id: 'remove-vm-button',
+               label: 'Remove',
+               iconClass: 'vui-icon-action-delete',
+               tooltipText: 'Remove Virtual Machine',
+               enabled: true,
+               onClick: function() {alert('are you sure you want to remove VM?');}
+             }
+           ]
+          }
+       });
 
    };
 });

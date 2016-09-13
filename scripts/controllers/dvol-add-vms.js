@@ -1,5 +1,6 @@
 
 
+
 define(['angular'], function(angular) {
    'use strict';
 
@@ -23,14 +24,12 @@ define(['angular'], function(angular) {
 
    return function($scope, DialogService, GridUtils) {
 
-      $scope.tenant = DialogService.currentDialog().opaque.tenant;
-
       DialogService.setConfirmOptions({
         label: 'Add',
         onClick: function () {
           var selectedRows = $('[vui-datagrid="datacenterVmsGrid"] table tr[aria-selected="true"]');
-          $scope.tenant.selectedVms = getSelectedItemsFromSelectedRows(selectedRows);
-          DialogService.currentDialog().opaque.save($scope.tenant);
+          $scope.selectedVms = getSelectedItemsFromSelectedRows(selectedRows);
+          DialogService.currentDialog().opaque.save($scope.selectedVms);
           return true;
         }
       });
@@ -71,7 +70,6 @@ define(['angular'], function(angular) {
            };
          })
       });
-
 
    }
 
