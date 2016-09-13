@@ -1,12 +1,9 @@
-define(['angular'], function(angular) {
+/* global define */
+
+define(['angular'], function() {
   'use strict';
 
-  return function(
-    $q,
-    $log) {
-
-    $log = $log.getInstance('DvolContextMenuService', true);
-    $log.debug('In dvol context menu service global scope');
+  return function($q) {
 
     var dvolContextMenu = [{
       title: 'Some menu item',
@@ -14,35 +11,21 @@ define(['angular'], function(angular) {
       id: 'menuItemID',
       iconClass: 'esx-icon-example',
       enabled: true,
-      update: function(opaque) {
-        $log.debug('updating dvol menu item');
-      },
-      onClick: function() {
-        alert('dvol menu item clicked');
-      },
       children: [{
         title: 'Some child menu item',
         toolTip: 'Menu item tooltip',
         id: 'childMenuItemID',
         iconClass: 'esx-icon-example',
-        enabled: true,
-        update: function(opaque) {
-          $log.debug('updating child dvol menu item');
-        },
-        onClick: function() {
-          alert('child dvol menu item clicked');
-        },
+        enabled: true
       }]
     }];
 
     this.reconcile = function(context, objects, highlightPath) {
-      $log.debug('reconciling ' + context + ' context menu, ' +
-        objects.length + ' objects');
 
       var deferred = $q.defer();
 
       var traverse = function(menu, opaque) {
-        menu.forEach(function(menuItem, index) {
+        menu.forEach(function(menuItem) {  // (menuItem, index)
           if (menuItem.update) {
             menuItem.update(opaque);
           }

@@ -1,9 +1,11 @@
-define(['angular'], function(angular) {
+/* global define */
+
+define(['angular'], function() {
   'use strict';
 
   return function() {
 
-    var mock__datacenterVms = [{
+    var __mockDatacenterVms = [{
       name: 'VM 1',
       description: 'More about VM 1'
     }, {
@@ -11,7 +13,7 @@ define(['angular'], function(angular) {
       description: 'More about VM 2'
     }];
 
-    this.datacenterVms = mock__datacenterVms;
+    this.datacenterVms = __mockDatacenterVms;
 
   };
 
