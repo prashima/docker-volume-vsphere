@@ -65,6 +65,9 @@ define(['angular'], function(angular) {
          })
       });
 
+      $scope.$watch('datacenterVmsGrid.selectedItems', function(newSelected, oldSelected) {
+        console.log('newSelected: ' + newSelected);
+      });
 
    }
 
