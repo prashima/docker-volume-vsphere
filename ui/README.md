@@ -5,13 +5,8 @@ Plugin UI Installation Instructions
 Prepare the Plugin locally for Installation
 -------------------------------------------
 
--   *in the local shell, go to (or create and go to) your working directory for the project, let’s call this <project_path>*
--   [local-terminal]$ cd <project_path>
-
--   get the esxui-docker-volume-plugin plugin repo (TBD)
--   [local-terminal]$ cd esxui-docker-volume-plugin
-
--   install node/npm and grunt if necessary
+-   cd ./ui
+-   install node, npm and grunt if necessary
 -   [local-terminal]$ npm install
 
 ### Production build

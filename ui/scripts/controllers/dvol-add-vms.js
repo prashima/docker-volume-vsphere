@@ -37,7 +37,7 @@ define(['angular'], function() {
     return selectedRows;
   }
 
-  return function($scope, DialogService, GridUtils) {
+  return function($scope, DialogService, GridUtils, vuiConstants) {
 
     DialogService.setConfirmOptions({
       label: 'Add',
@@ -70,7 +70,7 @@ define(['angular'], function() {
           // width: '30%'
       }],
       // sortMode: vuiConstants.grid.sortMode.SINGLE,
-      selectionMode: 'MULTI',
+      selectionMode: vuiConstants.grid.selectionMode.MULTI,
       selectedItems: [],
       data: vms.map(function(row) {
         return {

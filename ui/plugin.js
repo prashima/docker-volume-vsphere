@@ -33,7 +33,8 @@ define([
   DvolDialogService,
   DvolDatacenterVmService,
   DvolTenantService,
-  GridUtils
+  GridUtils,
+  vuiConstants
 ) {
 
   'use strict';
@@ -51,7 +52,8 @@ define([
     'DvolContextMenuService': DvolContextMenuService,
     'DvolDatacenterVmService': DvolDatacenterVmService,
     'DvolTenantService': DvolTenantService,
-    'GridUtils': GridUtils
+    'GridUtils': GridUtils,
+    'vuiConstants': vuiConstants
   })
   .run(function($rootScope, $filter, PluginService) {
     var translate = $filter('translate');
