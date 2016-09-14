@@ -137,7 +137,7 @@
     "no-array-constructor": 2,       // http://eslint.org/docs/rules/no-array-constructor
     "no-lonely-if": 1,               // http://eslint.org/docs/rules/no-lonely-if
     "no-mixed-spaces-and-tabs": 1,   // http://eslint.org/docs/rules/no-mixed-spaces-and-tabs
-    "no-multiple-empty-lines": [2, { // http://eslint.org/docs/rules/no-multiple-empty-lines
+    "no-multiple-empty-lines": [0, { // http://eslint.org/docs/rules/no-multiple-empty-lines
       "max": 2
       }],
     "no-nested-ternary": 2,          // http://eslint.org/docs/rules/no-nested-ternary

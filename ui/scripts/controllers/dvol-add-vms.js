@@ -3,13 +3,6 @@
 define(['angular'], function() {
   'use strict';
 
-  function getSelectedItemsFromSelectedRows(selectedRows) {
-    //
-    // TODO
-    //
-    return selectedRows;
-  }
-
   return function($scope, DialogService, GridUtils, vuiConstants, DvolDatacenterVmService) {
 
     var vms = DvolDatacenterVmService.datacenterVms;

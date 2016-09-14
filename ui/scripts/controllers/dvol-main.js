@@ -10,6 +10,9 @@ define(['angular'], function() {
 
     var tenants = DvolTenantService.tenants;
 
+    //
+    // TODO: move to service
+    //
     var datastores = [
       ['99665316-9a27-46c2-a0ab-92103857c86b', '3GB', '1GB', false,
         false
@@ -91,12 +94,32 @@ define(['angular'], function() {
       })
     });
 
+    // watch here ?
+
+    function getSelectedVmsFromRows(rows) {
+      return rows.map(function(row) {
+        //
+        // TODO: pull this out into a schema defined in only one place
+        //
+        return {
+          id: row.id,
+          name: row.name,
+          description: row.description
+        };
+      });
+    }
+
+    function getSelectedTenant() {
+      return $scope.tenantsGrid.selectedItems[0] || {};
+    }
+
     //
     // TENANT DETAIL TABS
     //
 
     var tabClickFunction = function() {
       // has args evt and tab
+      // may not need this
     };
 
     var tabs = {
@@ -180,6 +203,10 @@ define(['angular'], function() {
       })
     });
 
+    //
+    // TODO: vms grid
+    //
+
     $scope.VmsGrid = GridUtils.Grid({
       id: 'vmsGrid',
       selectionMode: 'SINGLE',
@@ -200,15 +227,14 @@ define(['angular'], function() {
           displayName: 'ID'
         }
       ],
-      data: tenants.map(function(row) {
+      data: getSelectedTenant().vms ? getSelectedTenant.vms.map(function(row) {
         return {
           id: row[0],
           ID: row[0],
           name: row[1].replace('tenant', 'virtual-machine'),
           description: row[2].replace('tenant', 'virtual machine')
         };
-      }),
-      // selectedItem: ??,
+      }) : [],
       actionBarOptions: {
         actions: [{
           id: 'add-vms-button',
@@ -218,9 +244,12 @@ define(['angular'], function() {
           enabled: true,
           onClick: function() {  // (evt, action)
             DialogService.showDialog('dvol.add-vms', {
-              save: function(selectedVms) {
-                console.log('in save fn for add-vm: ' + selectedVms);
-                  // add vms to the tenant
+              save: function(selectedVmsRows) {
+                console.log('in save fn for add-vm: ' + selectedVmsRows);
+                  var selectedVms = getSelectedVmsFromRows(selectedVmsRows);
+                  // add vms to the selected tenant
+                  var selectedTenant = getSelectedTenant();
+                  selectedTenant.vms = selectedTenant.vms.concat(selectedVms);
               }
             });
           }
