@@ -3,9 +3,21 @@
 define(['angular'], function() {
   'use strict';
 
-  return function($scope, DialogService, GridUtils, vuiConstants, DvolDatacenterVmService) {
+  return function($scope, DialogService, GridUtils, vuiConstants, DvolDatacenterVmService, VMService) {
 
     var vms = DvolDatacenterVmService.datacenterVms;
+
+    var progress = function(percent) {
+       console.log('progress update: ' + percent + ' %');
+    };
+
+    var realVms;
+    var p = VMService.getVMsForList(true, progress);
+    p.then(function(sysVms) {
+      realVms = sysVms;
+      console.log('got vms: ' + JSON.stringify(realVms));
+    });
+
 
     DialogService.setConfirmOptions({
       label: 'Add',

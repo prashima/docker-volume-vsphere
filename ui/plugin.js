@@ -16,7 +16,8 @@ define([
   'plugins/docker-volume-plugin/scripts/services/dvol-dialog-service.js',
   'plugins/docker-volume-plugin/scripts/services/dvol-datacenter-vm-service.js',
   'plugins/docker-volume-plugin/scripts/services/dvol-tenant-service.js',
-  'services/grid-utils'
+  'services/grid-utils',
+  'services/vm/vm'
   //
 ], function(
   angular,
@@ -34,6 +35,7 @@ define([
   DvolDatacenterVmService,
   DvolTenantService,
   GridUtils,
+  VMService,
   vuiConstants
 ) {
 
