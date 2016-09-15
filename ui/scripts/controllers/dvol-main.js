@@ -246,10 +246,11 @@ define(['angular'], function() {
             DialogService.showDialog('dvol.add-vms', {
               save: function(selectedVmsRows) {
                 console.log('in save fn for add-vm: ' + selectedVmsRows);
-                  var selectedVms = getSelectedVmsFromRows(selectedVmsRows);
-                  // add vms to the selected tenant
-                  var selectedTenant = getSelectedTenant();
-                  selectedTenant.vms = selectedTenant.vms.concat(selectedVms);
+                var selectedVms = getSelectedVmsFromRows(selectedVmsRows);
+                // add vms to the selected tenant
+                var selectedTenant = getSelectedTenant();
+                selectedTenant.vms = selectedTenant.vms || [];
+                selectedTenant.vms = selectedTenant.vms.concat(selectedVms);
               }
             });
           }
