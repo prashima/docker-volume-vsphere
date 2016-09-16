@@ -1,6 +1,6 @@
 /* global define */
 
-define(['angular'], function() {
+define([], function() {
   'use strict';
 
   return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils, StorageManager,

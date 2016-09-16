@@ -1,6 +1,6 @@
 /* global define $ */
 
-define(['angular'], function() {
+define([], function() {
   'use strict';
 
   var vms = [
