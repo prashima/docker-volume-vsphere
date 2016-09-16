@@ -3,8 +3,7 @@
 define([], function() {
   'use strict';
 
-  return function($scope, DialogService, GridUtils, vuiConstants,
-    DvolVmsGridService) {
+  return function($scope, DialogService, DvolVmsGridService) {
 
     var grid = DvolVmsGridService.makeVmsGrid();
 
