@@ -4,21 +4,22 @@ define([], function() {
   'use strict';
 
   return function($scope, DialogService, GridUtils, vuiConstants,
-    DvolDatacenterVmService, VMService, $filter, $sanitize, $rootScope) {
+    DvolStateService) {
 
-    var vms = DvolDatacenterVmService.datacenterVms;
-
-    var progress = function(percent) {
-      console.log('progress update: ' + percent + ' %');
-    };
-
-    var realVms;
-    var p = VMService.getVMsForList(true, progress);
-    p.then(function(sysVms) {
-      realVms = sysVms;
-      console.log('got vms: ' + JSON.stringify(realVms));
+    DvolStateService.vms.get().then(function(vms) {
+      $scope.datacenterVmsGrid.data = mapVmsToGrid(vms);
     });
 
+    function mapVmsToGrid(vms) {
+      return vms.map(function(vm) {
+        return {
+          vmName: vm.name,
+          guestFullName: vm.guestFullName,
+          status: vm.status,
+          storageUsageFormatted: vm.storageUsageFormatted
+        };
+      });
+    }
 
     DialogService.setConfirmOptions({
       label: 'Add',
@@ -34,29 +35,26 @@ define([], function() {
       columnDefs: [{
         field: 'id'
       }, {
-        displayName: 'name',
-        field: 'name'
+        displayName: 'Virtual machine',
+        field: 'vmName'
           // width: '30%'
       }, {
-        displayName: 'description',
-        field: 'description'
+        displayName: 'Guest',
+        field: 'guestFullName'
           // width: '30%'
       }, {
-        displayName: 'ID',
-        field: 'ID'
+        displayName: 'Status',
+        field: 'status'
+          // width: '30%'
+      }, {
+        displayName: 'Storage',
+        field: 'storageUsageFormatted'
           // width: '30%'
       }],
       // sortMode: vuiConstants.grid.sortMode.SINGLE,
       selectionMode: vuiConstants.grid.selectionMode.MULTI,
       selectedItems: [],
-      data: vms.map(function(row) {
-        return {
-          id: row[0],
-          ID: row[0],
-          name: row[1],
-          description: row[2]
-        };
-      })
+      data: mapVmsToGrid([])
     });
 
   };

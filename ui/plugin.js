@@ -15,6 +15,7 @@ define([
   'plugins/docker-volume-plugin/scripts/services/dvol-context-menu.js',
   'plugins/docker-volume-plugin/scripts/services/dvol-dialog-service.js',
   'plugins/docker-volume-plugin/scripts/services/dvol-datacenter-vm-service.js',
+  'plugins/docker-volume-plugin/scripts/services/dvol-state-service.js',
   'plugins/docker-volume-plugin/scripts/services/dvol-tenant-service.js',
   'services/grid-utils',
   'services/vm/vm'
@@ -33,6 +34,7 @@ define([
   DvolContextMenuService,
   DvolDialogService,
   DvolDatacenterVmService,
+  DvolStateService,
   DvolTenantService,
   GridUtils,
   VMService,
@@ -53,6 +55,7 @@ define([
     'DvolDialogService': DvolDialogService,
     'DvolContextMenuService': DvolContextMenuService,
     'DvolDatacenterVmService': DvolDatacenterVmService,
+    'DvolStateService': DvolStateService,
     'DvolTenantService': DvolTenantService,
     'GridUtils': GridUtils,
     'vuiConstants': vuiConstants
