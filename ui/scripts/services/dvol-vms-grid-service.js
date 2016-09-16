@@ -37,6 +37,7 @@ define([], function() {
     }];
 
     function makeVmsGrid() {
+
       var datacenterVmsGrid = GridUtils.Grid({
         id: 'datacenterVmsGrid',
         columnDefs: columnDefs,
@@ -52,10 +53,13 @@ define([], function() {
         });
       }
 
+      refresh();
+
       return {
         grid: datacenterVmsGrid,
         refresh: refresh
       };
+
     }
 
     this.makeVmsGrid = makeVmsGrid;
