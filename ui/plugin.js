@@ -38,6 +38,7 @@ define([
   DvolTenantService,
   GridUtils,
   VMService,
+  StorageService,
   vuiConstants
 ) {
 
