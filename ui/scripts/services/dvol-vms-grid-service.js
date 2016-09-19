@@ -19,7 +19,7 @@ define([], function() {
     var columnDefs = [{
       field: 'id'
     }, {
-      displayName: 'Virtual machine',
+      displayName: 'Name',
       field: 'vmName'
         // width: '30%'
     }, {

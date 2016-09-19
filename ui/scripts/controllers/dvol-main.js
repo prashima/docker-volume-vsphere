@@ -4,23 +4,11 @@ define([], function() {
   'use strict';
 
   return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils, StorageManager,
-    AuthService, vuiConstants, DialogService, DvolTenantService) {
+    AuthService, vuiConstants, DialogService, DvolTenantService, DvolDatastoresGridService) {
 
     var translate = $filter('translate');
 
     var tenants = DvolTenantService.tenants;
-
-    //
-    // TODO: move to service
-    //
-    var datastores = [
-      ['99665316-9a27-46c2-a0ab-92103857c86b', '3GB', '1GB', false,
-        false
-      ],
-      ['e0422589-7ae8-4651-abdf-12cecdd41cce', '1TB', '250GB', false,
-        true
-      ]
-    ];
 
     $scope.tenantsGrid = GridUtils.Grid({
       id: 'tenantsGrid',
@@ -154,57 +142,12 @@ define([], function() {
     // DATASTORES GRID
     //
 
-    //
-    // TODO: fix this
-    //
+    var grid = DvolDatastoresGridService.makeDatastoresGrid();
+    $scope.datastoresGrid = grid.grid;
 
-    $scope.datastoresGrid = GridUtils.Grid({
-      id: 'datastoresGrid',
-      selectionMode: vuiConstants.grid.selectionMode.SINGLE,
-      selectedItems: [],
-      actionBarOptions: {
-        actions: [{
-          id: 'edit-datastore',
-          label: 'Edit',
-          iconClass: 'vui-icon-action-edit',
-          enabled: true,
-          onClick: function() {
-            //
-            // ready to implement datastore edit dialog
-            //
-            console.log('edit datastore for selected item: ' + $scope.datastoresGrid.selectedItems[0].id);
-          }
-        }]
-      },
-      columnDefs: [{
-        field: 'id',
-        displayName: 'ID'
-      }, {
-        field: 'capacity',
-        displayName: 'Capacity'
-      }, {
-        field: 'availability',
-        displayName: 'Global Availability'
-      }, {
-        field: 'create',
-        displayName: 'Create'
-      }, {
-        field: 'delete',
-        displayName: 'Delete'
-      }],
-      data: datastores.map(function(row) {
-        return {
-          id: row[0],
-          capacity: row[1],
-          availability: row[2],
-          create: row[3],
-          delete: row[4]
-        };
-      })
-    });
 
     //
-    // TODO: vms grid
+    // VMS Grid
     //
 
     $scope.VmsGrid = GridUtils.Grid({
