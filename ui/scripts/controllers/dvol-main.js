@@ -73,13 +73,7 @@ define([], function() {
           displayName: 'ID'
         }
       ],
-      data: tenants.map(function(row) {
-        return {
-          name: row[1],
-          description: row[2],
-          ID: row[0]
-        };
-      })
+      data: []
     });
 
     // watch here ?
