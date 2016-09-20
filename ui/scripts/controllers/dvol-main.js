@@ -4,77 +4,16 @@ define([], function() {
   'use strict';
 
   return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils, StorageManager,
-    AuthService, vuiConstants, DialogService, DvolTenantService, DvolDatastoresGridService) {
+    AuthService, vuiConstants, DialogService, DvolTenantsGridService, DvolDatastoresGridService) {
 
     var translate = $filter('translate');
 
-    var tenants = DvolTenantService.tenants;
+    var tenantsGrid = DvolTenantsGridService.makeTenantsGrid();
+    $scope.tenantsGrid = tenantsGrid.grid;
 
-    $scope.tenantsGrid = GridUtils.Grid({
-      id: 'tenantsGrid',
-      selectionMode: vuiConstants.grid.selectionMode.SINGLE,
-      selectedItems: [],
-      actionBarOptions: {
-        actions: [{
-          id: 'add-tenant-button',
-          label: 'Add',
-          iconClass: 'vui-icon-action-add',
-          tooltipText: 'Add Tenant',
-          enabled: true,
-          onClick: function() {  // has 1st param evt and also has 2nd param action
-            DialogService.showDialog('dvol.add-tenant', {
-              tenant: {},
-              save: function(newTenant) {
-                //
-                // TODO: refactor, this is confusing
-                //
-                $scope.tenantsGrid.data = $scope.tenantsGrid
-                  .data.concat({
-                    name: newTenant.name,
-                    description: newTenant.description,
-                    ID: 'generate UUID here'
-                  });
-              }
-            });
-          }
-        }, {
-          id: 'remove-tenant-button',
-          label: 'Remove',
-          iconClass: 'vui-icon-action-delete',
-          tooltipText: 'Remove Tenant',
-          enabled: true,
-          onClick: function() {
-            alert('yo');
-          }
-        }, {
-          id: 'edit-tenant-button',
-          label: 'Edit',
-          iconClass: 'vui-icon-action-edit',
-          tooltipText: 'Edit Tenant',
-          enabled: true,
-          onClick: function() {
-            alert('yo');
-          }
-        }]
-      },
-      columnDefs: [
-        {
-          field: 'id'
-        },
-        {
-          field: 'name',
-          displayName: 'name'
-        },
-        {
-          field: 'description',
-          displayName: 'description'
-        }, {
-          field: 'ID',
-          displayName: 'ID'
-        }
-      ],
-      data: []
-    });
+    DvolTenantService.tenants;
+
+
 
     // watch here ?
 
