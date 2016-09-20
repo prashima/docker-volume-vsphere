@@ -28,71 +28,23 @@ define([], function() {
       }
     ];
 
-    function makeTenantsGrid(actionHandlers) {
+    var gridProps = {
+      id: 'tenantsGrid',
+      columnDefs: columnDefs,
+      // sortMode: vuiConstants.grid.sortMode.SINGLE,
+      selectionMode: vuiConstants.grid.selectionMode.MULTI,
+      selectedItems: [],
+      data: mapTenantsToGrid([])
+    };
 
-      //
-      // need to make these passed in from outside
-      //
+    function makeTenantsGrid(actions) {
 
-      // actionHandlers = {
-      //   edit:
-      //   add:
-      //   remove:
-      // }
+      if (actions) {
+        gridProps.actionBarOptions = gridProps.actionBarOptions || {};
+        gridProps.actionBarOptions.actions = actions;
+      }
 
-      var actionBarOptions = {
-        actions: [{
-          id: 'add-tenant-button',
-          label: 'Add',
-          iconClass: 'vui-icon-action-add',
-          tooltipText: 'Add Tenant',
-          enabled: true,
-          onClick: function() {  // has 1st param evt and also has 2nd param action
-            DialogService.showDialog('dvol.add-tenant', {
-              tenant: {},
-              save: function(newTenant) {
-                //
-                // TODO: refactor, this is confusing
-                //
-                $scope.tenantsGrid.data = $scope.tenantsGrid
-                  .data.concat({
-                    name: newTenant.name,
-                    description: newTenant.description,
-                    ID: 'generate UUID here'
-                  });
-              }
-            });
-          }
-        }, {
-          id: 'remove-tenant-button',
-          label: 'Remove',
-          iconClass: 'vui-icon-action-delete',
-          tooltipText: 'Remove Tenant',
-          enabled: true,
-          onClick: function() {
-            alert('yo');
-          }
-        }, {
-          id: 'edit-tenant-button',
-          label: 'Edit',
-          iconClass: 'vui-icon-action-edit',
-          tooltipText: 'Edit Tenant',
-          enabled: true,
-          onClick: function() {
-            alert('yo');
-          }
-        }]
-      };
-
-      var tenantsGrid = GridUtils.Grid({
-        id: 'tenantsGrid',
-        columnDefs: columnDefs,
-        actionBarOptions: actionBarOptions,
-        // sortMode: vuiConstants.grid.sortMode.SINGLE,
-        selectionMode: vuiConstants.grid.selectionMode.MULTI,
-        selectedItems: [],
-        data: mapTenantsToGrid([])
-      });
+      var tenantsGrid = GridUtils.Grid(gridProps);
 
       function refresh() {
         return DvolTenantService.get().then(function(tenants) {

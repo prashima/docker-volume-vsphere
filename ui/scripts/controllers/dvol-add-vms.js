@@ -3,9 +3,9 @@
 define([], function() {
   'use strict';
 
-  return function($scope, DialogService, DvolVmsGridService) {
+  return function($scope, DialogService, DvolVmGridService) {
 
-    var grid = DvolVmsGridService.makeVmsGrid();
+    var grid = DvolVmGridService.makeVmsGrid();
 
     $scope.datacenterVmsGrid = grid.grid;
 

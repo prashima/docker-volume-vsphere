@@ -36,16 +36,23 @@ define([], function() {
         // width: '30%'
     }];
 
-    function makeVmsGrid() {
+    var gridProps = {
+      id: 'datacenterVmsGrid',
+      columnDefs: columnDefs,
+      // sortMode: vuiConstants.grid.sortMode.SINGLE,
+      selectionMode: vuiConstants.grid.selectionMode.MULTI,
+      selectedItems: [],
+      data: mapVmsToGrid([])
+    };
 
-      var datacenterVmsGrid = GridUtils.Grid({
-        id: 'datacenterVmsGrid',
-        columnDefs: columnDefs,
-        // sortMode: vuiConstants.grid.sortMode.SINGLE,
-        selectionMode: vuiConstants.grid.selectionMode.MULTI,
-        selectedItems: [],
-        data: mapVmsToGrid([])
-      });
+    function makeVmsGrid(actions) {
+
+      if (actions) {
+        gridProps.actionBarOptions = gridProps.actionBarOptions || {};
+        gridProps.actionBarOptions.actions = actions;
+      }
+
+      var datacenterVmsGrid = GridUtils.Grid(gridProps);
 
       function refresh() {
         return DvolDatacenterVmService.get().then(function(vms) {

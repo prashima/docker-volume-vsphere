@@ -19,6 +19,7 @@ define([
   'plugins/docker-volume-plugin/scripts/services/dvol-tenant-service.js',
   'plugins/docker-volume-plugin/scripts/services/dvol-datastore-service.js',
   'plugins/docker-volume-plugin/scripts/services/dvol-datastore-grid-service.js',
+  'plugins/docker-volume-plugin/scripts/services/dvol-tenant-grid-service.js',
   'services/grid-utils',
   'services/vm/vm'
   //
@@ -36,10 +37,11 @@ define([
   DvolContextMenuService,
   DvolDialogService,
   DvolDatacenterVmService,
-  DvolVmsGridService,
+  DvolVmGridService,
   DvolTenantService,
   DvolDatastoreService,
-  DvolDatastoresGridService,
+  DvolDatastoreGridService,
+  DvolTenantGridService,
   GridUtils,
   VMService,
   StorageService,
@@ -60,10 +62,11 @@ define([
     'DvolDialogService': DvolDialogService,
     'DvolContextMenuService': DvolContextMenuService,
     'DvolDatacenterVmService': DvolDatacenterVmService,
-    'DvolVmsGridService': DvolVmsGridService,
+    'DvolVmGridService': DvolVmGridService,
     'DvolTenantService': DvolTenantService,
     'DvolDatastoreService': DvolDatastoreService,
-    'DvolDatastoresGridService': DvolDatastoresGridService,
+    'DvolDatastoreGridService': DvolDatastoreGridService,
+    'DvolTenantGridService': DvolTenantGridService,
     'GridUtils': GridUtils,
     'vuiConstants': vuiConstants
   })

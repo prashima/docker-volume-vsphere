@@ -3,7 +3,7 @@
 define([], function() {
   'use strict';
 
-  return function($scope, DialogService, DvolVmsGridService) {
+  return function($scope, DialogService, DvolVmGridService) {
 
     $scope.tenant = DialogService.currentDialog().opaque.tenant;
 
@@ -16,7 +16,7 @@ define([], function() {
       }
     });
 
-    var grid = DvolVmsGridService.makeVmsGrid();
+    var grid = DvolVmGridService.makeVmsGrid();
 
     $scope.datacenterVmsGrid = grid.grid;
 
