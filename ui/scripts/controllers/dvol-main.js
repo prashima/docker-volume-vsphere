@@ -5,7 +5,7 @@ define([], function() {
 
   return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils, StorageManager,
     AuthService, vuiConstants, DialogService, DvolTenantGridService, DvolDatastoreGridService,
-    DvolVmGridService) {
+    DvolVmGridService, DvolTenantService) {
 
     var translate = $filter('translate');
 
@@ -23,16 +23,9 @@ define([], function() {
         onClick: function() {  // has 1st param evt and also has 2nd param action
           DialogService.showDialog('dvol.add-tenant', {
             tenant: {},
-            save: function(newTenant) {
-              //
-              // TODO: refactor, this is confusing
-              //
-              $scope.tenantsGrid.data = $scope.tenantsGrid
-                .data.concat({
-                  name: newTenant.name,
-                  description: newTenant.description,
-                  ID: 'generate UUID here'
-                });
+            save: function(newTenant, vms) {
+              DvolTenantService.add(newTenant, vms)
+                .then(tenantsGrid.refresh);
             }
           });
         }

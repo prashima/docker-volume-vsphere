@@ -11,7 +11,7 @@ define([], function() {
       label: 'Add',
       onClick: function() {
         // add $scope.datacenterVmsGrid.selectedItems to $scope.tenant.vms
-        DialogService.currentDialog().opaque.save($scope.tenant);
+        DialogService.currentDialog().opaque.save($scope.tenant, grid.selectedItems);
         return true;
       }
     });

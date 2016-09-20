@@ -8,6 +8,7 @@ define([], function() {
     function mapVmsToGrid(vms) {
       return vms.map(function(vm) {
         return {
+          id: vm.moid,
           vmName: vm.name,
           guestFullName: vm.guestFullName,
           status: vm.status,
