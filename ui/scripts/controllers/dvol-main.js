@@ -54,6 +54,19 @@ define([], function() {
 
     var tenantsGrid = DvolTenantGridService.makeTenantsGrid(tenantGridActions);
     $scope.tenantsGrid = tenantsGrid.grid;
+    $scope.$watch('tenantsGrid.selectedItems', function(newVal, oldVal) {
+      if (
+        (newVal[0] === oldVal[0]) ||
+        (newVal[0] && oldVal[0] && newVal[0].vms && oldVal[0].vms) && (
+          (!newVal[0].vms && !oldVal[0].vms) ||
+          (newVal[0].vms.length === 0 && oldVal[0].vms.length === 0)
+        )
+      ) {
+        console.log('vms grid not necessary upon change in selected tenant');
+        return;
+      }
+      vmsGrid.refresh();
+    });
 
     //
     // TENANT DETAIL TABS
@@ -131,7 +144,16 @@ define([], function() {
       }
     ];
 
-    var vmsGrid = DvolVmGridService.makeVmsGrid(vmsGridActions);
+    function filterVmsForThisTenant(allVms) {
+      var selectedTenant = $scope.tenantsGrid.selectedItems[0];
+      if (!selectedTenant || !selectedTenant.vms || selectedTenant.vms.length === 0) return [];
+      var filteredVms = allVms.filter(function(vm) {
+        return selectedTenant.vms.indexOf(vm.moid) >= 0;
+      });
+      return filteredVms;
+    }
+
+    var vmsGrid = DvolVmGridService.makeVmsGrid(vmsGridActions, filterVmsForThisTenant);
     $scope.vmsGrid = vmsGrid.grid;
 
   };

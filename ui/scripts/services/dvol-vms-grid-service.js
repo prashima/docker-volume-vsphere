@@ -37,16 +37,20 @@ define([], function() {
         // width: '30%'
     }];
 
-    var gridProps = {
-      id: 'datacenterVmsGrid',
-      columnDefs: columnDefs,
-      // sortMode: vuiConstants.grid.sortMode.SINGLE,
-      selectionMode: vuiConstants.grid.selectionMode.MULTI,
-      selectedItems: [],
-      data: mapVmsToGrid([])
-    };
+    function getGridProps() {
+      return {
+        id: 'datacenterVmsGrid',
+        columnDefs: columnDefs,
+        // sortMode: vuiConstants.grid.sortMode.SINGLE,
+        selectionMode: vuiConstants.grid.selectionMode.MULTI,
+        selectedItems: [],
+        data: mapVmsToGrid([])
+      };
+    }
 
-    function makeVmsGrid(actions) {
+    function makeVmsGrid(actions, filterFn) {
+
+      var gridProps = getGridProps();
 
       if (actions) {
         gridProps.actionBarOptions = gridProps.actionBarOptions || {};
@@ -57,7 +61,7 @@ define([], function() {
 
       function refresh() {
         return DvolDatacenterVmService.get().then(function(vms) {
-          datacenterVmsGrid.data = mapVmsToGrid(vms);
+          datacenterVmsGrid.data = mapVmsToGrid(filterFn ? filterFn(vms) : vms);
         });
       }
 

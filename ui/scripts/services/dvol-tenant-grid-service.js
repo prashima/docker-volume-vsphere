@@ -32,7 +32,7 @@ define([], function() {
       id: 'tenantsGrid',
       columnDefs: columnDefs,
       // sortMode: vuiConstants.grid.sortMode.SINGLE,
-      selectionMode: vuiConstants.grid.selectionMode.MULTI,
+      selectionMode: vuiConstants.grid.selectionMode.SINGLE,
       selectedItems: [],
       data: mapTenantsToGrid([])
     };
