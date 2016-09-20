@@ -4,7 +4,7 @@ define([], function() {
   'use strict';
 
   function generateId() {
-    'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       var r = Math.random() * 16 | 0;
       var v = c === 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
@@ -29,8 +29,8 @@ define([], function() {
       var d = $q.defer();
       setTimeout(function() {
         tenant.id = generateId();
-        tenant.vms = vms.map(function(vm) {
-          vm.moid;
+        tenant.vms = (vms || []).map(function(vm) {
+          return vm.id;
         });
         var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
         tenants.push(tenant);
