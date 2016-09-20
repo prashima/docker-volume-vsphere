@@ -37,20 +37,20 @@ define([], function() {
         // width: '30%'
     }];
 
-    function getGridProps() {
+    function getGridProps(selectionMode) {
       return {
         id: 'datacenterVmsGrid',
         columnDefs: columnDefs,
         // sortMode: vuiConstants.grid.sortMode.SINGLE,
-        selectionMode: vuiConstants.grid.selectionMode.MULTI,
+        selectionMode: vuiConstants.grid.selectionMode[selectionMode || 'SINGLE'],
         selectedItems: [],
         data: mapVmsToGrid([])
       };
     }
 
-    function makeVmsGrid(actions, filterFn) {
+    function makeVmsGrid(actions, filterFn, selectionMode) {
 
-      var gridProps = getGridProps();
+      var gridProps = getGridProps(selectionMode);
 
       if (actions) {
         gridProps.actionBarOptions = gridProps.actionBarOptions || {};

@@ -78,17 +78,17 @@ define([], function() {
     };
 
     var tabs = {
+      vms: {
+        label: translate('dvol.tenantDetailTabs.vms.label'),
+        tooltipText: translate('dvol.tenantDetailTabs.vms.tooltip'),
+        contentUrl: 'plugins/docker-volume-plugin/views/dvol-vms.html',
+        onClick: tabClickFunction
+      },
       datastores: {
         label: translate('dvol.tenantDetailTabs.datastores.label'),
         tooltipText: translate(
           'dvol.tenantDetailTabs.datastores.tooltip'),
         contentUrl: 'plugins/docker-volume-plugin/views/dvol-datastores.html',
-        onClick: tabClickFunction
-      },
-      vms: {
-        label: translate('dvol.tenantDetailTabs.vms.label'),
-        tooltipText: translate('dvol.tenantDetailTabs.vms.tooltip'),
-        contentUrl: 'plugins/docker-volume-plugin/views/dvol-vms.html',
         onClick: tabClickFunction
       }
     };

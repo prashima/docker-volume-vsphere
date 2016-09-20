@@ -16,14 +16,9 @@ define([], function() {
       }
     });
 
-    var grid = DvolVmGridService.makeVmsGrid();
+    var grid = DvolVmGridService.makeVmsGrid(undefined, undefined, 'MULTI');
 
     $scope.datacenterVmsGrid = grid.grid;
-
-    $scope.$watch('datacenterVmsGrid.selectedItems', function(newSelected, oldSelected) {
-      console.log('oldSelected: ' + oldSelected);
-      console.log('newSelected: ' + newSelected);
-    });
 
   };
 
