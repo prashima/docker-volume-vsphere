@@ -13,14 +13,23 @@ define([], function() {
 
   return function($q) {
 
-    //
-    // rename to getAll
-    //
-    function get() {
+    function get(tenantId) {
       var d = $q.defer();
-      //
-      // will eventually be async, so mocked as such here
-      //
+      setTimeout(function() {
+        var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+        var matches = tenants.map(function(t) {
+          return t.id === tenantId;
+        });
+        var tenant = matches[0];
+        if (tenant) {
+          d.resolve(tenant);
+        }
+      }, 200);
+      return d.promise;
+    }
+
+    function getAll() {
+      var d = $q.defer();
       setTimeout(function() {
         var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
         d.resolve(tenants);
@@ -113,7 +122,7 @@ define([], function() {
     }
 
 
-
+    this.getAll = getAll;
     this.removeVm = removeVm;
     this.remove = remove;
     this.get = get;
