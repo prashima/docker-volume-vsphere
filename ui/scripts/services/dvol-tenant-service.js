@@ -13,6 +13,9 @@ define([], function() {
 
   return function($q) {
 
+    //
+    // rename to getAll
+    //
     function get() {
       var d = $q.defer();
       //
@@ -81,11 +84,41 @@ define([], function() {
       return d.promise;
     }
 
+    //
+    //
+    //
+
+    function dedupe(a) {
+      return a.filter(function(item, pos) {
+        return a.indexOf(item) === pos;
+      });
+    }
+
+    function addVms(tenantId, vmIds) {
+      var d = $q.defer();
+      setTimeout(function() {
+        var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+        var matches = tenants.filter(function(t) {
+          return t.id === tenantId;
+        });
+        if (!matches.length === 1) return; // TODO: handle asnyc error
+        var tenant = matches[0];
+        tenant.vms = tenant.vms || [];
+        var newVms = dedupe(tenant.vms.concat(vmIds));
+        tenant.vms = newVms;
+        localStorage.setItem('tenants', JSON.stringify(tenants));
+        d.resolve(tenant);
+      }, 200);
+      return d.promise;
+    }
+
+
 
     this.removeVm = removeVm;
     this.remove = remove;
     this.get = get;
     this.add = add;
+    this.addVms = addVms;
 
   };
 

@@ -130,7 +130,16 @@ define([], function() {
         onClick: function() {  // (evt, action)
           DialogService.showDialog('dvol.add-vms', {
             save: function(selectedVmsRows) {
-              console.log('in save fn for add-vm: ' + selectedVmsRows);
+              var selectedTenant = $scope.tenantsGrid.selectedItems[0];
+              if (!selectedTenant) return; // TODO: async error
+              if (!selectedVmsRows) return;
+              var selectedVmsIds = selectedVmsRows.map(function(vm) {
+                return vm.moid || vm.id;
+              });
+              if (selectedVmsIds.length < 1) return;
+              DvolTenantService.addVms(selectedTenant.id, selectedVmsIds)
+                .then(tenantsGrid.refresh)
+                .then(vmsGrid.refresh);
             }
           });
         }

@@ -42,7 +42,7 @@ define([], function() {
         id: 'datacenterVmsGrid',
         columnDefs: columnDefs,
         // sortMode: vuiConstants.grid.sortMode.SINGLE,
-        selectionMode: vuiConstants.grid.selectionMode[selectionMode || 'SINGLE'],
+        selectionMode: vuiConstants.grid.selectionMode[selectionMode || 'MULTI'],
         selectedItems: [],
         data: mapVmsToGrid([])
       };
