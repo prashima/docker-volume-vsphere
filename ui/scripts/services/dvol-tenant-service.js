@@ -57,7 +57,32 @@ define([], function() {
       return d.promise;
     }
 
+    //
+    // remove vm
+    //
 
+    function removeVm(tenantId, vmId) {
+      var d = $q.defer();
+      setTimeout(function() {
+        var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+        var matches = tenants.filter(function(t) {
+          return t.id === tenantId;
+        });
+        if (!matches.length === 1) return; // handle error
+        var tenant = matches[0];
+        if (!tenant.vms || tenant.vms.length < 1) return; // handle error
+        var newVms = tenant.vms.filter(function(v) {
+          return v.moid !== vmId;
+        });
+        tenant.vms = newVms;
+        localStorage.setItem('tenants', JSON.stringify(tenants));
+        d.resolve(tenant);
+      }, 200);
+      return d.promise;
+    }
+
+
+    this.removeVm = removeVm;
     this.remove = remove;
     this.get = get;
     this.add = add;

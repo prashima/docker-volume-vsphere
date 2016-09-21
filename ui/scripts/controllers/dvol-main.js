@@ -142,7 +142,13 @@ define([], function() {
         tooltipText: 'Remove Virtual Machine',
         enabled: true,
         onClick: function() {
-          alert('are you sure you want to remove VM?');
+          var selectedTenant = $scope.tenantsGrid.selectedItems[0];
+          if (!selectedTenant) return;
+          var selectedVm = $scope.vmsGrid.selectedItems[0];
+          if (!selectedVm) return;
+          DvolTenantService.removeVm(selectedTenant.id, selectedVm.moid).then(function() {
+            vmsGrid.refresh();
+          });
         }
       }
     ];
