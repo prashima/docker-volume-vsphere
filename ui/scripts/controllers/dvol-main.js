@@ -50,7 +50,16 @@ define([], function() {
         tooltipText: 'Edit Tenant',
         enabled: true,
         onClick: function() {
-          alert('yo');
+          DvolTenantService.get($scope.tenantsGrid.selectedItems[0].id)
+          .then(function(tenant) {
+            DialogService.showDialog('dvol.add-tenant', {
+              tenant: tenant,
+              save: function(newTenant) {
+                DvolTenantService.update(newTenant)
+                  .then(tenantsGrid.refresh);
+              }
+            });
+          });
         }
       }
     ];
