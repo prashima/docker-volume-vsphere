@@ -71,8 +71,8 @@ define([], function() {
         if (!matches.length === 1) return; // handle error
         var tenant = matches[0];
         if (!tenant.vms || tenant.vms.length < 1) return; // handle error
-        var newVms = tenant.vms.filter(function(v) {
-          return v.moid !== vmId;
+        var newVms = tenant.vms.filter(function(vmid) {
+          return vmid !== vmId;
         });
         tenant.vms = newVms;
         localStorage.setItem('tenants', JSON.stringify(tenants));

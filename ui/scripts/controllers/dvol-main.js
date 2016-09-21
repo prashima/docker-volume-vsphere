@@ -146,9 +146,12 @@ define([], function() {
           if (!selectedTenant) return;
           var selectedVm = $scope.vmsGrid.selectedItems[0];
           if (!selectedVm) return;
-          DvolTenantService.removeVm(selectedTenant.id, selectedVm.moid).then(function() {
-            vmsGrid.refresh();
-          });
+          //
+          // TODO: need to resolve moid vs id issue
+          //
+          DvolTenantService.removeVm(selectedTenant.id, selectedVm.moid || selectedVm.id)
+            .then(tenantsGrid.refresh)  // need to restore user's selection in grid
+            .then(vmsGrid.refresh);
         }
       }
     ];
