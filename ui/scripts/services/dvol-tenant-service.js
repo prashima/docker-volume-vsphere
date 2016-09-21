@@ -41,9 +41,24 @@ define([], function() {
     }
 
     //
-    // delete
+    // remove
     //
 
+    function remove(tenantId) {
+      var d = $q.defer();
+      setTimeout(function() {
+        var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+        var newTenants = tenants.filter(function(t) {
+          return t.id !== tenantId;
+        });
+        localStorage.setItem('tenants', JSON.stringify(newTenants));
+        d.resolve(newTenants);
+      }, 200);
+      return d.promise;
+    }
+
+
+    this.remove = remove;
     this.get = get;
     this.add = add;
 

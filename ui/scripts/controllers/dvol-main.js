@@ -37,7 +37,10 @@ define([], function() {
         tooltipText: 'Remove Tenant',
         enabled: true,
         onClick: function() {
-          alert('yo');
+          var selectedTenant = $scope.tenantsGrid.selectedItems[0];
+          if (!selectedTenant) return;
+          DvolTenantService.remove(selectedTenant.id);
+          tenantsGrid.refresh();
         }
       },
       {
