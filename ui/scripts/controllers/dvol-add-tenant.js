@@ -6,6 +6,7 @@ define([], function() {
   return function($scope, DialogService, DvolVmGridService) {
 
     $scope.tenant = DialogService.currentDialog().opaque.tenant;
+    $scope.editMode = DialogService.currentDialog().opaque.editMode;
 
     DialogService.setConfirmOptions({
       label: 'Add',

@@ -54,6 +54,7 @@ define([], function() {
           .then(function(tenant) {
             DialogService.showDialog('dvol.add-tenant', {
               tenant: tenant,
+              editMode: true,
               save: function(newTenant) {
                 DvolTenantService.update(newTenant)
                   .then(tenantsGrid.refresh);

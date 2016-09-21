@@ -52,10 +52,6 @@ define([], function() {
       return d.promise;
     }
 
-    //
-    // remove
-    //
-
     function remove(tenantId) {
       var d = $q.defer();
       setTimeout(function() {
@@ -68,10 +64,6 @@ define([], function() {
       }, 200);
       return d.promise;
     }
-
-    //
-    // remove vm
-    //
 
     function removeVm(tenantId, vmId) {
       var d = $q.defer();
@@ -92,10 +84,6 @@ define([], function() {
       }, 200);
       return d.promise;
     }
-
-    //
-    //
-    //
 
     function dedupe(a) {
       return a.filter(function(item, pos) {
