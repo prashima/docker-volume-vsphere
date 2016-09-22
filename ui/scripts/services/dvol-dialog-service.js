@@ -32,7 +32,7 @@ define([], function() {
           content: 'plugins/docker-volume-plugin/views/dvol-add-vms-dialog.html',
           rejectOptions: rejectOptions
         };
-      case 'dvol.add-vms':
+      case 'dvol.add-datastores':
         return {
           title: 'Add Datastores', // translate('example.dialogs.about.title'),
           width: '585px',

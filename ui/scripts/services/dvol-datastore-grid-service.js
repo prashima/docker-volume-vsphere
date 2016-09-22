@@ -50,7 +50,7 @@ define([], function() {
     ];
 
 
-    function makeDatastoresGrid(actions) {
+    function makeDatastoresGrid(actions, filterFn) {
 
       var actionBarOptions = {
         actions: actions
@@ -68,7 +68,7 @@ define([], function() {
 
       function refresh() {
         return DvolDatastoreService.get().then(function(datastores) {
-          datastoresGrid.data = mapDatastoresToGrid(datastores);
+          datastoresGrid.data = mapDatastoresToGrid(filterFn ? filterFn(datastores) : datastores);
         });
       }
 

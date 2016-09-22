@@ -4,7 +4,7 @@
    <div vui-datagrid="tenantsGrid" style="margin-bottom: 50px" class="tenantsGrid">
    </div>
 
-   <div vui-tabs="tenantDetailTabs">
+   <div ng-if="tenantsGrid.selectedItems.length > 0" vui-tabs="tenantDetailTabs">
    </div>
 
 </div>

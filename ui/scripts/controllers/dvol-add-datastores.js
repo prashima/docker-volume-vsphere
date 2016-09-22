@@ -11,14 +11,14 @@ define([], function() {
         return datastoresAlreadyInTenant.indexOf(d.id) < 0;
       });
     }
-    var grid = DvolDatastoreGridService.makeDatastoreGrid([], filterFn);
+    var grid = DvolDatastoreGridService.makeDatastoresGrid([], filterFn);
 
-    $scope.datastoreGrid = grid.grid;
+    $scope.availableDatastoresGrid = grid.grid;
 
     DialogService.setConfirmOptions({
       label: 'Add',
       onClick: function() {
-        DialogService.currentDialog().opaque.save($scope.datastoreGrid
+        DialogService.currentDialog().opaque.save($scope.availableDatastoresGrid
           .selectedItems);
         return true;
       }
