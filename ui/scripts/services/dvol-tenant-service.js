@@ -17,7 +17,7 @@ define([], function() {
       var d = $q.defer();
       setTimeout(function() {
         var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
-        var matches = tenants.map(function(t) {
+        var matches = tenants.filter(function(t) {
           return t.id === tenantId;
         });
         var tenant = matches[0];
@@ -109,6 +109,24 @@ define([], function() {
       return d.promise;
     }
 
+    function update(newlyEditedTenant) {
+      var d = $q.defer();
+      setTimeout(function() {
+        var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+        var matches = tenants.filter(function(t) {
+          return t.id === newlyEditedTenant.id;
+        });
+        if (matches.length !== 1) return;  // needs async error handling
+        var tenant = matches[0];
+        if (!tenant) return; // needs async error handling
+        dedupe(Object.keys(tenant).concat(Object.keys(newlyEditedTenant))).forEach(function(k) {
+          tenant[k] = newlyEditedTenant.hasOwnProperty(k) ? newlyEditedTenant[k] : tenant[k];
+        });
+        localStorage.setItem('tenants', JSON.stringify(tenants));
+        d.resolve(tenant);
+      }, 200);
+      return d.promise;
+    }
 
     this.getAll = getAll;
     this.removeVm = removeVm;
@@ -116,6 +134,7 @@ define([], function() {
     this.get = get;
     this.add = add;
     this.addVms = addVms;
+    this.update = update;
 
   };
 
