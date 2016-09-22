@@ -44,6 +44,7 @@ define([], function() {
         tenant.vms = (vms || []).map(function(vm) {
           return vm.id;
         });
+        tenant.datastores = [];
         var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
         tenants.push(tenant);
         localStorage.setItem('tenants', JSON.stringify(tenants));
@@ -109,6 +110,24 @@ define([], function() {
       return d.promise;
     }
 
+    function addDatastores(tenantId, datastoreIds) {
+      var d = $q.defer();
+      setTimeout(function() {
+        var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+        var matches = tenants.filter(function(t) {
+          return t.id === tenantId;
+        });
+        if (!matches.length === 1) return; // TODO: handle asnyc error
+        var tenant = matches[0];
+        tenant.datastores = tenant.datastores || [];
+        var newDatastores = dedupe(tenant.datastores.concat(datastoreIds));
+        tenant.datastores = newDatastores;
+        localStorage.setItem('tenants', JSON.stringify(tenants));
+        d.resolve(tenant);
+      }, 200);
+      return d.promise;
+    }
+
     function update(newlyEditedTenant) {
       var d = $q.defer();
       setTimeout(function() {
@@ -134,6 +153,7 @@ define([], function() {
     this.get = get;
     this.add = add;
     this.addVms = addVms;
+    this.addDatastores = addDatastores;
     this.update = update;
 
   };

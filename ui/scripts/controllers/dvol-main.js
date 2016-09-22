@@ -161,7 +161,16 @@ define([], function() {
       }
     ];
 
-    var datastoresGrid = DvolDatastoreGridService.makeDatastoresGrid(datastoresGridActions);
+    function filterDatastoresForThisTenant(allDatastores) {
+      var selectedTenant = $scope.tenantsGrid.selectedItems[0];
+      if (!selectedTenant || !selectedTenant.datastores || selectedTenant.datastores.length === 0) return [];
+      var filteredDatastores = allDatastores.filter(function(d) {
+        return selectedTenant.datastores.indexOf(d.id) >= 0;
+      });
+      return filteredDatastores;
+    }
+
+    var datastoresGrid = DvolDatastoreGridService.makeDatastoresGrid(datastoresGridActions, filterDatastoresForThisTenant);
     $scope.datastoresGrid = datastoresGrid.grid;
 
 
