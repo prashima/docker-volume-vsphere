@@ -14,6 +14,7 @@ define([], function() {
         var capacity = formatCapacity(datastore.capacity);
         var freeSpace = formatCapacity(datastore.freeSpace);
         return {
+          id: datastore.moid,
           datastoreName: datastore.name,
           driveType: datastore.driveType,
           capacity: capacity,
