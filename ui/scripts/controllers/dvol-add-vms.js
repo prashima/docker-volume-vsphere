@@ -5,7 +5,13 @@ define([], function() {
 
   return function($scope, DialogService, DvolVmGridService) {
 
-    var grid = DvolVmGridService.makeVmsGrid();
+    var vmsAlreadyInTenant = DialogService.currentDialog().opaque.vmsAlreadyInTenant;
+    function filterFn(vms) {
+      return vms.filter(function(v) {
+        return vmsAlreadyInTenant.indexOf(v.moid || v.id) < 0;
+      });
+    }
+    var grid = DvolVmGridService.makeVmsGrid([], filterFn);
 
     $scope.datacenterVmsGrid = grid.grid;
 

@@ -17,7 +17,7 @@ define([], function() {
       }
     });
 
-    var grid = DvolVmGridService.makeVmsGrid(undefined, undefined, 'MULTI');
+    var grid = DvolVmGridService.makeVmsGrid([], null, 'MULTI');
 
     $scope.datacenterVmsGrid = grid.grid;
 

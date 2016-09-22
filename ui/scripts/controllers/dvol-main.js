@@ -150,7 +150,8 @@ define([], function() {
               DvolTenantService.addVms(selectedTenant.id, selectedVmsIds)
                 .then(tenantsGrid.refresh)
                 .then(vmsGrid.refresh);
-            }
+            },
+            vmsAlreadyInTenant: $scope.tenantsGrid.selectedItems[0].vms
           });
         }
       },
