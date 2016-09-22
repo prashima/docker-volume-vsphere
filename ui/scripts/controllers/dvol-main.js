@@ -122,7 +122,46 @@ define([], function() {
     // DATASTORES GRID
     //
 
-    var datastoresGrid = DvolDatastoreGridService.makeDatastoresGrid();
+    var datastoresGridActions = [
+      {
+        id: 'edit-datastore',
+        label: 'Edit',
+        iconClass: 'vui-icon-action-edit',
+        enabled: true,
+        onClick: function() {
+          //
+          // ready to implement datastore edit dialog
+          //
+          console.log('edit datastore for selected item: ' + $scope.datastoresGrid.selectedItems[0].id);
+        }
+      },
+      {
+        id: 'add-datastores-button',
+        label: 'Add',
+        iconClass: 'vui-icon-action-add',
+        tooltipText: 'Add Datastores',
+        enabled: true,
+        onClick: function() {  // (evt, action)
+          DialogService.showDialog('dvol.add-datastores', {
+            save: function(selectedDatastoresRows) {
+              var selectedTenant = $scope.tenantsGrid.selectedItems[0];
+              if (!selectedTenant) return; // TODO: async error
+              if (!selectedDatastoresRows) return;
+              var selectedDatastoresIds = selectedDatastoresRows.map(function(d) {
+                return d.id;
+              });
+              if (selectedDatastoresIds.length < 1) return;
+              DvolTenantService.addDatastores(selectedTenant.id, selectedDatastoresIds)
+                .then(tenantsGrid.refresh)
+                .then(datastoresGrid.refresh);
+            },
+            datastoresAlreadyInTenant: $scope.tenantsGrid.selectedItems[0].datastores
+          });
+        }
+      }
+    ];
+
+    var datastoresGrid = DvolDatastoreGridService.makeDatastoresGrid(datastoresGridActions);
     $scope.datastoresGrid = datastoresGrid.grid;
 
 

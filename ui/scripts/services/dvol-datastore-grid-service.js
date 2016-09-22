@@ -50,21 +50,10 @@ define([], function() {
     ];
 
 
-    function makeDatastoresGrid() {
+    function makeDatastoresGrid(actions) {
 
       var actionBarOptions = {
-        actions: [{
-          id: 'edit-datastore',
-          label: 'Edit',
-          iconClass: 'vui-icon-action-edit',
-          enabled: true,
-          onClick: function() {
-            //
-            // ready to implement datastore edit dialog
-            //
-            console.log('edit datastore for selected item: ' + datastoresGrid.selectedItems[0].id);
-          }
-        }]
+        actions: actions
       };
 
       var datastoresGrid = GridUtils.Grid({
