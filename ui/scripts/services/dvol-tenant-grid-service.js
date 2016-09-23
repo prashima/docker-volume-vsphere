@@ -34,7 +34,8 @@ define([], function() {
       // sortMode: vuiConstants.grid.sortMode.SINGLE,
       selectionMode: vuiConstants.grid.selectionMode.SINGLE,
       selectedItems: [],
-      data: mapTenantsToGrid([])
+      data: mapTenantsToGrid([]),
+      searchable: true
     };
 
     function makeTenantsGrid(actions) {
