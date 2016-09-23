@@ -24,6 +24,7 @@ define([], function() {
         if (tenant) {
           d.resolve(tenant);
         }
+        setState(tenants);
       }, 200);
       return d.promise;
     }
@@ -33,6 +34,7 @@ define([], function() {
       setTimeout(function() {
         var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
         d.resolve(tenants);
+        setState(tenants);
       }, 200);
       return d.promise;
     }
@@ -49,6 +51,7 @@ define([], function() {
         tenants.push(tenant);
         localStorage.setItem('tenants', JSON.stringify(tenants));
         d.resolve(tenants);
+        setState(tenants);
       }, 200);
       return d.promise;
     }
@@ -62,6 +65,7 @@ define([], function() {
         });
         localStorage.setItem('tenants', JSON.stringify(newTenants));
         d.resolve(newTenants);
+        setState(tenants);
       }, 200);
       return d.promise;
     }
@@ -82,6 +86,7 @@ define([], function() {
         tenant.vms = newVms;
         localStorage.setItem('tenants', JSON.stringify(tenants));
         d.resolve(tenant);
+        setState(tenants);
       }, 200);
       return d.promise;
     }
@@ -106,6 +111,7 @@ define([], function() {
         tenant.vms = newVms;
         localStorage.setItem('tenants', JSON.stringify(tenants));
         d.resolve(tenant);
+        setState(tenants);
       }, 200);
       return d.promise;
     }
@@ -124,6 +130,7 @@ define([], function() {
         tenant.datastores = newDatastores;
         localStorage.setItem('tenants', JSON.stringify(tenants));
         d.resolve(tenant);
+        setState(tenants);
       }, 200);
       return d.promise;
     }
@@ -143,8 +150,18 @@ define([], function() {
         });
         localStorage.setItem('tenants', JSON.stringify(tenants));
         d.resolve(tenant);
+        setState(tenants);
       }, 200);
       return d.promise;
+    }
+
+    var state = {};
+    function setState(tenantsArr) {
+      var tenantsObj = {};
+      tenantsArr.forEach(function(t) {
+        tenantsObj[t.id] = t;
+      });
+      state.tenants = tenantsObj;
     }
 
     this.getAll = getAll;
@@ -155,6 +172,7 @@ define([], function() {
     this.addVms = addVms;
     this.addDatastores = addDatastores;
     this.update = update;
+    this.state = state;
 
   };
 

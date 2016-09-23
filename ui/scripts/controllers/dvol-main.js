@@ -3,9 +3,8 @@
 define([], function() {
   'use strict';
 
-  return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils, StorageManager,
-    AuthService, vuiConstants, DialogService, DvolTenantGridService, DvolDatastoreGridService,
-    DvolVmGridService, DvolTenantService) {
+  return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils, vuiConstants,
+    DialogService, DvolTenantService, DvolTenantGridService, DvolDatastoreGridService, DvolVmGridService) {
 
     var translate = $filter('translate');
 
@@ -163,8 +162,11 @@ define([], function() {
     ];
 
     function filterDatastoresForThisTenant(allDatastores) {
-      var selectedTenant = $scope.tenantsGrid.selectedItems[0];
-      if (!selectedTenant || !selectedTenant.datastores || selectedTenant.datastores.length === 0) return [];
+      // NOTE: selectedTenants from the grid doesn't have new datastores added (will not until grid refresh)
+      // we don't want to refresh the grid because we'll lose tenant row selection
+      var selectedTenantRow = $scope.tenantsGrid.selectedItems[0];
+      if (!selectedTenantRow) return [];
+      var selectedTenant = DvolTenantService.state.tenants[selectedTenantRow.id];
       var filteredDatastores = allDatastores.filter(function(d) {
         return selectedTenant.datastores.indexOf(d.id || d.moid) >= 0;
       });
@@ -197,12 +199,8 @@ define([], function() {
               });
               if (selectedVmsIds.length < 1) return;
               DvolTenantService.addVms(selectedTenant.id, selectedVmsIds)
-                .then(tenantsGrid.refresh)
-                .then(vmsGrid.refresh)
-                .then(function() {
-                  GridUtils.selectRows($scope.tenantsGrid, [selectedTenant.id]);
-                  console.log('selectRows');
-                });
+                // .then(tenantsGrid.refresh)
+                .then(vmsGrid.refresh);
             },
             vmsAlreadyInTenant: $scope.tenantsGrid.selectedItems[0].vms
           });
@@ -223,15 +221,17 @@ define([], function() {
           // TODO: need to resolve moid vs id issue
           //
           DvolTenantService.removeVm(selectedTenant.id, selectedVm.moid || selectedVm.id)
-            .then(tenantsGrid.refresh)  // need to restore user's selection in grid
             .then(vmsGrid.refresh);
         }
       }
     ];
 
     function filterVmsForThisTenant(allVms) {
-      var selectedTenant = $scope.tenantsGrid.selectedItems[0];
-      if (!selectedTenant || !selectedTenant.vms || selectedTenant.vms.length === 0) return [];
+      // NOTE: selectedTenants from the grid doesn't have new vms added (will not until grid refresh)
+      // we don't want to refresh the grid because we'll lose tenant row selection
+      var selectedTenantRow = $scope.tenantsGrid.selectedItems[0];
+      if (!selectedTenantRow) return [];
+      var selectedTenant = DvolTenantService.state.tenants[selectedTenantRow.id];
       var filteredVms = allVms.filter(function(vm) {
         return selectedTenant.vms.indexOf(vm.moid) >= 0;
       });
