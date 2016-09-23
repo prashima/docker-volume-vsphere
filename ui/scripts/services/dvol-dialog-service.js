@@ -30,10 +30,7 @@ define([], function() {
           height: '280px',
           icon: 'esx-icon-add',
           content: 'plugins/docker-volume-plugin/views/dvol-add-tenant-dialog.html',
-          rejectOptions: rejectOptions,
-          confirmOptions: {
-            label: 'Save'
-          }
+          rejectOptions: rejectOptions
         };
       case 'dvol.add-vms':
         return {

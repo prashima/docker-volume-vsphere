@@ -49,6 +49,7 @@ define([], function() {
         tooltipText: 'Edit Tenant',
         enabled: true,
         onClick: function() {
+          if ($scope.tenantsGrid.selectedItems.length < 1) return;
           DvolTenantService.get($scope.tenantsGrid.selectedItems[0].id)
           .then(function(tenant) {
             DialogService.showDialog('dvol.edit-tenant', {

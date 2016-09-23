@@ -9,7 +9,7 @@ define([], function() {
     $scope.editMode = DialogService.currentDialog().opaque.editMode;
 
     DialogService.setConfirmOptions({
-      label: 'Add',
+      label: $scope.editMode ? 'Save' : 'Add',
       onClick: function() {
         // add $scope.datacenterVmsGrid.selectedItems to $scope.tenant.vms
         DialogService.currentDialog().opaque.save($scope.tenant, $scope.datacenterVmsGrid.selectedItems);
