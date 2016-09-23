@@ -60,6 +60,7 @@ define([], function() {
                   .then(tenantsGrid.refresh);
               }
             });
+
           });
         }
       }
@@ -155,7 +156,7 @@ define([], function() {
               DvolTenantService.addDatastores(selectedTenant.id, selectedDatastoresIds)
                 .then(datastoresGrid.refresh);
             },
-            datastoresAlreadyInTenant: $scope.tenantsGrid.selectedItems[0].datastores
+            datastoresAlreadyInTenant: DvolTenantService.state.tenants[$scope.tenantsGrid.selectedItems[0].id].datastores
           });
         }
       },
@@ -216,7 +217,7 @@ define([], function() {
               DvolTenantService.addVms(selectedTenant.id, selectedVmsIds)
                 .then(vmsGrid.refresh);
             },
-            vmsAlreadyInTenant: $scope.tenantsGrid.selectedItems[0].vms
+            vmsAlreadyInTenant: DvolTenantService.state.tenants[$scope.tenantsGrid.selectedItems[0].id].vms
           });
         }
       },
