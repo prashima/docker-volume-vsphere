@@ -18,10 +18,22 @@ define([], function() {
         return {
           title: 'Add Tenant', // translate('example.dialogs.about.title'),
           width: '585px',
-          height: '280px',
+          height: '540px',
           icon: 'esx-icon-add',
           content: 'plugins/docker-volume-plugin/views/dvol-add-tenant-dialog.html',
           rejectOptions: rejectOptions
+        };
+      case 'dvol.edit-tenant':
+        return {
+          title: 'Edit Tenant', // translate('example.dialogs.about.title'),
+          width: '585px',
+          height: '280px',
+          icon: 'esx-icon-add',
+          content: 'plugins/docker-volume-plugin/views/dvol-add-tenant-dialog.html',
+          rejectOptions: rejectOptions,
+          confirmOptions: {
+            label: 'Save'
+          }
         };
       case 'dvol.add-vms':
         return {

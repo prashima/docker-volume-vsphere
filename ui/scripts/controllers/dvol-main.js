@@ -51,7 +51,7 @@ define([], function() {
         onClick: function() {
           DvolTenantService.get($scope.tenantsGrid.selectedItems[0].id)
           .then(function(tenant) {
-            DialogService.showDialog('dvol.add-tenant', {
+            DialogService.showDialog('dvol.edit-tenant', {
               tenant: tenant,
               editMode: true,
               save: function(newTenant) {
