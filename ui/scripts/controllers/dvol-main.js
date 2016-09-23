@@ -187,9 +187,9 @@ define([], function() {
         tooltipText: 'Add Virtual Machines',
         enabled: true,
         onClick: function() {  // (evt, action)
+          var selectedTenant = $scope.tenantsGrid.selectedItems[0];
           DialogService.showDialog('dvol.add-vms', {
             save: function(selectedVmsRows) {
-              var selectedTenant = $scope.tenantsGrid.selectedItems[0];
               if (!selectedTenant) return; // TODO: async error
               if (!selectedVmsRows) return;
               var selectedVmsIds = selectedVmsRows.map(function(vm) {
@@ -198,7 +198,11 @@ define([], function() {
               if (selectedVmsIds.length < 1) return;
               DvolTenantService.addVms(selectedTenant.id, selectedVmsIds)
                 .then(tenantsGrid.refresh)
-                .then(vmsGrid.refresh);
+                .then(vmsGrid.refresh)
+                .then(function() {
+                  GridUtils.selectRows($scope.tenantsGrid, [selectedTenant.id]);
+                  console.log('selectRows');
+                });
             },
             vmsAlreadyInTenant: $scope.tenantsGrid.selectedItems[0].vms
           });
