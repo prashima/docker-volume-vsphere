@@ -152,7 +152,6 @@ define([], function() {
               });
               if (selectedDatastoresIds.length < 1) return;
               DvolTenantService.addDatastores(selectedTenant.id, selectedDatastoresIds)
-                .then(tenantsGrid.refresh)
                 .then(datastoresGrid.refresh);
             },
             datastoresAlreadyInTenant: $scope.tenantsGrid.selectedItems[0].datastores
@@ -199,7 +198,6 @@ define([], function() {
               });
               if (selectedVmsIds.length < 1) return;
               DvolTenantService.addVms(selectedTenant.id, selectedVmsIds)
-                // .then(tenantsGrid.refresh)
                 .then(vmsGrid.refresh);
             },
             vmsAlreadyInTenant: $scope.tenantsGrid.selectedItems[0].vms
