@@ -75,10 +75,11 @@ define([], function() {
           (newVal[0].vms.length === 0 && oldVal[0].vms.length === 0)
         )
       ) {
-        console.log('vms grid not necessary upon change in selected tenant');
+        console.log('selected tenant watch changed - but updating grid not necessary');
         return;
       }
       vmsGrid.refresh();
+      datastoresGrid.refresh();
     });
 
     //
