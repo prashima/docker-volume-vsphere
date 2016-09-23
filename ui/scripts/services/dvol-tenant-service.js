@@ -71,6 +71,14 @@ define([], function() {
     }
 
     function removeVm(tenantId, vmId) {
+      return removeAssociation('vms', tenantId, vmId);
+    }
+
+    function removeDatastore(tenantId, datastoreId) {
+      return removeAssociation('datastores', tenantId, datastoreId);
+    }
+
+    function removeAssociation(assocType, tenantId, removeThisId) {
       var d = $q.defer();
       setTimeout(function() {
         var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
@@ -79,11 +87,11 @@ define([], function() {
         });
         if (!matches.length === 1) return; // handle error
         var tenant = matches[0];
-        if (!tenant.vms || tenant.vms.length < 1) return; // handle error
-        var newVms = tenant.vms.filter(function(vmid) {
-          return vmid !== vmId;
+        if (!tenant[assocType] || tenant[assocType].length < 1) return; // handle error
+        var newAssocs = tenant[assocType].filter(function(assocId) {
+          return assocId !== removeThisId;
         });
-        tenant.vms = newVms;
+        tenant[assocType] = newAssocs;
         localStorage.setItem('tenants', JSON.stringify(tenants));
         d.resolve(tenant);
         setState(tenants);
@@ -165,6 +173,7 @@ define([], function() {
     }
 
     this.getAll = getAll;
+    this.removeDatastore = removeDatastore;
     this.removeVm = removeVm;
     this.remove = remove;
     this.get = get;

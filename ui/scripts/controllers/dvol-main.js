@@ -157,6 +157,21 @@ define([], function() {
             datastoresAlreadyInTenant: $scope.tenantsGrid.selectedItems[0].datastores
           });
         }
+      },
+      {
+        id: 'remove-datastore-button',
+        label: 'Remove',
+        iconClass: 'vui-icon-action-delete',
+        tooltipText: 'Remove Datastore',
+        enabled: true,
+        onClick: function() {
+          var selectedTenant = $scope.tenantsGrid.selectedItems[0];
+          if (!selectedTenant) return;
+          var selectedDatastore = $scope.datastoresGrid.selectedItems[0];
+          if (!selectedDatastore) return;
+          DvolTenantService.removeDatastore(selectedTenant.id, selectedDatastore.moid || selectedDatastore.id)
+            .then(datastoresGrid.refresh);
+        }
       }
     ];
 
@@ -215,9 +230,6 @@ define([], function() {
           if (!selectedTenant) return;
           var selectedVm = $scope.vmsGrid.selectedItems[0];
           if (!selectedVm) return;
-          //
-          // TODO: need to resolve moid vs id issue
-          //
           DvolTenantService.removeVm(selectedTenant.id, selectedVm.moid || selectedVm.id)
             .then(vmsGrid.refresh);
         }
