@@ -69,16 +69,16 @@ define([], function() {
     var tenantsGrid = DvolTenantGridService.makeTenantsGrid(tenantGridActions);
     $scope.tenantsGrid = tenantsGrid.grid;
     $scope.$watch('tenantsGrid.selectedItems', function(newVal, oldVal) {
-      if (
-        (newVal[0] === oldVal[0]) ||
-        (newVal[0] && oldVal[0] && newVal[0].vms && oldVal[0].vms) && (
-          (!newVal[0].vms && !oldVal[0].vms) ||
-          (newVal[0].vms.length === 0 && oldVal[0].vms.length === 0)
-        )
-      ) {
-        console.log('selected tenant watch changed - but updating grid not necessary');
-        return;
-      }
+      // if (
+      //   (newVal[0] === oldVal[0]) ||
+      //   (newVal[0] && oldVal[0] && newVal[0].vms && oldVal[0].vms) && (
+      //     (!newVal[0].vms && !oldVal[0].vms) ||
+      //     (newVal[0].vms.length === 0 && oldVal[0].vms.length === 0)
+      //   )
+      // ) {
+      //   console.log('selected tenant watch changed - but updating grid not necessary');
+      //   return;
+      // }
       vmsGrid.refresh();
       datastoresGrid.refresh();
     });

@@ -80,6 +80,7 @@ define([], function() {
         if (!matches.length === 1) return; // handle error
         var tenant = matches[0];
         delete tenant.datastores[datastoreId];
+        localStorage.setItem('tenants', JSON.stringify(tenants));
         d.resolve();
         setState(tenants);
       }, 200);
