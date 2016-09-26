@@ -197,11 +197,16 @@ define([], function() {
       var selectedTenant = DvolTenantService.state.tenants[selectedTenantRow.id];
       var filteredDatastores = allDatastores.filter(function(d) {
         return selectedTenant.datastores[d.id || d.moid];
+      }).map(function(d) {
+        return {
+          datastore: d,
+          permissions: selectedTenant.datastores[d.id || d.moid].permissions
+        };
       });
       return filteredDatastores;
     }
 
-    var datastoresGrid = DvolDatastoreGridService.makeDatastoresGrid(datastoresGridActions, filterDatastoresForThisTenant);
+    var datastoresGrid = DvolDatastoreGridService.makeDatastoresGrid(datastoresGridActions, filterDatastoresForThisTenant, true);
     $scope.datastoresGrid = datastoresGrid.grid;
 
 

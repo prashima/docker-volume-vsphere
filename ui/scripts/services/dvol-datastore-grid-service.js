@@ -10,10 +10,16 @@ define([], function() {
   return function(DvolDatastoreService, GridUtils, vuiConstants) {
 
     function mapDatastoresToGrid(datastores) {
-      return datastores.map(function(datastore) {
+      return datastores.map(function(ds) {
+        var datastore = ds;
+        var permissions;
+        if (ds.datastore) {
+          permissions = datastore.permissions;
+          datastore = datastore.datastore;
+        }
         var capacity = formatCapacity(datastore.capacity);
         var freeSpace = formatCapacity(datastore.freeSpace);
-        return {
+        var colData = {
           id: datastore.moid,
           datastoreName: datastore.name,
           driveType: datastore.driveType,
@@ -21,6 +27,12 @@ define([], function() {
           freeSpace: freeSpace,
           type: datastore.type
         };
+        if (permissions) {
+          Object.keys(permissions).forEach(function(k) {
+            colData[k] = permissions[k];
+          });
+        }
+        return colData;
       });
     }
 
@@ -50,8 +62,24 @@ define([], function() {
       }
     ];
 
+    var permColumnDefs = [
+      {
+        field: 'create',
+        displayName: 'Create'
+      },
+      {
+        field: 'mount',
+        displayName: 'Mount'
+      },
+      {
+        field: 'remove',
+        displayName: 'Remove'
+      }
+    ];
 
-    function makeDatastoresGrid(actions, filterFn) {
+    function makeDatastoresGrid(actions, filterFn, perms) {
+
+      var showPermissions = perms;
 
       var actionBarOptions = {
         actions: actions
@@ -59,9 +87,8 @@ define([], function() {
 
       var datastoresGrid = GridUtils.Grid({
         id: 'datastoresGrid',
-        columnDefs: columnDefs,
+        columnDefs: columnDefs.concat(showPermissions ? permColumnDefs : []),
         actionBarOptions: actionBarOptions,
-        // sortMode: vuiConstants.grid.sortMode.SINGLE,
         selectionMode: vuiConstants.grid.selectionMode.SINGLE,
         selectedItems: [],
         data: mapDatastoresToGrid([])
