@@ -3,8 +3,8 @@
 define([], function() {
   'use strict';
 
-  return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils, vuiConstants,
-    DialogService, DvolTenantService, DvolTenantGridService, DvolDatastoreGridService, DvolVmGridService) {
+  return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils, vuiConstants, DialogService,
+    DvolDatastoreService, DvolTenantService, DvolTenantGridService, DvolDatastoreGridService, DvolVmGridService) {
 
     var translate = $filter('translate');
 
@@ -131,10 +131,19 @@ define([], function() {
         iconClass: 'vui-icon-action-edit',
         enabled: true,
         onClick: function() {
-          //
-          // ready to implement datastore edit dialog
-          //
-          console.log('edit datastore for selected item: ' + $scope.datastoresGrid.selectedItems[0].id);
+          if ($scope.tenantsGrid.selectedItems.length < 1) return;
+          DvolDatastoreService.get($scope.datastoresGrid.selectedItems[0].id)
+          .then(function(datastore) {
+            DialogService.showDialog('dvol.edit-datastore', {
+              datastore: datastore,
+              editMode: true,
+              save: function(updatedDatastore) {
+                DvoldatastoreService.update(updatedDatastore)
+                  .then(datastoresGrid.refresh);
+              }
+            });
+
+          });
         }
       },
       {
