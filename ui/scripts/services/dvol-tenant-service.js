@@ -143,8 +143,36 @@ define([], function() {
       return d.promise;
     }
 
-    function editDatastore(tenantId, datastoreId) {
-      console.log('editDatastore' + tenantId + '  --  ' + datastoreId);
+    function updateDatastore(tenantId, newlyEditedDatastore) {
+      var d = $q.defer();
+      setTimeout(function() {
+        var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+        var matches = tenants.filter(function(t) {
+          return t.id === tenantId;
+        });
+        if (matches.length !== 1) return;  // needs async error handling
+        var tenant = matches[0];
+        if (!tenant) return; // needs async error handling
+        var datastores = tenant.datastores;
+        var dsMatches = datastores.filter(function(ds) {
+          return ds.id === newlyEditedDatastore.id;
+        });
+        if (dsMatches.length !== 1) return;
+        var datastore = dsMatches[0];
+        dedupe(Object.keys(datastore).concat(Object.keys(newlyEditedDatastore))).forEach(function(k) {
+          if (k !== 'datastore') {
+            datastore[k] = newlyEditedDatastore.hasOwnProperty(k) ? newlyEditedDatastore[k] : datastore[k];
+          }
+        });
+        var updatedDatastores = datastores.filter(function(ds) {
+          return ds.id !== datastore.id;
+        }).concat([datastore.id]);
+        tenant.datastores = updatedDatastores;
+        localStorage.setItem('tenants', JSON.stringify(tenants));
+        d.resolve(tenant);
+        setState(tenants);
+      }, 200);
+      return d.promise;
     }
 
     function update(newlyEditedTenant) {
@@ -184,7 +212,7 @@ define([], function() {
     this.add = add;
     this.addVms = addVms;
     this.addDatastores = addDatastores;
-    this.editDatastore = editDatastore;
+    this.updateDatastore = updateDatastore;
     this.update = update;
     this.state = state;
 

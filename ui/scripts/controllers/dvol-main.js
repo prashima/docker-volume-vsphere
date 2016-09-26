@@ -145,12 +145,11 @@ define([], function() {
             DialogService.showDialog('dvol.edit-datastore', {
               datastore: datastore,
               editMode: true,
-              save: function(updatedDatastore) {
-                DvolTenantService.updateDatastore(updatedDatastore)
+              save: function(editedDatastore) {
+                DvolTenantService.updateDatastore(tenant.id, editedDatastore)
                   .then(datastoresGrid.refresh);
               }
             });
-
           });
         }
       },
