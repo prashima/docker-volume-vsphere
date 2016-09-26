@@ -8,7 +8,7 @@ define([], function() {
     var datastoresAlreadyInTenant = DialogService.currentDialog().opaque.datastoresAlreadyInTenant;
     function filterFn(datastores) {
       return datastores.filter(function(d) {
-        return datastoresAlreadyInTenant.indexOf(d.moid) < 0;
+        return !datastoresAlreadyInTenant[d.id || d.moid];
       });
     }
     var grid = DvolDatastoreGridService.makeDatastoresGrid([], filterFn);

@@ -70,15 +70,7 @@ define([], function() {
       return d.promise;
     }
 
-    function removeVm(tenantId, vmId) {
-      return removeAssociation('vms', tenantId, vmId);
-    }
-
     function removeDatastore(tenantId, datastoreId) {
-      return removeAssociation('datastores', tenantId, datastoreId);
-    }
-
-    function removeAssociation(assocType, tenantId, removeThisId) {
       var d = $q.defer();
       setTimeout(function() {
         var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
@@ -87,11 +79,27 @@ define([], function() {
         });
         if (!matches.length === 1) return; // handle error
         var tenant = matches[0];
-        if (!tenant[assocType] || tenant[assocType].length < 1) return; // handle error
-        var newAssocs = tenant[assocType].filter(function(assocId) {
+        delete tenant.datastores[datastoreId];
+        d.resolve();
+        setState(tenants);
+      }, 200);
+      return d.promise;
+    }
+
+    function removeVm(tenantId, removeThisId) {
+      var d = $q.defer();
+      setTimeout(function() {
+        var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
+        var matches = tenants.filter(function(t) {
+          return t.id === tenantId;
+        });
+        if (!matches.length === 1) return; // handle error
+        var tenant = matches[0];
+        if (!tenant.vms || tenant.vms.length < 1) return; // handle error
+        var newAssocs = tenant.vms.filter(function(assocId) {
           return assocId !== removeThisId;
         });
-        tenant[assocType] = newAssocs;
+        tenant.vms = newAssocs;
         localStorage.setItem('tenants', JSON.stringify(tenants));
         d.resolve(tenant);
         setState(tenants);
@@ -135,7 +143,7 @@ define([], function() {
         var tenant = matches[0];
         tenant.datastores = tenant.datastores || {};
         datastores.forEach(function(ds) {
-          tenant.datastores[ds.id] = ds;
+          tenant.datastores[ds.datastore] = ds;
         });
         localStorage.setItem('tenants', JSON.stringify(tenants));
         d.resolve(tenant);
@@ -154,7 +162,7 @@ define([], function() {
         if (matches.length !== 1) return;  // needs async error handling
         var tenant = matches[0];
         if (!tenant) return; // needs async error handling
-        tenant.datastores[newlyEditedDatastore.id] = newlyEditedDatastore;
+        tenant.datastores[newlyEditedDatastore.datastore] = newlyEditedDatastore;
         localStorage.setItem('tenants', JSON.stringify(tenants));
         d.resolve(tenant);
         setState(tenants);

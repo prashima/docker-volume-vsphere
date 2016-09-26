@@ -132,21 +132,15 @@ define([], function() {
         enabled: true,
         onClick: function() {
           if ($scope.datastoresGrid.selectedItems.length < 1) return;
-          var datastoreId = $scope.datastoresGrid.selectedItems[0];
-          //
-          // need this ?
-          // DvolDatastoreService.get($scope.datastoresGrid.selectedItems[0].id)
-          //
+          var datastoreId = $scope.datastoresGrid.selectedItems[0].id || $scope.datastoresGrid.selectedItems[0].moid;
           DvolTenantService.get($scope.tenantsGrid.selectedItems[0].id)
           .then(function(tenant) {
-            var datastore = tenant.datastores.filter(function(d) {
-              return d.id === datastoreId;
-            });
+            var datastore = tenant.datastores[datastoreId];
             DialogService.showDialog('dvol.edit-datastore', {
-              datastore: datastore,
+              permissions: datastore.permissions,
               editMode: true,
-              save: function(editedDatastore) {
-                DvolTenantService.updateDatastore(tenant.id, editedDatastore)
+              save: function(editedPermissions) {
+                DvolTenantService.updateDatastore(tenant.id, { datastore: datastoreId, permissions: editedPermissions })
                   .then(datastoresGrid.refresh);
               }
             });
@@ -165,12 +159,13 @@ define([], function() {
               var selectedTenant = $scope.tenantsGrid.selectedItems[0];
               if (!selectedTenant) return; // TODO: async error
               if (!selectedDatastoresRows) return;
-              var selectedDatastoresIds = selectedDatastoresRows.map(function(d) {
-                return d.id;
+              var datastores = selectedDatastoresRows.map(function(dr) {
+                return {
+                  datastore: dr.id,
+                  permissions: {}
+                };
               });
-              if (selectedDatastoresIds.length < 1) return;
-              DvolTenantService.addDatastores(selectedTenant.id, selectedDatastoresIds)
-                
+              DvolTenantService.addDatastores(selectedTenant.id, datastores)
                 .then(datastoresGrid.refresh);
             },
             datastoresAlreadyInTenant: DvolTenantService.state.tenants[$scope.tenantsGrid.selectedItems[0].id].datastores

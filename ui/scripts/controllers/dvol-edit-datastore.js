@@ -6,12 +6,12 @@ define([], function() {
 
   return function($scope, DialogService) {
 
-    $scope.datastore = DialogService.currentDialog().opaque.datastore;
+    $scope.permissions = DialogService.currentDialog().opaque.permissions;
 
     DialogService.setConfirmOptions({
-      label: $scope.editMode ? 'Save' : 'Add',
+      label: 'Save',
       onClick: function() {
-        DialogService.currentDialog().opaque.save($scope.datastore);
+        DialogService.currentDialog().opaque.save($scope.permissions);
         return true;
       }
     });
