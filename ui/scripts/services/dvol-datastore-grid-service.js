@@ -74,7 +74,16 @@ define([], function() {
       {
         field: 'remove',
         displayName: 'Remove'
+      },
+      {
+        field: 'maxVolume',
+        displayName: 'Max Volume'
+      },
+      {
+        field: 'totalVolume',
+        displayName: 'Total volume'
       }
+
     ];
 
     function makeDatastoresGrid(actions, filterFn, perms) {

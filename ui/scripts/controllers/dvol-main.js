@@ -162,7 +162,13 @@ define([], function() {
               var datastores = selectedDatastoresRows.map(function(dr) {
                 return {
                   datastore: dr.id,
-                  permissions: {}
+                  permissions: {
+                    create: false,
+                    mount: false,
+                    remove: false,
+                    maxVolume: 0,
+                    totalVolume: 0
+                  }
                 };
               });
               DvolTenantService.addDatastores(selectedTenant.id, datastores)
