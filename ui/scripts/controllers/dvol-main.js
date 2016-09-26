@@ -131,14 +131,22 @@ define([], function() {
         iconClass: 'vui-icon-action-edit',
         enabled: true,
         onClick: function() {
-          if ($scope.tenantsGrid.selectedItems.length < 1) return;
-          DvolDatastoreService.get($scope.datastoresGrid.selectedItems[0].id)
-          .then(function(datastore) {
+          if ($scope.datastoresGrid.selectedItems.length < 1) return;
+          var datastoreId = $scope.datastoresGrid.selectedItems[0];
+          //
+          // need this ?
+          // DvolDatastoreService.get($scope.datastoresGrid.selectedItems[0].id)
+          //
+          DvolTenantService.get($scope.tenantsGrid.selectedItems[0].id)
+          .then(function(tenant) {
+            var datastore = tenant.datastores.filter(function(d) {
+              return d.id === datastoreId;
+            });
             DialogService.showDialog('dvol.edit-datastore', {
               datastore: datastore,
               editMode: true,
               save: function(updatedDatastore) {
-                DvoldatastoreService.update(updatedDatastore)
+                DvolTenantService.updateDatastore(updatedDatastore)
                   .then(datastoresGrid.refresh);
               }
             });

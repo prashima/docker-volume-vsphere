@@ -50,7 +50,7 @@ define([], function() {
           content: 'plugins/docker-volume-plugin/views/dvol-add-datastores-dialog.html',
           rejectOptions: rejectOptions
         };
-      case 'dvol.edit-datastores':
+      case 'dvol.edit-datastore':
         return {
           title: 'Edit Datastore',
           width: '585px',

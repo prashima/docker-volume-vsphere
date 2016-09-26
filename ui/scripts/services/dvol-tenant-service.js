@@ -143,6 +143,10 @@ define([], function() {
       return d.promise;
     }
 
+    function editDatastore(tenantId, datastoreId) {
+      console.log('editDatastore' + tenantId + '  --  ' + datastoreId);
+    }
+
     function update(newlyEditedTenant) {
       var d = $q.defer();
       setTimeout(function() {
@@ -180,6 +184,7 @@ define([], function() {
     this.add = add;
     this.addVms = addVms;
     this.addDatastores = addDatastores;
+    this.editDatastore = editDatastore;
     this.update = update;
     this.state = state;
 
