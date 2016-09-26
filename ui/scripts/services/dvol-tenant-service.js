@@ -46,7 +46,7 @@ define([], function() {
         tenant.vms = (vms || []).map(function(vm) {
           return vm.id;
         });
-        tenant.datastores = [];
+        tenant.datastores = {};
         var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
         tenants.push(tenant);
         localStorage.setItem('tenants', JSON.stringify(tenants));
@@ -124,7 +124,7 @@ define([], function() {
       return d.promise;
     }
 
-    function addDatastores(tenantId, datastoreIds) {
+    function addDatastores(tenantId, datastores) {
       var d = $q.defer();
       setTimeout(function() {
         var tenants = JSON.parse(localStorage.getItem('tenants')) || [];
@@ -133,9 +133,10 @@ define([], function() {
         });
         if (!matches.length === 1) return; // TODO: handle asnyc error
         var tenant = matches[0];
-        tenant.datastores = tenant.datastores || [];
-        var newDatastores = dedupe(tenant.datastores.concat(datastoreIds));
-        tenant.datastores = newDatastores;
+        tenant.datastores = tenant.datastores || {};
+        datastores.forEach(function(ds) {
+          tenant.datastores[ds.id] = ds;
+        });
         localStorage.setItem('tenants', JSON.stringify(tenants));
         d.resolve(tenant);
         setState(tenants);
@@ -153,21 +154,7 @@ define([], function() {
         if (matches.length !== 1) return;  // needs async error handling
         var tenant = matches[0];
         if (!tenant) return; // needs async error handling
-        var datastores = tenant.datastores;
-        var dsMatches = datastores.filter(function(ds) {
-          return ds.id === newlyEditedDatastore.id;
-        });
-        if (dsMatches.length !== 1) return;
-        var datastore = dsMatches[0];
-        dedupe(Object.keys(datastore).concat(Object.keys(newlyEditedDatastore))).forEach(function(k) {
-          if (k !== 'datastore') {
-            datastore[k] = newlyEditedDatastore.hasOwnProperty(k) ? newlyEditedDatastore[k] : datastore[k];
-          }
-        });
-        var updatedDatastores = datastores.filter(function(ds) {
-          return ds.id !== datastore.id;
-        }).concat([datastore.id]);
-        tenant.datastores = updatedDatastores;
+        tenant.datastores[newlyEditedDatastore.id] = newlyEditedDatastore;
         localStorage.setItem('tenants', JSON.stringify(tenants));
         d.resolve(tenant);
         setState(tenants);

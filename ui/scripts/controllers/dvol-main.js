@@ -170,6 +170,7 @@ define([], function() {
               });
               if (selectedDatastoresIds.length < 1) return;
               DvolTenantService.addDatastores(selectedTenant.id, selectedDatastoresIds)
+                
                 .then(datastoresGrid.refresh);
             },
             datastoresAlreadyInTenant: DvolTenantService.state.tenants[$scope.tenantsGrid.selectedItems[0].id].datastores
@@ -200,7 +201,7 @@ define([], function() {
       if (!selectedTenantRow) return [];
       var selectedTenant = DvolTenantService.state.tenants[selectedTenantRow.id];
       var filteredDatastores = allDatastores.filter(function(d) {
-        return selectedTenant.datastores.indexOf(d.id || d.moid) >= 0;
+        return selectedTenant.datastores[d.id || d.moid];
       });
       return filteredDatastores;
     }
