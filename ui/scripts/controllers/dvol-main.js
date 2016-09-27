@@ -149,7 +149,7 @@ define([], function() {
       {
         id: 'add-datastores-button',
         label: 'Add',
-        iconClass: 'vui-icon-action-add',
+        iconClass: 'esx-icon-datastore-add',
         tooltipText: 'Add Datastores',
         enabled: true,
         onClick: function() {  // (evt, action)
