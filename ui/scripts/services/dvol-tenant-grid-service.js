@@ -22,16 +22,23 @@ define([], function() {
       {
         field: 'description',
         displayName: 'description'
-      }, {
-        field: 'ID',
-        displayName: 'ID'
       }
     ];
+
+    var searchOptions = {
+      filters: [
+        {
+          field: 'name',
+          operator: 'contains'
+        }
+      ],
+      placeholder: 'Search'
+    };
 
     var gridProps = {
       id: 'tenantsGrid',
       columnDefs: columnDefs,
-      // sortMode: vuiConstants.grid.sortMode.SINGLE,
+      sortMode: vuiConstants.grid.sortMode.SINGLE,
       selectionMode: vuiConstants.grid.selectionMode.SINGLE,
       selectedItems: [],
       data: mapTenantsToGrid([]),
@@ -46,6 +53,8 @@ define([], function() {
       }
 
       var tenantsGrid = GridUtils.Grid(gridProps);
+
+      GridUtils.addSearch(tenantsGrid, searchOptions);
 
       function refresh() {
         return DvolTenantService.getAll().then(function(tenants) {
