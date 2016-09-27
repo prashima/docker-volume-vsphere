@@ -83,8 +83,17 @@ define([], function() {
         field: 'totalVolume',
         displayName: 'Total volume'
       }
-
     ];
+
+    var searchConfig = {
+      filters: [
+        {
+          field: 'datastoreName',
+          operator: 'contains'
+        }
+      ],
+      placeholder: 'Search'
+    };
 
     function makeDatastoresGrid(actions, filterFn, perms) {
 
@@ -102,6 +111,8 @@ define([], function() {
         selectedItems: [],
         data: mapDatastoresToGrid([])
       });
+
+      GridUtils.addSearch(datastoresGrid, searchConfig);
 
       function refresh() {
         return DvolDatastoreService.get().then(function(datastores) {
