@@ -138,7 +138,6 @@ define([], function() {
             var datastore = tenant.datastores[datastoreId];
             DialogService.showDialog('dvol.edit-datastore', {
               permissions: datastore.permissions,
-              editMode: true,
               save: function(editedPermissions) {
                 DvolTenantService.updateDatastore(tenant.id, { datastore: datastoreId, permissions: editedPermissions })
                   .then(datastoresGrid.refresh);
@@ -171,8 +170,18 @@ define([], function() {
                   }
                 };
               });
+              var firstDatastore = datastores[0]; // will be only one in SINGLE mode
               DvolTenantService.addDatastores(selectedTenant.id, datastores)
-                .then(datastoresGrid.refresh);
+                .then(datastoresGrid.refresh)
+                .then(function() {
+                  DialogService.showDialog('dvol.edit-datastore', {
+                    permissions: firstDatastore.permissions,
+                    save: function(editedPermissions) {
+                      DvolTenantService.updateDatastore(selectedTenant.id, { datastore: firstDatastore.datastore, permissions: editedPermissions })
+                        .then(datastoresGrid.refresh);
+                    }
+                  });
+                });
             },
             datastoresAlreadyInTenant: DvolTenantService.state.tenants[$scope.tenantsGrid.selectedItems[0].id].datastores
           });
