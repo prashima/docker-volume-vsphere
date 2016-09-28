@@ -85,16 +85,6 @@ define([], function() {
       }
     ];
 
-    var searchConfig = {
-      filters: [
-        {
-          field: 'datastoreName',
-          operator: 'contains'
-        }
-      ],
-      placeholder: 'Search'
-    };
-
     function makeDatastoresGrid(actions, filterFn, perms) {
 
       var showPermissions = perms;
@@ -111,8 +101,6 @@ define([], function() {
         selectedItems: [],
         data: mapDatastoresToGrid([])
       });
-
-      GridUtils.addSearch(datastoresGrid, searchConfig);
 
       function refresh() {
         return DvolDatastoreService.get().then(function(datastores) {
