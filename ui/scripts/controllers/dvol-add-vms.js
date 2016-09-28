@@ -15,8 +15,6 @@ define([], function() {
 
     $scope.datacenterVmsGrid = grid.grid;
 
-
-
     var vmSearchOptions = {
       filters: [
         {
@@ -28,10 +26,6 @@ define([], function() {
     };
 
     GridUtils.addSearch($scope.datacenterVmsGrid, vmSearchOptions);
-
-
-
-
 
     DialogService.setConfirmOptions({
       label: 'Add',

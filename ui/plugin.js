@@ -11,6 +11,7 @@ define([
   'plugins/docker-volume-plugin/scripts/controllers/dvol-add-vms.js',
   'plugins/docker-volume-plugin/scripts/controllers/dvol-add-datastores.js',
   'plugins/docker-volume-plugin/scripts/controllers/dvol-edit-datastore.js',
+  'plugins/docker-volume-plugin/scripts/controllers/dvol-vms.js',
   //
   // Services
   //
@@ -35,6 +36,7 @@ define([
   DvolAddVmsController,
   DvolAddDatastoresController,
   DvolEditDatastoreController,
+  DvolVms,
   //
   // Services
   //
@@ -62,7 +64,8 @@ define([
     'DvolAddTenantController': DvolAddTenantController,
     'DvolAddVmsController': DvolAddVmsController,
     'DvolAddDatastoresController': DvolAddDatastoresController,
-    'DvolEditDatastoreController': DvolEditDatastoreController
+    'DvolEditDatastoreController': DvolEditDatastoreController,
+    'DvolVms': DvolVms
   })
   .service({
     'DvolDialogService': DvolDialogService,

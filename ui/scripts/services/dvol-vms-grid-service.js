@@ -36,7 +36,7 @@ define([], function() {
 
     function getGridProps(selectionMode) {
       return {
-        id: 'datacenterVmsGrid',
+        id: 'vmsGrid',
         idDataField: 'id',
         columnDefs: columnDefs,
         sortMode: vuiConstants.grid.sortMode.SINGLE,

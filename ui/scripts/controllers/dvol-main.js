@@ -82,31 +82,27 @@ define([], function() {
     GridUtils.addSearch($scope.tenantsGrid, tenantSearchOptions);
 
     $scope.$watch('tenantsGrid.selectedItems', function() {
-      vmsGrid.refresh();
-      datastoresGrid.refresh();
+      //vmsGrid.refresh();
+      //datastoresGrid.refresh();
     });
 
     //
     // TENANT DETAIL TABS
     //
 
-    var tabClickFunction = function(evt, tab) {
-      GridUtils.addSearch($scope.vmsGrid, vmSearchOptions);
-    };
-
     var tabs = {
       vms: {
         label: translate('dvol.tenantDetailTabs.vms.label'),
         tooltipText: translate('dvol.tenantDetailTabs.vms.tooltip'),
-        contentUrl: 'plugins/docker-volume-plugin/views/dvol-vms.html',
-        onClick: tabClickFunction
+        contentUrl: 'plugins/docker-volume-plugin/views/dvol-vms.html'
+        // onClick: tabClickFunction
       },
       datastores: {
         label: translate('dvol.tenantDetailTabs.datastores.label'),
         tooltipText: translate(
           'dvol.tenantDetailTabs.datastores.tooltip'),
-        contentUrl: 'plugins/docker-volume-plugin/views/dvol-datastores.html',
-        onClick: tabClickFunction
+        contentUrl: 'plugins/docker-volume-plugin/views/dvol-datastores.html'
+        // onClick: tabClickFunction
       }
     };
 
@@ -238,75 +234,7 @@ define([], function() {
 
     GridUtils.addSearch($scope.datastoresGrid, datastoreSearchOptions);
 
-    //
-    // VMS Grid
-    //
 
-    var vmsGridActions = [
-      {
-        id: 'add-vms-button',
-        label: 'Add',
-        iconClass: 'esx-icon-vm',
-        tooltipText: 'Add Virtual Machines',
-        enabled: true,
-        onClick: function() {  // (evt, action)
-          var selectedTenant = $scope.tenantsGrid.selectedItems[0];
-          DialogService.showDialog('dvol.add-vms', {
-            save: function(selectedVmsRows) {
-              if (!selectedTenant) return; // TODO: async error
-              if (!selectedVmsRows) return;
-              var selectedVmsIds = selectedVmsRows.map(function(vm) {
-                return vm.moid || vm.id;
-              });
-              if (selectedVmsIds.length < 1) return;
-              DvolTenantService.addVms(selectedTenant.id, selectedVmsIds)
-                .then(vmsGrid.refresh);
-            },
-            vmsAlreadyInTenant: DvolTenantService.state.tenants[$scope.tenantsGrid.selectedItems[0].id].vms
-          });
-        }
-      },
-      {
-        id: 'remove-vm-button',
-        label: 'Remove',
-        iconClass: 'vui-icon-action-delete',
-        tooltipText: 'Remove Virtual Machine',
-        enabled: true,
-        onClick: function() {
-          var selectedTenant = $scope.tenantsGrid.selectedItems[0];
-          if (!selectedTenant) return;
-          var selectedVm = $scope.vmsGrid.selectedItems[0];
-          if (!selectedVm) return;
-          DvolTenantService.removeVm(selectedTenant.id, selectedVm.moid || selectedVm.id)
-            .then(vmsGrid.refresh);
-        }
-      }
-    ];
-
-    function filterVmsForThisTenant(allVms) {
-      // NOTE: selectedTenants from the grid doesn't have new vms added (will not until grid refresh)
-      // we don't want to refresh the grid because we'll lose tenant row selection
-      var selectedTenantRow = $scope.tenantsGrid.selectedItems[0];
-      if (!selectedTenantRow) return [];
-      var selectedTenant = DvolTenantService.state.tenants[selectedTenantRow.id];
-      var filteredVms = allVms.filter(function(vm) {
-        return selectedTenant.vms.indexOf(vm.moid) >= 0;
-      });
-      return filteredVms;
-    }
-
-    var vmsGrid = DvolVmGridService.makeVmsGrid(vmsGridActions, filterVmsForThisTenant);
-    $scope.vmsGrid = vmsGrid.grid;
-
-    var vmSearchOptions = {
-      filters: [
-        {
-          field: 'name',
-          operator: 'contains'
-        }
-      ],
-      placeholder: 'Search'
-    };
 
   };
 });
