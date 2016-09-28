@@ -3,7 +3,7 @@
 define([], function() {
   'use strict';
 
-  return function($scope, DialogService, DvolVmGridService) {
+  return function($scope, DialogService, DvolVmGridService, GridUtils) {
 
     var vmsAlreadyInTenant = DialogService.currentDialog().opaque.vmsAlreadyInTenant;
     function filterFn(vms) {
@@ -14,6 +14,24 @@ define([], function() {
     var grid = DvolVmGridService.makeVmsGrid([], filterFn);
 
     $scope.datacenterVmsGrid = grid.grid;
+
+
+
+    var vmSearchOptions = {
+      filters: [
+        {
+          field: 'vmName',
+          operator: 'contains'
+        }
+      ],
+      placeholder: 'Search'
+    };
+
+    GridUtils.addSearch($scope.datacenterVmsGrid, vmSearchOptions);
+
+
+
+
 
     DialogService.setConfirmOptions({
       label: 'Add',

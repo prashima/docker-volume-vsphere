@@ -90,9 +90,8 @@ define([], function() {
     // TENANT DETAIL TABS
     //
 
-    var tabClickFunction = function() {
-      // has args evt and tab
-      // may not need this
+    var tabClickFunction = function(evt, tab) {
+      GridUtils.addSearch($scope.vmsGrid, vmSearchOptions);
     };
 
     var tabs = {
@@ -308,11 +307,6 @@ define([], function() {
       ],
       placeholder: 'Search'
     };
-
-    setTimeout(function() {
-      console.log('vms search');
-      GridUtils.addSearch($scope.vmsGrid, vmSearchOptions);
-    }, 5000);
 
   };
 });
