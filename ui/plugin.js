@@ -58,7 +58,7 @@ define([
     'ui.router'
   ])
   .controller({
-//    'DvolMainController': DvolMainController,
+    'DvolMainController': DvolMainController,
     'DvolAddTenantController': DvolAddTenantController,
     'DvolAddVmsController': DvolAddVmsController,
     'DvolAddDatastoresController': DvolAddDatastoresController,

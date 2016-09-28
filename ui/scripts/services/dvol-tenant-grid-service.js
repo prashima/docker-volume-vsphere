@@ -23,7 +23,7 @@ define([], function() {
           if (angular.isDefined(dataItem.description)) {
             return dataItem.description;
           }
-          return '--';
+          return '';
         }
       },
       {
