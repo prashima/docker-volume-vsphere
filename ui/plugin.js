@@ -58,7 +58,7 @@ define([
     'ui.router'
   ])
   .controller({
-    'DvolMainController': DvolMainController,
+//    'DvolMainController': DvolMainController,
     'DvolAddTenantController': DvolAddTenantController,
     'DvolAddVmsController': DvolAddVmsController,
     'DvolAddDatastoresController': DvolAddDatastoresController,
@@ -115,7 +115,7 @@ define([
           url: '/docker-volume-plugin',
           views: {
             'content@host': {
-              controller: 'DvolMainController',
+//              controller: 'DvolMainController',
               templateUrl: 'plugins/docker-volume-plugin/views/dvol-main.html'
             }
           }

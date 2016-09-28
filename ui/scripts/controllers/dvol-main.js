@@ -69,30 +69,19 @@ define([], function() {
     var tenantsGrid = DvolTenantGridService.makeTenantsGrid(tenantGridActions);
     $scope.tenantsGrid = tenantsGrid.grid;
 
-
-        var searchOptions = {
-          filters: [
-            {
-              field: 'name',
-              operator: 'contains'
-            }
-          ],
-          placeholder: 'Search'
-        };
+    var searchOptions = {
+      filters: [
+        {
+          field: 'name',
+          operator: 'contains'
+        }
+      ],
+      placeholder: 'Search'
+    };
 
     GridUtils.addSearch($scope.tenantsGrid, searchOptions);
 
-    $scope.$watch('tenantsGrid.selectedItems', function(newVal, oldVal) {
-      // if (
-      //   (newVal[0] === oldVal[0]) ||
-      //   (newVal[0] && oldVal[0] && newVal[0].vms && oldVal[0].vms) && (
-      //     (!newVal[0].vms && !oldVal[0].vms) ||
-      //     (newVal[0].vms.length === 0 && oldVal[0].vms.length === 0)
-      //   )
-      // ) {
-      //   console.log('selected tenant watch changed - but updating grid not necessary');
-      //   return;
-      // }
+    $scope.$watch('tenantsGrid.selectedItems', function() {
       vmsGrid.refresh();
       datastoresGrid.refresh();
     });
