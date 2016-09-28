@@ -13,15 +13,16 @@ define([], function() {
 
     var columnDefs = [
       {
-        field: 'id'
-      },
-      {
         field: 'name',
-        displayName: 'name'
+        displayName: 'Name'
       },
       {
         field: 'description',
-        displayName: 'description'
+        displayName: 'Description'
+      },
+      {
+        field: 'id',
+        displayName: 'ID'
       }
     ];
 
