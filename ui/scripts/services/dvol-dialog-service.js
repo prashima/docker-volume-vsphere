@@ -37,7 +37,7 @@ define([], function() {
           title: 'Add Virtual Machines',
           width: '585px',
           height: '280px',
-          icon: 'esx-icon-add',
+          icon: 'esx-icon-vm',
           content: 'plugins/docker-volume-plugin/views/dvol-add-vms-dialog.html',
           rejectOptions: rejectOptions
         };
@@ -46,7 +46,7 @@ define([], function() {
           title: 'Add Datastores',
           width: '585px',
           height: '280px',
-          icon: 'esx-icon-add',
+          icon: 'esx-icon-datastore-add',
           content: 'plugins/docker-volume-plugin/views/dvol-add-datastores-dialog.html',
           rejectOptions: rejectOptions
         };
@@ -55,7 +55,7 @@ define([], function() {
           title: 'Edit Datastore',
           width: '585px',
           height: '280px',
-          icon: 'esx-icon-edit',
+          icon: 'esx-icon-datastore-manage',
           content: 'plugins/docker-volume-plugin/views/dvol-edit-datastore-dialog.html',
           rejectOptions: rejectOptions
         };

@@ -85,7 +85,7 @@ define([], function() {
       }
     ];
 
-    function makeDatastoresGrid(actions, filterFn, perms) {
+    function makeDatastoresGrid(id, actions, filterFn, perms) {
 
       var showPermissions = perms;
 
@@ -94,7 +94,7 @@ define([], function() {
       };
 
       var datastoresGrid = GridUtils.Grid({
-        id: 'datastoresGrid',
+        id: id,
         columnDefs: columnDefs.concat(showPermissions ? permColumnDefs : []),
         actionBarOptions: actionBarOptions,
         selectionMode: vuiConstants.grid.selectionMode.SINGLE,

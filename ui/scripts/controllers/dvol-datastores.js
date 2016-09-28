@@ -103,7 +103,7 @@ define([], function() {
       return filteredDatastores;
     }
 
-    var datastoresGrid = DvolDatastoreGridService.makeDatastoresGrid(datastoresGridActions, filterDatastoresForThisTenant, true);
+    var datastoresGrid = DvolDatastoreGridService.makeDatastoresGrid('datastoresGrid', datastoresGridActions, filterDatastoresForThisTenant, true);
     $scope.datastoresGrid = datastoresGrid.grid;
     $rootScope.datastoresGrid = datastoresGrid;
 

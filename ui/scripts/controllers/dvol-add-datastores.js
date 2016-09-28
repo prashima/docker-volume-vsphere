@@ -3,7 +3,7 @@
 define([], function() {
   'use strict';
 
-  return function($scope, DialogService, DvolDatastoreGridService) {
+  return function($scope, DialogService, DvolDatastoreGridService, GridUtils) {
 
     var datastoresAlreadyInTenant = DialogService.currentDialog().opaque.datastoresAlreadyInTenant;
     function filterFn(datastores) {
@@ -11,9 +11,21 @@ define([], function() {
         return !datastoresAlreadyInTenant[d.id || d.moid];
       });
     }
-    var grid = DvolDatastoreGridService.makeDatastoresGrid([], filterFn);
+    var grid = DvolDatastoreGridService.makeDatastoresGrid('availableDatastoresGrid', [], filterFn);
 
     $scope.availableDatastoresGrid = grid.grid;
+
+    var datastoreSearchOptions = {
+      filters: [
+        {
+          field: 'datastoreName',
+          operator: 'contains'
+        }
+      ],
+      placeholder: 'Search'
+    };
+
+    GridUtils.addSearch($scope.availableDatastoresGrid, datastoreSearchOptions);
 
     DialogService.setConfirmOptions({
       label: 'Add',
