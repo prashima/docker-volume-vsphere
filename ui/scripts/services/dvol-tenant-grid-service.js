@@ -1,4 +1,4 @@
-/* global define */
+/* global define angular */
 
 define([], function() {
   'use strict';
@@ -19,12 +19,11 @@ define([], function() {
       {
         field: 'description',
         displayName: 'Description',
-        template: function (dataItem) {
-           if (angular.isDefined(dataItem.description)) {
-                return dataItem.description;
-           } else {
-             return '--';
-           }
+        template: function(dataItem) {
+          if (angular.isDefined(dataItem.description)) {
+            return dataItem.description;
+          }
+          return '--';
         }
       },
       {
