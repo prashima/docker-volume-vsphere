@@ -37,6 +37,7 @@ define([], function() {
 
     var gridProps = {
       id: 'tenantsGrid',
+      idDataField: 'id',
       columnDefs: columnDefs,
       sortMode: vuiConstants.grid.sortMode.SINGLE,
       selectionMode: vuiConstants.grid.selectionMode.SINGLE,
