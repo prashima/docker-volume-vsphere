@@ -227,6 +227,17 @@ define([], function() {
     var datastoresGrid = DvolDatastoreGridService.makeDatastoresGrid(datastoresGridActions, filterDatastoresForThisTenant, true);
     $scope.datastoresGrid = datastoresGrid.grid;
 
+    var datastoreSearchOptions = {
+      filters: [
+        {
+          field: 'name',
+          operator: 'contains'
+        }
+      ],
+      placeholder: 'Search'
+    };
+
+    GridUtils.addSearch($scope.datastoresGrid, datastoreSearchOptions);
 
     //
     // VMS Grid
@@ -288,7 +299,7 @@ define([], function() {
     var vmsGrid = DvolVmGridService.makeVmsGrid(vmsGridActions, filterVmsForThisTenant);
     $scope.vmsGrid = vmsGrid.grid;
 
-    var vmsSearchOptions = {
+    var vmSearchOptions = {
       filters: [
         {
           field: 'name',
@@ -298,7 +309,10 @@ define([], function() {
       placeholder: 'Search'
     };
 
-    GridUtils.addSearch($scope.vmsGrid, vmsSearchOptions);
+    setTimeout(function() {
+      console.log('vms search');
+      GridUtils.addSearch($scope.vmsGrid, vmSearchOptions);
+    }, 5000);
 
   };
 });

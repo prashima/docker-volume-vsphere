@@ -18,33 +18,32 @@ define([], function() {
     }
 
     var columnDefs = [{
-      field: 'id'
-    }, {
       displayName: 'Name',
       field: 'vmName'
-        // width: '30%'
     }, {
       displayName: 'Guest',
       field: 'guestFullName'
-        // width: '30%'
     }, {
       displayName: 'Status',
       field: 'status'
-        // width: '30%'
     }, {
       displayName: 'Storage',
       field: 'storageUsageFormatted'
-        // width: '30%'
+    }, {
+      field: 'id',
+      displayName: 'ID'
     }];
 
     function getGridProps(selectionMode) {
       return {
         id: 'datacenterVmsGrid',
+        idDataField: 'id',
         columnDefs: columnDefs,
-        // sortMode: vuiConstants.grid.sortMode.SINGLE,
+        sortMode: vuiConstants.grid.sortMode.SINGLE,
         selectionMode: vuiConstants.grid.selectionMode[selectionMode || 'MULTI'],
         selectedItems: [],
-        data: mapVmsToGrid([])
+        data: mapVmsToGrid([]),
+        searchable: true
       };
     }
 
