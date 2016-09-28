@@ -69,7 +69,7 @@ define([], function() {
     var tenantsGrid = DvolTenantGridService.makeTenantsGrid(tenantGridActions);
     $scope.tenantsGrid = tenantsGrid.grid;
 
-    var searchOptions = {
+    var tenantSearchOptions = {
       filters: [
         {
           field: 'name',
@@ -79,7 +79,7 @@ define([], function() {
       placeholder: 'Search'
     };
 
-    GridUtils.addSearch($scope.tenantsGrid, searchOptions);
+    GridUtils.addSearch($scope.tenantsGrid, tenantSearchOptions);
 
     $scope.$watch('tenantsGrid.selectedItems', function() {
       vmsGrid.refresh();
@@ -236,7 +236,7 @@ define([], function() {
       {
         id: 'add-vms-button',
         label: 'Add',
-        iconClass: 'vui-icon-action-add',
+        iconClass: 'esx-icon-vm',
         tooltipText: 'Add Virtual Machines',
         enabled: true,
         onClick: function() {  // (evt, action)
@@ -287,6 +287,18 @@ define([], function() {
 
     var vmsGrid = DvolVmGridService.makeVmsGrid(vmsGridActions, filterVmsForThisTenant);
     $scope.vmsGrid = vmsGrid.grid;
+
+    var vmsSearchOptions = {
+      filters: [
+        {
+          field: 'name',
+          operator: 'contains'
+        }
+      ],
+      placeholder: 'Search'
+    };
+
+    GridUtils.addSearch($scope.vmsGrid, vmsSearchOptions);
 
   };
 });
