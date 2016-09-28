@@ -11,7 +11,7 @@ define([], function() {
         return vmsAlreadyInTenant.indexOf(v.moid || v.id) < 0;
       });
     }
-    var grid = DvolVmGridService.makeVmsGrid([], filterFn);
+    var grid = DvolVmGridService.makeVmsGrid('datacenterVmsGrid', [], filterFn);
 
     $scope.datacenterVmsGrid = grid.grid;
 

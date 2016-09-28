@@ -3,7 +3,7 @@
 define([], function() {
   'use strict';
 
-  return function($scope, DialogService, DvolVmGridService) {
+  return function($scope, DialogService, DvolVmGridService, GridUtils) {
 
     $scope.tenant = DialogService.currentDialog().opaque.tenant;
     $scope.editMode = DialogService.currentDialog().opaque.editMode;
@@ -16,9 +16,21 @@ define([], function() {
       }
     });
 
-    var grid = DvolVmGridService.makeVmsGrid([], null, 'MULTI');
+    var grid = DvolVmGridService.makeVmsGrid('datacenterVmsGrid', [], null, 'MULTI');
 
     $scope.datacenterVmsGrid = grid.grid;
+
+    var vmSearchOptions = {
+      filters: [
+        {
+          field: 'vmName',
+          operator: 'contains'
+        }
+      ],
+      placeholder: 'Search'
+    };
+
+    GridUtils.addSearch($scope.datacenterVmsGrid, vmSearchOptions);
 
   };
 

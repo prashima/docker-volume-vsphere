@@ -34,9 +34,9 @@ define([], function() {
       displayName: 'ID'
     }];
 
-    function getGridProps(selectionMode) {
+    function getGridProps(id, selectionMode) {
       return {
-        id: 'vmsGrid',
+        id: id,
         idDataField: 'id',
         columnDefs: columnDefs,
         sortMode: vuiConstants.grid.sortMode.SINGLE,
@@ -47,9 +47,9 @@ define([], function() {
       };
     }
 
-    function makeVmsGrid(actions, filterFn, selectionMode) {
+    function makeVmsGrid(id, actions, filterFn, selectionMode) {
 
-      var gridProps = getGridProps(selectionMode);
+      var gridProps = getGridProps(id, selectionMode);
 
       if (actions) {
         gridProps.actionBarOptions = gridProps.actionBarOptions || {};
