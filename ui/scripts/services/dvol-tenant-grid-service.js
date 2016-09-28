@@ -18,7 +18,14 @@ define([], function() {
       },
       {
         field: 'description',
-        displayName: 'Description'
+        displayName: 'Description',
+        template: function (dataItem) {
+           if (angular.isDefined(dataItem.description)) {
+                return dataItem.description;
+           } else {
+             return '--';
+           }
+        }
       },
       {
         field: 'id',
@@ -26,15 +33,6 @@ define([], function() {
       }
     ];
 
-    var searchOptions = {
-      filters: [
-        {
-          field: 'name',
-          operator: 'contains'
-        }
-      ],
-      placeholder: 'Search'
-    };
 
     var gridProps = {
       id: 'tenantsGrid',
@@ -55,8 +53,6 @@ define([], function() {
       }
 
       var tenantsGrid = GridUtils.Grid(gridProps);
-
-      GridUtils.addSearch(tenantsGrid, searchOptions);
 
       function refresh() {
         return DvolTenantService.getAll().then(function(tenants) {

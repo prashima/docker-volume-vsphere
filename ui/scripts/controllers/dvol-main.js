@@ -68,6 +68,20 @@ define([], function() {
 
     var tenantsGrid = DvolTenantGridService.makeTenantsGrid(tenantGridActions);
     $scope.tenantsGrid = tenantsGrid.grid;
+
+
+        var searchOptions = {
+          filters: [
+            {
+              field: 'name',
+              operator: 'contains'
+            }
+          ],
+          placeholder: 'Search'
+        };
+
+    GridUtils.addSearch($scope.tenantsGrid, searchOptions);
+
     $scope.$watch('tenantsGrid.selectedItems', function(newVal, oldVal) {
       // if (
       //   (newVal[0] === oldVal[0]) ||
