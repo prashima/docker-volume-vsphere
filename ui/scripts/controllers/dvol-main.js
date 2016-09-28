@@ -4,7 +4,7 @@ define([], function() {
   'use strict';
 
   return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils, vuiConstants, DialogService,
-    DvolDatastoreService, DvolTenantService, DvolTenantGridService, DvolDatastoreGridService, DvolVmGridService) {
+    DvolDatastoreService, DvolTenantService, DvolTenantGridService, DvolDatastoreGridService) {
 
     var translate = $filter('translate');
 
@@ -82,8 +82,8 @@ define([], function() {
     GridUtils.addSearch($scope.tenantsGrid, tenantSearchOptions);
 
     $scope.$watch('tenantsGrid.selectedItems', function() {
-      //vmsGrid.refresh();
-      //datastoresGrid.refresh();
+      $rootScope.vmsGrid && $rootScope.vmsGrid.refresh();
+      $rootScope.datastoresGrid && $rootScope.datastoresGrid.refresh();
     });
 
     //

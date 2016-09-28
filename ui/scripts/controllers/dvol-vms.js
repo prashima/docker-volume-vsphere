@@ -4,7 +4,7 @@
 define([], function() {
   'use strict';
 
-  return function($scope, DialogService, DvolVmGridService, DvolTenantService, GridUtils) {
+  return function($scope, $rootScope, DialogService, DvolVmGridService, DvolTenantService, GridUtils) {
 
     var vmsGridActions = [
       {
@@ -61,6 +61,7 @@ define([], function() {
 
     var vmsGrid = DvolVmGridService.makeVmsGrid(vmsGridActions, filterVmsForThisTenant);
     $scope.vmsGrid = vmsGrid.grid;
+    $rootScope.vmsGrid = vmsGrid;
 
     var vmSearchOptions = {
       filters: [
