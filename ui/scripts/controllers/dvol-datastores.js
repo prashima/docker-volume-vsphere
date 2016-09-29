@@ -120,7 +120,7 @@ define([], function() {
     var datastoreSearchOptions = {
       filters: [
         {
-          field: 'datastoreName',
+          field: 'name',
           operator: 'contains'
         }
       ],

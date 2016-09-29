@@ -18,7 +18,7 @@ define([], function() {
     var vmSearchOptions = {
       filters: [
         {
-          field: 'vmName',
+          field: 'name',
           operator: 'contains'
         }
       ],

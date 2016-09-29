@@ -7,7 +7,7 @@ define([], function() {
     return String(rawCap * Math.pow(10, -9)).substr(0, 5) + ' GB';
   }
 
-  return function(DvolDatastoreService, GridUtils, vuiConstants) {
+  return function(DvolDatastoreService, GridUtils, vuiConstants, StorageUtil) {
 
     function mapDatastoresToGrid(datastores) {
       return datastores.map(function(ds) {
@@ -21,7 +21,8 @@ define([], function() {
         var freeSpace = formatCapacity(datastore.freeSpace);
         var colData = {
           id: datastore.moid,
-          datastoreName: datastore.name,
+          moid: datastore.moid,
+          name: datastore.name,
           driveType: datastore.driveType,
           capacity: capacity,
           freeSpace: freeSpace,
@@ -36,32 +37,48 @@ define([], function() {
       });
     }
 
-    var columnDefs = [
-      {
-        field: 'datastoreName',
-        displayName: 'Name'
-      },
-      {
-        field: 'driveType',
-        displayName: 'Drive Type'
-      },
-      {
-        field: 'type',
-        displayName: 'Type'
-      },
-      {
-        field: 'capacity',
-        displayName: 'Capacity'
-      },
-      {
-        field: 'freeSpace',
-        displayName: 'Free'
-      },
-      {
-        field: 'id',
-        displayName: 'ID'
-      }
-    ];
+    function makeColumnDefs(grid) {
+      return [
+        {
+          displayName: 'Datastore',
+          field: 'name',
+          width: '30%',
+          autoHighlight: false,
+          template: function(dataItem) {
+            var moid = StorageUtil.urlEncodeMOID(dataItem.moid);
+            var href = '#/host/storage/datastores/' + moid;
+            var content = dataItem.name;
+            if (grid) {
+              return GridUtils.contextMenuAction(grid,
+               content, StorageUtil.getIcon(dataItem),
+               'storage.datastore', [dataItem.moid], null, href);
+            }
+            return dataItem.name;
+          }
+        },
+        {
+          field: 'driveType',
+          displayName: 'Drive Type'
+        },
+        {
+          field: 'type',
+          displayName: 'Type'
+        },
+        {
+          field: 'capacity',
+          displayName: 'Capacity'
+        },
+        {
+          field: 'freeSpace',
+          displayName: 'Free'
+        },
+        {
+          field: 'id',
+          displayName: 'ID',
+          visible: false
+        }
+      ];
+    }
 
     var permColumnDefs = [
       {
@@ -88,20 +105,24 @@ define([], function() {
 
     function makeDatastoresGrid(id, actions, filterFn, perms) {
 
+      var datastoresGrid;
+
       var showPermissions = perms;
 
       var actionBarOptions = {
         actions: actions
       };
 
-      var datastoresGrid = GridUtils.Grid({
+      datastoresGrid = GridUtils.Grid({
         id: id,
-        columnDefs: columnDefs.concat(showPermissions ? permColumnDefs : []),
+        columnDefs: makeColumnDefs().concat(showPermissions ? permColumnDefs : []),
         actionBarOptions: actionBarOptions,
         selectionMode: vuiConstants.grid.selectionMode.SINGLE,
         selectedItems: [],
         data: mapDatastoresToGrid([])
       });
+
+      datastoresGrid.search = null;
 
       function refresh() {
         return DvolDatastoreService.get().then(function(datastores) {

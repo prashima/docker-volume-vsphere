@@ -3,7 +3,7 @@
 define([], function() {
   'use strict';
 
-  return function(DvolDatacenterVmService, GridUtils, vuiConstants, $filter) {
+  return function(DvolDatacenterVmService, GridUtils, vuiConstants, $filter, VMUtil) {
 
     var translate = $filter('translate');
 
@@ -11,7 +11,8 @@ define([], function() {
       return vms.map(function(vm) {
         return {
           id: vm.moid,
-          vmName: vm.name,
+          moid: vm.moid,
+          name: vm.name,
           guestFullName: vm.guestFullName,
           status: vm.status,
           storageUsageFormatted: vm.storageUsageFormatted
@@ -65,8 +66,31 @@ define([], function() {
 
     var columnDefs = [{
       displayName: 'Virtual Machine',
-      field: 'vmName',
-      width: '25%'
+      field: 'name',
+      width: '25%',
+      template: function(dataItem) {
+        var name = $filter('escapeHtml')(dataItem.name);
+        // name = GridUtils.highlight($scope.vmGrid, name);
+
+        var href = name;
+
+        if (dataItem.moid) {
+          if (!dataItem.invalid) {
+            href = encodeURI('#/host/vms/' + dataItem.moid);
+            href = '<a data-moid="' + dataItem.moid + '" href="' + href + '">' + name + '</a>';
+          }
+
+          href = '<div data-moid="' + dataItem.moid + '" ' +
+             'title="' + $filter('escapeHtml')(dataItem.name) +
+             '"><i data-moid="' + dataItem.moid + '" class="' +
+             VMUtil.getIcon(dataItem) + '" title="' +
+             translate('vm.state.' + dataItem.state) +
+             '" style="margin-top: 0 !important;"></i>' +
+             href + '</div>';
+        }
+
+        return href;
+      }
     }, {
       displayName: 'Guest OS',
       field: 'guestFullName',
