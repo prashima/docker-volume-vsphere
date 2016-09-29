@@ -121,7 +121,6 @@ define([
           url: '/docker-volume-plugin',
           views: {
             'content@host': {
-//              controller: 'DvolMainController',
               templateUrl: 'plugins/docker-volume-plugin/views/dvol-main.html'
             }
           }

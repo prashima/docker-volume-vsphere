@@ -135,7 +135,7 @@ define([], function() {
       tabs: Object.keys(tabs).map(function(key) {
         return tabs[key];
       }),
-      tabType: vuiConstants.tabs.type.PRIMARY,
+      tabType: vuiConstants.tabs.type.SECONDARY,
       selectedTabIndex: 0
     };
 

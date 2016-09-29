@@ -69,7 +69,7 @@ define([], function() {
       return filteredVms;
     }
 
-    var vmsGrid = DvolVmGridService.makeVmsGrid('vmsGrid', vmsGridActions, filterVmsForThisTenant);
+    var vmsGrid = DvolVmGridService.makeVmsGrid('vmsGrid', vmsGridActions, filterVmsForThisTenant, 'SINGLE');
     $scope.vmsGrid = vmsGrid.grid;
     $rootScope.vmsGrid = vmsGrid;
 
