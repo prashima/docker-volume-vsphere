@@ -48,12 +48,14 @@ define([], function() {
             var moid = StorageUtil.urlEncodeMOID(dataItem.moid);
             var href = '#/host/storage/datastores/' + moid;
             var content = dataItem.name;
-            if (grid) {
+            if (grid && null) {
               return GridUtils.contextMenuAction(grid,
                content, StorageUtil.getIcon(dataItem),
                'storage.datastore', [dataItem.moid], null, href);
             }
-            return dataItem.name;
+            var icon = 'esx-datastore-icon';
+            return '<div data-moid="' + dataItem.moid + '">' +
+              '<i class="' + icon + '"></i>' + dataItem.name + '</div>';
           }
         },
         {
