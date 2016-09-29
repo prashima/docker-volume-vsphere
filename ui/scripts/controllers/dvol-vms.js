@@ -44,6 +44,16 @@ define([], function() {
           DvolTenantService.removeVm(selectedTenant.id, selectedVm.moid || selectedVm.id)
             .then(vmsGrid.refresh);
         }
+      },
+      {
+        id: 'refresh-vms-button',
+        label: 'Refresh',
+        iconClass: 'esx-icon-action-refresh',
+        tooltipText: 'Refresh Virtual Machines',
+        enabled: true,
+        onClick: function() {
+          vmsGrid.refresh();
+        }
       }
     ];
 

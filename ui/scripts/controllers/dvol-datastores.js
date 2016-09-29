@@ -83,6 +83,16 @@ define([], function() {
           DvolTenantService.removeDatastore(selectedTenant.id, selectedDatastore.moid || selectedDatastore.id)
             .then(datastoresGrid.refresh);
         }
+      },
+      {
+        id: 'refresh-datastores-button',
+        label: 'Refresh',
+        iconClass: 'esx-icon-action-refresh',
+        tooltipText: 'Refresh Datastores',
+        enabled: true,
+        onClick: function() {
+          datastoresGrid.refresh();
+        }
       }
     ];
 

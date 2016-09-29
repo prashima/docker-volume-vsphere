@@ -63,6 +63,16 @@ define([], function() {
 
           });
         }
+      },
+      {
+        id: 'refresh-tenants-button',
+        label: 'Refresh',
+        iconClass: 'esx-icon-action-refresh',
+        tooltipText: 'Refresh Tenants',
+        enabled: true,
+        onClick: function() {
+          tenantsGrid.refresh();
+        }
       }
     ];
 
