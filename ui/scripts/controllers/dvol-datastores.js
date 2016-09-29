@@ -8,27 +8,6 @@ define([], function() {
 
     var datastoresGridActions = [
       {
-        id: 'edit-datastore',
-        label: 'Edit',
-        iconClass: 'vui-icon-action-edit',
-        enabled: true,
-        onClick: function() {
-          if ($scope.datastoresGrid.selectedItems.length < 1) return;
-          var datastoreId = $scope.datastoresGrid.selectedItems[0].id || $scope.datastoresGrid.selectedItems[0].moid;
-          DvolTenantService.get($scope.tenantsGrid.selectedItems[0].id)
-          .then(function(tenant) {
-            var datastore = tenant.datastores[datastoreId];
-            DialogService.showDialog('dvol.edit-datastore', {
-              permissions: datastore.permissions,
-              save: function(editedPermissions) {
-                DvolTenantService.updateDatastore(tenant.id, { datastore: datastoreId, permissions: editedPermissions })
-                  .then(datastoresGrid.refresh);
-              }
-            });
-          });
-        }
-      },
-      {
         id: 'add-datastores-button',
         label: 'Add',
         iconClass: 'esx-icon-datastore-add',
@@ -66,6 +45,27 @@ define([], function() {
                 });
             },
             datastoresAlreadyInTenant: DvolTenantService.state.tenants[$scope.tenantsGrid.selectedItems[0].id].datastores
+          });
+        }
+      },
+      {
+        id: 'edit-datastore',
+        label: 'Edit',
+        iconClass: 'vui-icon-action-edit',
+        enabled: true,
+        onClick: function() {
+          if ($scope.datastoresGrid.selectedItems.length < 1) return;
+          var datastoreId = $scope.datastoresGrid.selectedItems[0].id || $scope.datastoresGrid.selectedItems[0].moid;
+          DvolTenantService.get($scope.tenantsGrid.selectedItems[0].id)
+          .then(function(tenant) {
+            var datastore = tenant.datastores[datastoreId];
+            DialogService.showDialog('dvol.edit-datastore', {
+              permissions: datastore.permissions,
+              save: function(editedPermissions) {
+                DvolTenantService.updateDatastore(tenant.id, { datastore: datastoreId, permissions: editedPermissions })
+                  .then(datastoresGrid.refresh);
+              }
+            });
           });
         }
       },

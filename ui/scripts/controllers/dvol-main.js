@@ -30,19 +30,6 @@ define([], function() {
         }
       },
       {
-        id: 'remove-tenant-button',
-        label: 'Remove',
-        iconClass: 'vui-icon-action-delete',
-        tooltipText: 'Remove Tenant',
-        enabled: false,
-        onClick: function() {
-          var selectedTenant = $scope.tenantsGrid.selectedItems[0];
-          if (!selectedTenant) return;
-          DvolTenantService.remove(selectedTenant.id);
-          tenantsGrid.refresh();
-        }
-      },
-      {
         id: 'edit-tenant-button',
         label: 'Edit',
         iconClass: 'vui-icon-action-edit',
@@ -62,6 +49,19 @@ define([], function() {
             });
 
           });
+        }
+      },
+      {
+        id: 'remove-tenant-button',
+        label: 'Remove',
+        iconClass: 'vui-icon-action-delete',
+        tooltipText: 'Remove Tenant',
+        enabled: false,
+        onClick: function() {
+          var selectedTenant = $scope.tenantsGrid.selectedItems[0];
+          if (!selectedTenant) return;
+          DvolTenantService.remove(selectedTenant.id);
+          tenantsGrid.refresh();
         }
       },
       {
