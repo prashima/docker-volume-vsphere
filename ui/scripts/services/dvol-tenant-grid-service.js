@@ -18,7 +18,8 @@ define([], function() {
         width: '30%',
         template: function(dataItem) {
           var icon = 'esx-icon-datastore-register';
-          return '<div>' + '<i class="' + icon + '"></i>' + dataItem.name + '</div>';
+          var displayName = dataItem.name || '';
+          return '<div>' + '<i class="' + icon + '"></i>' + displayName || '' + '</div>';
         }
       },
       {
