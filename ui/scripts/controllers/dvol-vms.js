@@ -85,6 +85,21 @@ define([], function() {
 
     GridUtils.addSearch($scope.vmsGrid, vmSearchOptions);
 
+    function findAction(actions, actionId) {
+      return actions.filter(function(a) {
+        return a.id === actionId;
+      })[0];
+    }
+
+    $scope.$watch('vmsGrid.selectedItems', function() {
+      var removeAction = findAction($scope.vmsGrid.actionBarOptions.actions, 'remove-vm-button');
+      if ($scope.vmsGrid.selectedItems.length < 1) {
+        removeAction.enabled = false;
+      } else {
+        removeAction.enabled = true;
+      }
+    });
+
   };
 
 });

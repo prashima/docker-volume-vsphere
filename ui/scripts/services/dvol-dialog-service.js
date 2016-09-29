@@ -53,8 +53,8 @@ define([], function() {
       case 'dvol.edit-datastore':
         return {
           title: 'Edit Datastore',
-          width: '585px',
-          height: '280px',
+          width: '360px',
+          height: '240px',
           icon: 'esx-icon-datastore-manage',
           content: 'plugins/docker-volume-plugin/views/dvol-edit-datastore-dialog.html',
           rejectOptions: rejectOptions

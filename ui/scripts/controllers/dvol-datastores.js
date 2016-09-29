@@ -49,7 +49,7 @@ define([], function() {
         }
       },
       {
-        id: 'edit-datastore',
+        id: 'edit-datastore-button',
         label: 'Edit',
         iconClass: 'vui-icon-action-edit',
         enabled: true,
@@ -128,6 +128,24 @@ define([], function() {
     };
 
     GridUtils.addSearch($scope.datastoresGrid, datastoreSearchOptions);
+
+    function findAction(actions, actionId) {
+      return actions.filter(function(a) {
+        return a.id === actionId;
+      })[0];
+    }
+
+    $scope.$watch('datastoresGrid.selectedItems', function() {
+      var editAction = findAction($scope.datastoresGrid.actionBarOptions.actions, 'edit-datastore-button');
+      var removeAction = findAction($scope.datastoresGrid.actionBarOptions.actions, 'remove-datastore-button');
+      if ($scope.datastoresGrid.selectedItems.length < 1) {
+        editAction.enabled = false;
+        removeAction.enabled = false;
+      } else {
+        editAction.enabled = true;
+        removeAction.enabled = true;
+      }
+    });
 
   };
 
