@@ -15,6 +15,7 @@ define([], function() {
       {
         field: 'name',
         displayName: 'Name',
+        width: '30%',
         template: function(dataItem) {
           var icon = 'esx-icon-datastore-register';
           return '<div>' + '<i class="' + icon + '"></i>' + dataItem.name + '</div>';
@@ -23,6 +24,7 @@ define([], function() {
       {
         field: 'description',
         displayName: 'Description',
+        width: '50%',
         template: function(dataItem) {
           if (angular.isDefined(dataItem.description)) {
             return dataItem.description;
@@ -31,6 +33,7 @@ define([], function() {
         }
       },
       {
+        width: '20%',
         field: 'id',
         displayName: 'ID'
       }

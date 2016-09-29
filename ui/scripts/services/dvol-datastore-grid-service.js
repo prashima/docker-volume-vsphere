@@ -68,11 +68,13 @@ define([], function() {
         },
         {
           field: 'capacity',
-          displayName: 'Capacity'
+          displayName: 'Capacity',
+          visible: false
         },
         {
           field: 'freeSpace',
-          displayName: 'Free'
+          displayName: 'Free',
+          visible: false
         },
         {
           field: 'id',
@@ -97,11 +99,17 @@ define([], function() {
       },
       {
         field: 'maxVolume',
-        displayName: 'Max Volume'
+        displayName: 'Max Volume',
+        template: function(dataItem) {
+          return dataItem.maxVolume + ' GB';
+        }
       },
       {
         field: 'totalVolume',
-        displayName: 'Total volume'
+        displayName: 'Total volume',
+        template: function(dataItem) {
+          return dataItem.totalVolume + ' GB';
+        }
       }
     ];
 
