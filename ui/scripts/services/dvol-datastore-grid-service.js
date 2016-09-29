@@ -53,7 +53,7 @@ define([], function() {
                content, StorageUtil.getIcon(dataItem),
                'storage.datastore', [dataItem.moid], null, href);
             }
-            var icon = 'esx-datastore-icon';
+            var icon = 'esx-icon-datastore';
             return '<div data-moid="' + dataItem.moid + '">' +
               '<i class="' + icon + '"></i>' + dataItem.name + '</div>';
           }

@@ -14,7 +14,11 @@ define([], function() {
     var columnDefs = [
       {
         field: 'name',
-        displayName: 'Name'
+        displayName: 'Name',
+        template: function(dataItem) {
+          var icon = 'esx-icon-datastore-register';
+          return '<div>' + '<i class="' + icon + '"></i>' + dataItem.name + '</div>';
+        }
       },
       {
         field: 'description',
