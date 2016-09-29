@@ -34,7 +34,7 @@ define([], function() {
         label: 'Remove',
         iconClass: 'vui-icon-action-delete',
         tooltipText: 'Remove Tenant',
-        enabled: true,
+        enabled: false,
         onClick: function() {
           var selectedTenant = $scope.tenantsGrid.selectedItems[0];
           if (!selectedTenant) return;
@@ -91,7 +91,22 @@ define([], function() {
 
     GridUtils.addSearch($scope.tenantsGrid, tenantSearchOptions);
 
+    function findAction(actions, actionId) {
+      return actions.filter(function(a) {
+        return a.id === actionId;
+      })[0];
+    }
+
     $scope.$watch('tenantsGrid.selectedItems', function() {
+      var editAction = findAction($scope.tenantsGrid.actionBarOptions.actions, 'edit-tenant-button');
+      var removeAction = findAction($scope.tenantsGrid.actionBarOptions.actions, 'remove-tenant-button');
+      if ($scope.tenantsGrid.selectedItems.length < 1) {
+        editAction.enabled = false;
+        removeAction.enabled = false;
+      } else {
+        editAction.enabled = true;
+        removeAction.enabled = true;
+      }
       $rootScope.vmsGrid && $rootScope.vmsGrid.refresh();
       $rootScope.datastoresGrid && $rootScope.datastoresGrid.refresh();
     });
