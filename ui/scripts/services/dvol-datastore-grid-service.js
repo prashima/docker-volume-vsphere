@@ -38,9 +38,6 @@ define([], function() {
 
     var columnDefs = [
       {
-        field: 'id'
-      },
-      {
         field: 'datastoreName',
         displayName: 'Name'
       },
@@ -59,6 +56,10 @@ define([], function() {
       {
         field: 'freeSpace',
         displayName: 'Free'
+      },
+      {
+        field: 'id',
+        displayName: 'ID'
       }
     ];
 
