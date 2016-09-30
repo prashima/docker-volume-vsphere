@@ -20,7 +20,7 @@ define([], function() {
       });
     }
 
-    function makeStatusColDef() {
+    function makeStatusColDef(linkEnabled) {
       return {
         displayName: translate('vm.list.columns.status'),
         field: 'status',
@@ -64,50 +64,52 @@ define([], function() {
       };
     }
 
-    var columnDefs = [{
-      displayName: 'Virtual Machine',
-      field: 'name',
-      width: '25%',
-      template: function(dataItem) {
-        var name = $filter('escapeHtml')(dataItem.name);
-        // name = GridUtils.highlight($scope.vmGrid, name);
+    function makeColumnDefs(linkEnabled) {
+      return [{
+        displayName: 'Virtual Machine',
+        field: 'name',
+        width: '25%',
+        template: function(dataItem) {
+          var name = $filter('escapeHtml')(dataItem.name);
+          // name = GridUtils.highlight($scope.vmGrid, name);
 
-        var href = name;
+          var href = name;
 
-        if (dataItem.moid) {
-          if (!dataItem.invalid) {
-            href = encodeURI('#/host/vms/' + dataItem.moid);
-            href = '<a data-moid="' + dataItem.moid + '" href="' + href + '">' + name + '</a>';
+          if (dataItem.moid) {
+            if (!dataItem.invalid && linkEnabled) {
+              href = encodeURI('#/host/vms/' + dataItem.moid);
+              href = '<a data-moid="' + dataItem.moid + '" href="' + href + '">' + name + '</a>';
+            }
+
+            href = '<div data-moid="' + dataItem.moid + '"' +
+               '"><i data-moid="' + dataItem.moid + '" class="' +
+               VMUtil.getIcon(dataItem) + 'style="margin-top: 0 !important;"></i>' +
+               href + '</div>';
           }
 
-          href = '<div data-moid="' + dataItem.moid + '"' +
-             '"><i data-moid="' + dataItem.moid + '" class="' +
-             VMUtil.getIcon(dataItem) + 'style="margin-top: 0 !important;"></i>' +
-             href + '</div>';
+          return href;
         }
+      }, {
+        displayName: 'Guest OS',
+        field: 'guestFullName',
+        width: '25%'
+      },
+      makeStatusColDef(), {
+        displayName: 'Used space',
+        field: 'storageUsageFormatted',
+        width: '15%'
+      }, {
+        field: 'id',
+        displayName: 'ID',
+        width: '15%'
+      }];
+    }
 
-        return href;
-      }
-    }, {
-      displayName: 'Guest OS',
-      field: 'guestFullName',
-      width: '25%'
-    },
-    makeStatusColDef(), {
-      displayName: 'Used space',
-      field: 'storageUsageFormatted',
-      width: '15%'
-    }, {
-      field: 'id',
-      displayName: 'ID',
-      width: '15%'
-    }];
-
-    function getGridProps(id, selectionMode) {
+    function getGridProps(id, selectionMode, linkEnabled) {
       return {
         id: id,
         idDataField: 'id',
-        columnDefs: columnDefs,
+        columnDefs: makeColumnDefs(linkEnabled),
         sortMode: vuiConstants.grid.sortMode.SINGLE,
         selectionMode: vuiConstants.grid.selectionMode[selectionMode || 'MULTI'],
         selectedItems: [],
@@ -116,11 +118,11 @@ define([], function() {
       };
     }
 
-    function makeVmsGrid(id, actions, filterFn, selectionMode) {
+    function makeVmsGrid(id, actions, filterFn, selectionMode, linkEnabled) {
 
       var datacenterVmsGrid;
 
-      var gridProps = getGridProps(id, selectionMode);
+      var gridProps = getGridProps(id, selectionMode, linkEnabled);
 
       if (actions) {
         gridProps.actionBarOptions = gridProps.actionBarOptions || {};
