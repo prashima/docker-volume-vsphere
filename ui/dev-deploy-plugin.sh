@@ -17,6 +17,6 @@ grunt --env=dev
 SRC_PATH=.
 PLUGIN_NAME=docker-volume-plugin
 BUILD_PATH=${SRC_PATH}/build/dist
-ssh root@${ESX_IP} mkdir /usr/lib/vmware/hostd/docroot/ui/plugins
+#ssh root@${ESX_IP} mkdir /usr/lib/vmware/hostd/docroot/ui/plugins
 ssh root@${ESX_IP} rm -rf /usr/lib/vmware/hostd/docroot/ui/plugins/${PLUGIN_NAME}/
 scp -r ${BUILD_PATH}/. root@${ESX_IP}:/usr/lib/vmware/hostd/docroot/ui/plugins/${PLUGIN_NAME}/
