@@ -84,6 +84,10 @@ define([], function() {
         {
           field: 'name',
           operator: 'contains'
+        },
+        {
+          field: 'description',
+          operator: 'contains'
         }
       ],
       placeholder: 'Search'

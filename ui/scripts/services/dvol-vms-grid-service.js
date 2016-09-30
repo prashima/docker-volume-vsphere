@@ -80,12 +80,9 @@ define([], function() {
             href = '<a data-moid="' + dataItem.moid + '" href="' + href + '">' + name + '</a>';
           }
 
-          href = '<div data-moid="' + dataItem.moid + '" ' +
-             'title="' + $filter('escapeHtml')(dataItem.name) +
+          href = '<div data-moid="' + dataItem.moid + '"' +
              '"><i data-moid="' + dataItem.moid + '" class="' +
-             VMUtil.getIcon(dataItem) + '" title="' +
-             translate('vm.state.' + dataItem.state) +
-             '" style="margin-top: 0 !important;"></i>' +
+             VMUtil.getIcon(dataItem) + 'style="margin-top: 0 !important;"></i>' +
              href + '</div>';
         }
 
