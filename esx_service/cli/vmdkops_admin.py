@@ -121,6 +121,13 @@ def commands():
                                 'attached-to', 'policy', 'capacity', 'used',
                                 'fstype', 'access', 'attach-as'],
                     'metavar': 'Col1,Col2,...'
+                },
+                '--tenant': {
+                    'help' : 'Display volumes belong to selected tenants'
+                },
+                '--notenant': {
+                    'help' : 'Display volumes not belong to any tenant',
+                    'action' : 'store_true'
                 }
             }
         },
@@ -347,18 +354,24 @@ def ls(args):
     If args.l is True then show all metadata in a table.
     If args.c is not empty only display columns given in args.c (implies -l).
     """
+    tenant_reg = '*'
+    if args.tenant:
+        tenant_reg = args.tenant
+    if args.notenant:
+        tenant_reg = None
+
     if args.c:
-        (header, rows) = ls_dash_c(args.c)
+        (header, rows) = ls_dash_c(args.c, tenant_reg)
     else:
         header = all_ls_headers()
-        rows = generate_ls_rows()
+        rows = generate_ls_rows(tenant_reg)
     print(cli_table.create(header, rows))
 
 
-def ls_dash_c(columns):
+def ls_dash_c(columns, tenant_reg):
     """ Return only the columns requested in the format required for table construction """
     all_headers = all_ls_headers()
-    all_rows = generate_ls_rows()
+    all_rows = generate_ls_rows(tenant_reg)
     indexes = []
     headers = []
     choices = commands()['ls']['args']['-c']['choices']
@@ -374,14 +387,14 @@ def ls_dash_c(columns):
 
 def all_ls_headers():
     """ Return a list of all header for ls -l """
-    return ['Volume', 'Datastore', 'Created By VM', 'Created',
+    return ['Tenant', 'Volume', 'Datastore', 'Created By VM', 'Created',
             'Attached To VM', 'Policy', 'Capacity', 'Used',
             'Filesystem Type', 'Access', 'Attach As']
 
-def generate_ls_rows():
+def generate_ls_rows(tenant_reg):
     """ Gather all volume metadata into rows that can be used to format a table """
     rows = []
-    for v in vmdk_utils.get_volumes(None):
+    for v in vmdk_utils.get_volumes(tenant_reg):
         path = os.path.join(v['path'], v['filename'])
         name = vmdk_utils.strip_vmdk_extension(v['filename'])
         metadata = get_metadata(path)
@@ -392,7 +405,7 @@ def generate_ls_rows():
         fstype = get_fstype(metadata)
         access = get_access(metadata)
         attach_as = get_attach_as(metadata)
-        rows.append([name, v['datastore'], created_by, created, attached_to,
+        rows.append([v['tenant'], name, v['datastore'], created_by, created, attached_to,
                      policy, size_info['capacity'], size_info['used'],
                      fstype, access, attach_as])
     return rows

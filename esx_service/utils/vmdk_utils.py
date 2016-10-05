@@ -74,7 +74,7 @@ def get_datastores():
     return datastores
 
 def get_volumes(tenant_re):
-    """ Return dicts of docker volumes, their datastore and their paths """
+    """ Return dicts of tenants, docker volumes, their datastore and their paths """
     logging.debug("get_volumes: tenant_pattern(%s)", tenant_re)
     volumes = []
     for (datastore, url_name, path) in get_datastores():
@@ -83,16 +83,22 @@ def get_volumes(tenant_re):
             for file_name in list_vmdks(path):
                 volumes.append({'path': path,
                                 'filename': file_name,
-                                'datastore': datastore})
+                                'datastore': datastore,
+                                'tenant': 'n/a'})
         else:
             for root, dirs, files in os.walk(path):
                 sub_dir = root.replace(path, "")
                 sub_dir_name = sub_dir[1:]
                 if fnmatch.fnmatch(sub_dir_name, tenant_re):
                     for file_name in list_vmdks(root):
+                        if not sub_dir_name:
+                            tenant = 'n/a'
+                        else:
+                            tenant = sub_dir_name
                         volumes.append({'path': root,
                                         'filename': file_name,
-                                        'datastore': datastore})
+                                        'datastore': datastore,
+                                        'tenant': tenant})
     logging.debug("volumes %s", volumes)
     return volumes
 
