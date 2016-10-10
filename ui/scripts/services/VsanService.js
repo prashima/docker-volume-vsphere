@@ -57,20 +57,49 @@ define(['angular', 'vsphere'], function (angular, vsphere) {
          this.deploySystemRef = null;
       };
 
+      // this.getTenants = function() {
+      //   return this.isVsanEnabled()
+      //     .then(function(res) {
+      //       console.log('isVsanEnabled: ' + res);
+      //       return res;
+      //     }, function(err) {
+      //       console.log('ERROR: isVsanEnabled: ' + err);
+      //     })
+      //     .then(function(enabled) {
+      //       if (!enabled) {
+      //         console.log('calling enableVsan ');
+      //         enableVsan();
+      //       }
+      //     });
+      // };
+
       this.getTenants = function() {
-        return this.isVsanEnabled()
-          .then(function(res) {
-            console.log('isVsanEnabled: ' + res);
-            return res;
-          }, function(err) {
-            console.log('ERROR: isVsanEnabled: ' + err);
-          })
-          .then(function(enabled) {
-            if (!enabled) {
-              console.log('calling enableVsan ');
-              enableVsan();
-            }
-          });
+
+        var hostname = '192.168.73.131';
+        var port = 9096;
+        var _csrfToken = "tmaaxqkz6in61gqp94fgl055mtnl0wlr";
+        var _proxy = true;
+
+        return vsphere.createVsanHealthService(hostname + ':' + port, {
+           //proxy: _proxy,
+           csrfToken: _csrfToken,
+           csrfTokenHeader: 'VMware-CSRF-Token'
+        }).then(function (service) {
+           // console.log('vim service:'  + service);
+
+           ['vim', 'vimPort', 'serviceContent'].forEach(function(top) {
+             Object.keys(service[top]).forEach(function(prop) {
+               if (prop.indexOf('ockvol') >= 0) {
+                 console.log(top + ' --> ' + prop);
+               }
+             });
+           });
+
+          //  var netInfo = new service.vim.HostNetworkInfo();
+          //  console.log('netInfo --> ' + netInfo);
+
+           return service;
+        });
       };
 
 
