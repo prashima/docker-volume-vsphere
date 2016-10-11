@@ -643,8 +643,8 @@ def findDeviceByPath(vmdk_path, vm):
         datastore_prefix = get_datastore_url(datastore)+'/'
         real_vol_dir = os.path.realpath(dvol_dir).replace(datastore_prefix, "")
         virtual_disk = os.path.join(real_vol_dir, os.path.basename(vmdk_path))
-        logging.debug("backing_disk %s", backing_disk)
-        logging.debug("virtual_disk %s", virtual_disk)
+        logging.debug("dvol_dir=%s datastore_prefix=%s real_vol_dir=%s", dvol_dir, datastore_prefix,real_vol_dir)
+        logging.debug("backing_disk=%s virtual_disk=%s", backing_disk, virtual_disk)
         if virtual_disk == backing_disk:
             logging.debug("findDeviceByPath: MATCH: %s", backing_disk)
             return d
