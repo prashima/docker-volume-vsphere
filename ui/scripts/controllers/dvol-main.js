@@ -6,7 +6,8 @@ define([], function() {
   return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils, vuiConstants, DialogService,
     DvolTenantService, DvolTenantGridService, VsanService) {
 
-    VsanService.getTenants().then(function(res) {
+    VsanService.getTenants()
+    .then(function(res) {
       console.log('getTenants: ' + res);
     }, function(err) {
       console.log('ERROR getTenants: ' + err);

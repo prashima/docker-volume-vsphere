@@ -45,7 +45,7 @@ define(['angular', 'vsphere'], function (angular, vsphere) {
 
    return function (
       $rootScope, $q, $log, $location, $interval, $filter, $timeout, $sce, $window,
-      VIMService, TaskService, StorageService, NotificationService, AuthService,
+      VIMService, TaskService, StorageService, NotificationService, AuthService, StorageManager,
       APPLICATION_EVENTS, vuiConstants
    ) {
       $log = $log.getInstance('VsanService');
@@ -75,30 +75,51 @@ define(['angular', 'vsphere'], function (angular, vsphere) {
 
       this.getTenants = function() {
 
-        var hostname = '192.168.73.131';
+        var hostname = '192.168.73.133';
         var port = 9096;
-        var _csrfToken = "tmaaxqkz6in61gqp94fgl055mtnl0wlr";
+        //var _csrfToken = "i3i1jmqgf8e0z06nhvjbq7opsjwsfec6";
+        var _csrfToken = StorageManager.get('csrf_token', null);
         var _proxy = true;
 
         return vsphere.createVsanHealthService(hostname + ':' + port, {
-           //proxy: _proxy,
+           proxy: _proxy,
            csrfToken: _csrfToken,
            csrfTokenHeader: 'VMware-CSRF-Token'
         }).then(function (service) {
-           // console.log('vim service:'  + service);
 
-           ['vim', 'vimPort', 'serviceContent'].forEach(function(top) {
-             Object.keys(service[top]).forEach(function(prop) {
-               if (prop.indexOf('ockvol') >= 0) {
-                 console.log(top + ' --> ' + prop);
-               }
-             });
-           });
+          //console.log(Object.keys(service.vsanHealthPort).sort());
 
-          //  var netInfo = new service.vim.HostNetworkInfo();
-          //  console.log('netInfo --> ' + netInfo);
+          var cluster = new service.vim.ManagedObjectReference({
+            type: 'ComputeResource',
+            value: 'compute-resource'
+          });
 
-           return service;
+          // var cluster = new service.vim.ManagedObjectReference({
+          //   type: 'VsanClusterHealthSystem',
+          //   value: 'vsan-cluster-health-system'
+          // });
+
+          // var perfMoRef =  new service.vim.ManagedObjectReference({
+          //    type: 'VsanPerformanceManager',
+          //    value: 'vsan-performance-manager'
+          // });
+          // var perfMoRef =  new service.vim.ManagedObjectReference({
+          //    type: 'HostVsanHealthSystem',
+          //    value: 'host-vsan-health-system'
+          // });
+          var perfMoRef =  new service.vim.ManagedObjectReference({
+             type: 'VimHostVsanDockerPersistentVolumeSystem',
+             value: 'vsan-docker-persistent-volumes'
+          });
+          // var perfMoRef =  new service.vim.ManagedObjectReference({
+          //   type: 'VsanPerformanceManager',
+          //   value: 'vsan-performance-manager'
+          // });
+
+          //var p = service.vsanHealthPort.vsanHostQueryVerifyNetworkSettings(perfMoRef, '', '');
+
+          var p = service.vsanHealthPort.vsanPerfQueryStatsObjectInformation(perfMoRef, cluster);
+          return p;
         });
       };
 
