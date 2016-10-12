@@ -38,24 +38,99 @@ define(['angular', 'vsphere'], function (angular, vsphere) {
 
 
 
-
-
-
-
-
    return function (
       $rootScope, $q, $log, $location, $interval, $filter, $timeout, $sce, $window,
       VIMService, TaskService, StorageService, NotificationService, AuthService, StorageManager,
       APPLICATION_EVENTS, vuiConstants
    ) {
-      $log = $log.getInstance('VsanService');
-      //Cache of vsan health service
-      var cache = null;
-      var VsanServiceWarp = function() {
-         this.api = null;
-         this.types = null;
-         this.deploySystemRef = null;
-      };
+
+
+     //
+     // new stuff
+     //
+
+     var performRawSOAPRequest = function (
+       type, moid, methodName, version, args) {
+
+
+       var _hostname = AuthService.getProvidedHostname();
+       var _port = AuthService.getProvidedPort();
+       var _csrfToken = StorageManager.get('csrf_token', null);
+
+       var deferred = $q.defer();
+
+       if (angular.isUndefined(version)) {
+          version = '5.1';
+       }
+
+       var soapReq = '';
+       soapReq += '<?xml version="1.0" encoding="UTF-8"?>';
+       soapReq += '<soapenv:Envelope xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" ';
+       soapReq += 'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ';
+       soapReq += 'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ';
+       soapReq += 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
+       soapReq += '<soapenv:Body>';
+       soapReq += '<' + methodName + ' xmlns="urn:vim25">';
+       soapReq += '<_this type="' + type + '" xsi:type="ManagedObjectReference">' + moid + '</_this>';
+       if (angular.isDefined(args)) {
+          soapReq += args;
+       }
+       soapReq += '</' + methodName + '>';
+       soapReq += '</soapenv:Body>';
+       soapReq += '</soapenv:Envelope>';
+
+       var xhr = new XMLHttpRequest(),
+          host = _hostname + ':' + _port,
+          proxy = false;
+
+       /* deal with proxying requests */
+       if (host !== $location.host()) {
+          host = $location.host() + ':' + $location.port() + '/vsan';
+          proxy = true;
+       } else {
+          host = host + '/vsan';
+       }
+
+       xhr.open('POST', 'https://' + host, true);
+
+       if (proxy) {
+          $log.debug('using proxy ' + host);
+          xhr.setRequestHeader('x-vsphere-proxy',
+             'https://' + _hostname + ':' + _port + '/vsan');
+       }
+
+       xhr.setRequestHeader('Content-Type', 'text/xml; charset=utf-8');
+       xhr.setRequestHeader('SOAPAction', 'urn:vim25/' + version);
+       xhr.setRequestHeader('VMware-CSRF-Token', _csrfToken);
+       xhr.send(soapReq);
+
+       xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+             if (xhr.status === 200) {
+                deferred.resolve(xhr.response);
+             } else {
+                deferred.reject();
+             }
+          }
+       };
+
+       return deferred.promise;
+
+    };
+
+    this.getTenants = function() {
+
+      var p = performRawSOAPRequest(
+        'VimHostVsanDockerPersistentVolumeSystem',
+        'vsan-docker-persistent-volumes',
+        'GetTenantList',
+        '6.0',
+        ''
+      );
+
+      return p;
+
+    };
 
       // this.getTenants = function() {
       //   return this.isVsanEnabled()
@@ -73,56 +148,70 @@ define(['angular', 'vsphere'], function (angular, vsphere) {
       //     });
       // };
 
-      this.getTenants = function() {
+      // this.getTenants = function() {
+      //
+      //   var hostname = AuthService.getProvidedHostname();
+      //   var port = AuthService.getProvidedPort();
+      //   var _csrfToken = StorageManager.get('csrf_token', null);
+      //   var _proxy = true;
+      //
+      //   return vsphere.createVsanHealthService(hostname + ':' + port, {
+      //      proxy: _proxy,
+      //      csrfToken: _csrfToken,
+      //      csrfTokenHeader: 'VMware-CSRF-Token'
+      //   }).then(function (service) {
+      //
+      //     //console.log(Object.keys(service.vsanHealthPort).sort());
+      //
+      //     var cluster = new service.vim.ManagedObjectReference({
+      //       type: 'ComputeResource',
+      //       value: 'compute-resource'
+      //     });
+      //
+      //     // var cluster = new service.vim.ManagedObjectReference({
+      //     //   type: 'VsanClusterHealthSystem',
+      //     //   value: 'vsan-cluster-health-system'
+      //     // });
+      //
+      //     // var perfMoRef =  new service.vim.ManagedObjectReference({
+      //     //    type: 'VsanPerformanceManager',
+      //     //    value: 'vsan-performance-manager'
+      //     // });
+      //     // var perfMoRef =  new service.vim.ManagedObjectReference({
+      //     //    type: 'HostVsanHealthSystem',
+      //     //    value: 'host-vsan-health-system'
+      //     // });
+      //     // var perfMoRef =  new service.vim.ManagedObjectReference({
+      //     //    type: 'VimHostVsanDockerPersistentVolumeSystem',
+      //     //    value: 'vsan-docker-persistent-volumes'
+      //     // });
+      //     var perfMoRef =  new service.vim.ManagedObjectReference({
+      //       type: 'VsanPerformanceManager',
+      //       value: 'vsan-performance-manager'
+      //     });
 
-        var hostname = '192.168.73.133';
-        var port = 9096;
-        //var _csrfToken = "i3i1jmqgf8e0z06nhvjbq7opsjwsfec6";
-        var _csrfToken = StorageManager.get('csrf_token', null);
-        var _proxy = true;
+        //   //var p = service.vsanHealthPort.vsanHostQueryVerifyNetworkSettings(perfMoRef, '', '');
+        //
+        //   //var p = service.vsanHealthPort.vsanPerfQueryStatsObjectInformation(perfMoRef, cluster);
+        //   var p = service.vsanHealthPort.vsanPerfQueryStatsObjectInformation(perfMoRef, cluster)
+        //
+        //   return p;
+        // });
+      // };
 
-        return vsphere.createVsanHealthService(hostname + ':' + port, {
-           proxy: _proxy,
-           csrfToken: _csrfToken,
-           csrfTokenHeader: 'VMware-CSRF-Token'
-        }).then(function (service) {
+//
+// end new stuff
+//
 
-          //console.log(Object.keys(service.vsanHealthPort).sort());
 
-          var cluster = new service.vim.ManagedObjectReference({
-            type: 'ComputeResource',
-            value: 'compute-resource'
-          });
-
-          // var cluster = new service.vim.ManagedObjectReference({
-          //   type: 'VsanClusterHealthSystem',
-          //   value: 'vsan-cluster-health-system'
-          // });
-
-          // var perfMoRef =  new service.vim.ManagedObjectReference({
-          //    type: 'VsanPerformanceManager',
-          //    value: 'vsan-performance-manager'
-          // });
-          // var perfMoRef =  new service.vim.ManagedObjectReference({
-          //    type: 'HostVsanHealthSystem',
-          //    value: 'host-vsan-health-system'
-          // });
-          var perfMoRef =  new service.vim.ManagedObjectReference({
-             type: 'VimHostVsanDockerPersistentVolumeSystem',
-             value: 'vsan-docker-persistent-volumes'
-          });
-          // var perfMoRef =  new service.vim.ManagedObjectReference({
-          //   type: 'VsanPerformanceManager',
-          //   value: 'vsan-performance-manager'
-          // });
-
-          //var p = service.vsanHealthPort.vsanHostQueryVerifyNetworkSettings(perfMoRef, '', '');
-
-          var p = service.vsanHealthPort.vsanPerfQueryStatsObjectInformation(perfMoRef, cluster);
-          return p;
-        });
+      $log = $log.getInstance('VsanService');
+      //Cache of vsan health service
+      var cache = null;
+      var VsanServiceWarp = function() {
+         this.api = null;
+         this.types = null;
+         this.deploySystemRef = null;
       };
-
 
       var getVsanService = function() {
          var deferred = $q.defer();
