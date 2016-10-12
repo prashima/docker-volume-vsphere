@@ -634,16 +634,16 @@ def findDeviceByPath(vmdk_path, vm):
         # Filename format is as follows:
         #   "[<datastore name>] <parent-directory>/tenant/<vmdk-descriptor-name>"
         backing_disk = d.backing.fileName.split(" ")[1]
-        # datastore='[datastore name]'
         datastore = d.backing.fileName.split(" ")[0] 
         datastore = datastore[1:-1]
         # Construct the parent dir and vmdk name, resolving
         # links if any.
         dvol_dir = os.path.dirname(vmdk_path)
-        datastore_prefix = get_datastore_url(datastore)+'/'
+        datastore_prefix = os.path.realpath(get_datastore_url(datastore))+'/'
         real_vol_dir = os.path.realpath(dvol_dir).replace(datastore_prefix, "")
         virtual_disk = os.path.join(real_vol_dir, os.path.basename(vmdk_path))
-        logging.debug("dvol_dir=%s datastore_prefix=%s real_vol_dir=%s", dvol_dir, datastore_prefix,real_vol_dir)
+        logging.debug("dvol_dir=%s datastore=%s datastore_prefix=%s real_vol_dir=%s", 
+                      dvol_dir, datastore, datastore_prefix,real_vol_dir)
         logging.debug("backing_disk=%s virtual_disk=%s", backing_disk, virtual_disk)
         if virtual_disk == backing_disk:
             logging.debug("findDeviceByPath: MATCH: %s", backing_disk)
