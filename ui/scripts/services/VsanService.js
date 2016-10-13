@@ -63,21 +63,21 @@ define(['angular', 'vsphere'], function (angular, vsphere) {
           version = '5.1';
        }
 
-       var soapReq = '';
-       soapReq += '<?xml version="1.0" encoding="UTF-8"?>';
-       soapReq += '<soapenv:Envelope xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" ';
-       soapReq += 'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ';
-       soapReq += 'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ';
-       soapReq += 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
-       soapReq += '<soapenv:Body>';
-       soapReq += '<' + methodName + ' xmlns="urn:vim25">';
-       soapReq += '<_this type="' + type + '" xsi:type="ManagedObjectReference">' + moid + '</_this>';
-       if (angular.isDefined(args)) {
-          soapReq += args;
-       }
-       soapReq += '</' + methodName + '>';
-       soapReq += '</soapenv:Body>';
-       soapReq += '</soapenv:Envelope>';
+      var soapReq = '';
+      soapReq += '<?xml version="1.0" encoding="UTF-8"?>';
+      soapReq += '<soapenv:Envelope xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" ';
+      soapReq += 'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ';
+      soapReq += 'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ';
+      soapReq += 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
+      soapReq += '<soapenv:Body>';
+      soapReq += '<' + methodName + ' xmlns="urn:vim25">';
+      soapReq += '<_this type="' + type + '" >' + moid + '</_this>';
+      if (angular.isDefined(args)) {
+         soapReq += args;
+      }
+      soapReq += '</' + methodName + '>';
+      soapReq += '</soapenv:Body>';
+      soapReq += '</soapenv:Envelope>';
 
        var xhr = new XMLHttpRequest(),
           host = _hostname + ':' + _port,
@@ -127,6 +127,14 @@ define(['angular', 'vsphere'], function (angular, vsphere) {
         '6.0',
         ''
       );
+
+      // var p = performRawSOAPRequest(
+      //   'HostVsanHealthSystem',
+      //   'ha-vsan-health-system',
+      //   'VsanHostQueryVerifyNetworkSettings',
+      //   '6.0',
+      //   ''
+      // );
 
       return p;
 
