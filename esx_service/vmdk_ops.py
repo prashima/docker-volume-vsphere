@@ -619,8 +619,8 @@ def get_datastore_url(datastore):
     global si
     if not si:
         connectLocal()
-    [d.info.url for d in si.content.rootFolder.childEntity[0].datastore if d.info.name == datastore]
-    return d.info.url
+    res = [d.info.url for d in si.content.rootFolder.childEntity[0].datastore if d.info.name == datastore]
+    return res[0]
 
 def findDeviceByPath(vmdk_path, vm):
     logging.debug("findDeviceByPath: Looking for device {0}".format(vmdk_path))
@@ -633,13 +633,15 @@ def findDeviceByPath(vmdk_path, vm):
         # to match with the given volume name.
         # Filename format is as follows:
         #   "[<datastore name>] <parent-directory>/tenant/<vmdk-descriptor-name>"
+        logging.debug("d.backing.fileName %s", d.backing.fileName)
         backing_disk = d.backing.fileName.split(" ")[1]
         datastore = d.backing.fileName.split(" ")[0] 
         datastore = datastore[1:-1]
         # Construct the parent dir and vmdk name, resolving
         # links if any.
+        datastore_url = get_datastore_url(datastore)
         dvol_dir = os.path.dirname(vmdk_path)
-        datastore_prefix = os.path.realpath(get_datastore_url(datastore))+'/'
+        datastore_prefix = os.path.realpath(datastore_url)+'/'
         real_vol_dir = os.path.realpath(dvol_dir).replace(datastore_prefix, "")
         virtual_disk = os.path.join(real_vol_dir, os.path.basename(vmdk_path))
         logging.debug("dvol_dir=%s datastore=%s datastore_prefix=%s real_vol_dir=%s", 
