@@ -13,8 +13,6 @@ define([], function() {
       console.log('ERROR getTenants: ' + err);
     });
 
-
-
     var translate = $filter('translate');
 
     //
