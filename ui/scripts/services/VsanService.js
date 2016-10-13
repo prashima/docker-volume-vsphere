@@ -118,7 +118,7 @@ define(['angular', 'vsphere'], function (angular, vsphere) {
 
     };
 
-    this.getTenantsRaw = function() {
+    this.getTenants = function() {
 
       var p = performRawSOAPRequest(
         'VimHostVsanDockerPersistentVolumeSystem',
@@ -128,75 +128,67 @@ define(['angular', 'vsphere'], function (angular, vsphere) {
         ''
       );
 
-      // var p = performRawSOAPRequest(
-      //   'HostVsanHealthSystem',
-      //   'ha-vsan-health-system',
-      //   'VsanHostQueryVerifyNetworkSettings',
-      //   '6.0',
-      //   ''
-      // );
-
       return p;
 
     };
 
-    this.getTenants = function() {
-
-      var hostname = AuthService.getProvidedHostname();
-      var port = AuthService.getProvidedPort();
-      var _csrfToken = StorageManager.get('csrf_token', null);
-      var _proxy = true;
-
-      return vsphere.createVsanHealthService(hostname + ':' + port, {
-         proxy: _proxy,
-         csrfToken: _csrfToken,
-         csrfTokenHeader: 'VMware-CSRF-Token'
-      }).then(function (service) {
-
-        //console.log(Object.keys(service.vsanHealthPort).sort());
-
-        var cluster = new service.vim.ManagedObjectReference({
-          type: 'ComputeResource',
-          value: 'compute-resource'
-        });
-
-        // var cluster = new service.vim.ManagedObjectReference({
-        //   type: 'VsanClusterHealthSystem',
-        //   value: 'vsan-cluster-health-system'
-        // });
-
-        // var perfMoRef =  new service.vim.ManagedObjectReference({
-        //    type: 'VsanPerformanceManager',
-        //    value: 'vsan-performance-manager'
-        // });
-        // var perfMoRef =  new service.vim.ManagedObjectReference({
-        //    type: 'HostVsanHealthSystem',
-        //    value: 'host-vsan-health-system'
-        // });
-        // var perfMoRef =  new service.vim.ManagedObjectReference({
-        //    type: 'VimHostVsanDockerPersistentVolumeSystem',
-        //    value: 'vsan-docker-persistent-volumes'
-        // });
-        // var perfMoRef =  new service.vim.ManagedObjectReference({
-        //   type: 'VsanPerformanceManager',
-        //   value: 'vsan-performance-manager'
-        // });
-
-        var perfMoRef = new service.vim.ManagedObjectReference({
-          type: 'VimHostVsanDockerPersistentVolumeSystem',
-          value: 'vsan-docker-persistent-volumes'
-        })
-
-        //var p = service.vsanHealthPort.vsanHostQueryVerifyNetworkSettings(perfMoRef, '', '');
-
-        //var p = service.vsanHealthPort.vsanPerfQueryStatsObjectInformation(perfMoRef, cluster);
-        //var p = service.vsanHealthPort.vsanPerfQueryStatsObjectInformation(perfMoRef, cluster)
-
-        var p = service.vsanHealthPort.getTenants(perfMoRef, cluster)
-
-        return p;
-      });
-    };
+    // this.getTenants = function() {
+    //
+    //   var hostname = AuthService.getProvidedHostname();
+    //   var port = AuthService.getProvidedPort();
+    //   var _csrfToken = StorageManager.get('csrf_token', null);
+    //   var _proxy = true;
+    //
+    //   return vsphere.createVsanHealthService(hostname + ':' + port, {
+    //      proxy: _proxy,
+    //      csrfToken: _csrfToken,
+    //      csrfTokenHeader: 'VMware-CSRF-Token'
+    //   }).then(function (service) {
+    //
+    //     //console.log(Object.keys(service.vsanHealthPort).sort());
+    //
+    //     var cluster = new service.vim.ManagedObjectReference({
+    //       type: 'ComputeResource',
+    //       value: 'compute-resource'
+    //     });
+    //
+    //     // var cluster = new service.vim.ManagedObjectReference({
+    //     //   type: 'VsanClusterHealthSystem',
+    //     //   value: 'vsan-cluster-health-system'
+    //     // });
+    //
+    //     // var perfMoRef =  new service.vim.ManagedObjectReference({
+    //     //    type: 'VsanPerformanceManager',
+    //     //    value: 'vsan-performance-manager'
+    //     // });
+    //     // var perfMoRef =  new service.vim.ManagedObjectReference({
+    //     //    type: 'HostVsanHealthSystem',
+    //     //    value: 'host-vsan-health-system'
+    //     // });
+    //     // var perfMoRef =  new service.vim.ManagedObjectReference({
+    //     //    type: 'VimHostVsanDockerPersistentVolumeSystem',
+    //     //    value: 'vsan-docker-persistent-volumes'
+    //     // });
+    //     // var perfMoRef =  new service.vim.ManagedObjectReference({
+    //     //   type: 'VsanPerformanceManager',
+    //     //   value: 'vsan-performance-manager'
+    //     // });
+    //
+    //     var perfMoRef = new service.vim.ManagedObjectReference({
+    //       type: 'VimHostVsanDockerPersistentVolumeSystem',
+    //       value: 'vsan-docker-persistent-volumes'
+    //     })
+    //
+    //     //var p = service.vsanHealthPort.vsanHostQueryVerifyNetworkSettings(perfMoRef, '', '');
+    //
+    //     //var p = service.vsanHealthPort.vsanPerfQueryStatsObjectInformation(perfMoRef, cluster);
+    //     //var p = service.vsanHealthPort.vsanPerfQueryStatsObjectInformation(perfMoRef, cluster)
+    //
+    //     var p = service.vsanHealthPort.getTenants(perfMoRef, cluster)
+    //
+    //     return p;
+    //   });
+    // };
 
 //
 // end new stuff
