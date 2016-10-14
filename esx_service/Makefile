@@ -68,9 +68,9 @@ VIBAUTHOR_PARAMS := --debug --compose \
 	--stage-dir $(WDIR) \
 	--offline-depot $(BIN)/$(OFFLINE_DEPOT) \
 	--force
-	
 
-# Payload root 
+
+# Payload root
 PAYLOAD=$(WDIR)/payloads
 
 # Location on ESX where the stuff needs to go
@@ -84,6 +84,12 @@ VMDKOPS_PY      := $(VMDKOPS_PAYLOAD)$(ESX_LOC)/Python
 VMDKOPS_LIB     := $(VMDKOPS_PAYLOAD)$(ESX_LOC)/lib
 VMDKOPS_LIB64   := $(VMDKOPS_PAYLOAD)$(ESX_LOC)/lib64
 VMDKOPS_INITD   := $(VMDKOPS_PAYLOAD)/etc/init.d
+
+UI_FROM := ../ui
+
+# trying to get to
+# /usr/lib/vmware/hostd/docroot/ui/plugins/${PLUGIN_NAME}/
+UI_TO := $(ESX_LOC)/ui
 
 # this is used from a Makefile upstairs, and could be used manually
 .PHONY: build
@@ -100,6 +106,8 @@ TO_ESX_INITD := $(INIT_SCRIPT)
 $(VIB_BIN): $(TO_WDIR) $(TO_ESX_BIN) $(TO_ESX_PY) $(TO_ESX_LIB) $(TO_ESX_INITD)
 	@echo Staging in $(PAYLOAD)
 	@mkdir -p $(VMDKOPS_BIN) $(VMDKOPS_PY) $(VMDKOPS_LIB) $(VMDKOPS_LIB64) $(VMDKOPS_INITD)
+	@mkdir -p $(ESX_LOC)/ui/plugins
+	@cp $(UI_FROM) $(UI_TO)
 	@chmod -R a+w $(PAYLOAD)
 	@cp $(TO_WDIR) $(WDIR)
 	@cp $(TO_ESX_BIN) $(VMDKOPS_BIN)
