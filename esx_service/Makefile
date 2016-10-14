@@ -89,7 +89,9 @@ UI_FROM := ../ui
 
 # trying to get to
 # /usr/lib/vmware/hostd/docroot/ui/plugins/${PLUGIN_NAME}/
-UI_TO := $(ESX_LOC)/ui
+UI_TO_PART_ONE := $(VMDKOPS_PAYLOAD)/usr/lib/vmware
+UI_TO_PART_TWO := /hostd/docroot/ui/plugins
+UI_TO := $(UI_TO_PART_ONE)$(UI_TO_PART_TWO)
 
 # this is used from a Makefile upstairs, and could be used manually
 .PHONY: build
@@ -106,7 +108,7 @@ TO_ESX_INITD := $(INIT_SCRIPT)
 $(VIB_BIN): $(TO_WDIR) $(TO_ESX_BIN) $(TO_ESX_PY) $(TO_ESX_LIB) $(TO_ESX_INITD)
 	@echo Staging in $(PAYLOAD)
 	@mkdir -p $(VMDKOPS_BIN) $(VMDKOPS_PY) $(VMDKOPS_LIB) $(VMDKOPS_LIB64) $(VMDKOPS_INITD)
-	@mkdir -p $(ESX_LOC)/ui/plugins
+	@mkdir -p $(UI_TO)
 	@cp $(UI_FROM) $(UI_TO)
 	@chmod -R a+w $(PAYLOAD)
 	@cp $(TO_WDIR) $(WDIR)
