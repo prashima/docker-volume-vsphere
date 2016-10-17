@@ -85,12 +85,11 @@ VMDKOPS_LIB     := $(VMDKOPS_PAYLOAD)$(ESX_LOC)/lib
 VMDKOPS_LIB64   := $(VMDKOPS_PAYLOAD)$(ESX_LOC)/lib64
 VMDKOPS_INITD   := $(VMDKOPS_PAYLOAD)/etc/init.d
 
-UI_FROM := ../ui
+# build the docker-volume-plugin
 
-# trying to get to
-# /usr/lib/vmware/hostd/docroot/ui/plugins/${PLUGIN_NAME}/
+UI_FROM := ../ui/build/dist/*
 UI_TO_PART_ONE := $(VMDKOPS_PAYLOAD)/usr/lib/vmware
-UI_TO_PART_TWO := /hostd/docroot/ui/plugins
+UI_TO_PART_TWO := /hostd/docroot/ui/plugins/docker-volume-plugin/
 UI_TO := $(UI_TO_PART_ONE)$(UI_TO_PART_TWO)
 
 # this is used from a Makefile upstairs, and could be used manually
@@ -109,7 +108,7 @@ $(VIB_BIN): $(TO_WDIR) $(TO_ESX_BIN) $(TO_ESX_PY) $(TO_ESX_LIB) $(TO_ESX_INITD)
 	@echo Staging in $(PAYLOAD)
 	@mkdir -p $(VMDKOPS_BIN) $(VMDKOPS_PY) $(VMDKOPS_LIB) $(VMDKOPS_LIB64) $(VMDKOPS_INITD)
 	@mkdir -p $(UI_TO)
-	@cp $(UI_FROM) $(UI_TO)
+	@cp -r $(UI_FROM) $(UI_TO)
 	@chmod -R a+w $(PAYLOAD)
 	@cp $(TO_WDIR) $(WDIR)
 	@cp $(TO_ESX_BIN) $(VMDKOPS_BIN)
