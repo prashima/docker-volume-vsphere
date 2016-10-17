@@ -30,5 +30,5 @@ default: build-all
 
 # redirect all
 $(TARGETS):
-	$(MAKE) --directory=vmdk_plugin $@
 	$(MAKE) --directory=ui $@
+	$(MAKE) --directory=vmdk_plugin $@
