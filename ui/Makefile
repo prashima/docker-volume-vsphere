@@ -2,12 +2,14 @@
 BUILDROOT := build
 NPM_BIN := /usr/local/bin/npm
 
-build-ui-plugin:
+.PHONY:build-all clean
+
+build-all:
 	@echo "building ui plugin"
 	$(NPM_BIN) "install"
-	grunt
+	@grunt
 
-clean-ui-plugin:
+clean:
 	@echo "*** Cleaning"
 	@rm -rf node_modules
 	@rm -rf $(BUILDROOT)

@@ -21,8 +21,8 @@
 TARGETS := all \
 	deploy-all deploy-esx deploy-vm deploy-vm-test deploy\
 	test-all test-vm test-esx testremote testasroot\
-	clean-all clean clean-ui-plugin clean-vm clean-esx \
-	build-all build-ui-plugin build dockerbuild \
+	clean-all clean clean-vm clean-esx \
+	build-all build dockerbuild \
 	deb rpm package gvt documentation
 
 # default target
@@ -30,5 +30,5 @@ default: build-all
 
 # redirect all
 $(TARGETS):
-	$(MAKE) --directory=ui
 	$(MAKE) --directory=vmdk_plugin $@
+	$(MAKE) --directory=ui $@
