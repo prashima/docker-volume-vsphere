@@ -6,7 +6,7 @@
 # meanwhile you must change the ESX_IP to the actual IP address of your VM
 
 
-ESX_IP=192.168.73.136
+ESX_IP=192.168.73.138
 
 echo $ESX_IP
 echo "deploying to ${ESX_IP}"
