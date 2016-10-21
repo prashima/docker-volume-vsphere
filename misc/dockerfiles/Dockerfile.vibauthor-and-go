@@ -48,5 +48,6 @@ ENV PATH=$PATH:/usr/local/go/bin:/go/bin \
 RUN go get -u github.com/FiloSottile/gvt && \
     go get -u github.com/golang/lint/golint
 
-RUN #curl --silent --location https://rpm.nodesource.com/setup_4.x | bash - && \
-    #yum -y install nodejs
+RUN curl --silent --location https://rpm.nodesource.com/setup_4.x | bash - && \
+    yum -y install nodejs && \
+    npm install -g grunt
