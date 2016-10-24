@@ -24,6 +24,8 @@ import vmdk_ops
 import logging
 import auth_data_const
 
+AUTH_DB_PATH = '/etc/vmware/vmdkops/auth-db'
+
 def all_columns_set(privileges):
         if not privileges:
             return False
@@ -295,8 +297,7 @@ class AuthorizationDataManager:
         Currently, it is hardcoded.
 
         """
-        path = '/etc/vmware/vmdkops/auth-db'
-        return path
+        return AUTH_DB_PATH
 
     def connect(self):
         """ Connect to a sqlite database file given by `db_path`. 

@@ -14,6 +14,10 @@
 # limitations under the License.
 */
 
+/*
+*** NOTE: this is draft, the actual model will be done via Python extension"
+*/
+
 import vmodl.*;
 
 /**
@@ -49,10 +53,6 @@ import vmodl.*;
 
    @task Tenant removeTenant(String id, Boolean deleteVolumes);
    @task Tenant[] listTenants();
-   /* TBD: which infomation need to be returned by this function
-   @task String audit(String id);
-   */
-
 };
 
 @managed public interface DockerVolumeTenant {

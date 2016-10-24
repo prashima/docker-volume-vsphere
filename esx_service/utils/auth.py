@@ -106,7 +106,7 @@ def has_privilege(privileges, type):
 def get_vol_size(opts):
     """ get volume size. """
     if not opts or not opts.has_key(SIZE):
-        logging.error("Volume size not specified")
+        logging.warning("Volume size not specified")
         return kv.DEFAULT_DISK_SIZE
     return opts[SIZE]    
 
@@ -210,8 +210,8 @@ def tables_exist():
         return str(e), False
 
     if not result:
-        logging.error("table tenants does not exist")
         error_info = "table tenants does not exist"
+        logging.error(error_info)
         return error_info, False
     
     try:
@@ -222,8 +222,8 @@ def tables_exist():
         return str(e), False
 
     if not result:
-        logging.error("table vms does not exist")
         error_info = "table vms does not exist"
+        logging.error(error_info)
         return error_info, False
 
     try:
@@ -234,8 +234,8 @@ def tables_exist():
         return str(e), False
 
     if not result:
-        logging.error("table privileges does not exist")
         error_info = "table privileges does not exist"
+        logging.error(error_info)
         return error_info, False
     
     try:
@@ -246,8 +246,8 @@ def tables_exist():
         return str(e), False
 
     if not result:
-        logging.error("table volumes does not exist")
         error_info = "table volumes does not exist"
+        logging.error(error_info)
         return error_info, False
     
     return None, True
@@ -292,6 +292,10 @@ def authorize(vm_uuid, datastore, cmd, opts):
         if error_info:
             return error_info, None, None
         result = check_privileges_for_command(cmd, opts, tenant_uuid, datastore, privileges)
+
+        if not result:
+            logging.info("cmd %s with opts %s on tenant_uuid %s datastore %s is allowed to execute",
+                         cmd, opts, tenant_uuid, datastore)
 
         return result, tenant_uuid, tenant_name
 
