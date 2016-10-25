@@ -36,7 +36,6 @@ module.exports = function(grunt) {
     'build/dist/scripts/services/dvol-tenant-service.js': 'scripts/services/dvol-tenant-service.js',
     'build/dist/scripts/services/dvol-datastore-service.js': 'scripts/services/dvol-datastore-service.js',
     'build/dist/scripts/services/dvol-vsan-service.js': 'scripts/services/dvol-vsan-service.js',
-    'build/dist/scripts/services/VsanService.js': 'scripts/services/VsanService.js',
     //
     // Grid services depend on other services
     //
@@ -66,7 +65,8 @@ module.exports = function(grunt) {
     uglify: {
       //
       // mangle obfuscation is disabled for now
-      // it's breaking, likely causing problems for overall esxui angular dependency mgmt
+      // it causes the app to be non-functional,
+      // ;ikely causing problems for overall esxui angular dependency mgmt
       //
       options: {
         mangle: false

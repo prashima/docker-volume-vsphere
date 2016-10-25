@@ -1,66 +1,95 @@
 /* global define */
 
-define([], function() {
+define(['angular'], function(angular) {
   'use strict';
 
-  return function(VIMService, $log, $q, TaskService,
-    APPLICATION_EVENTS, vuiConstants, $timeout, NotificationService) {
+  return function(
+      $rootScope, $q, $log, $location, $interval, $filter, $timeout, $sce, $window,
+      VIMService, TaskService, StorageService, NotificationService, AuthService, StorageManager
+  ) {
 
+    var performRawSOAPRequest = function(
+     type, moid, methodName, vers, args) {
 
-    // Enable vsan at very beginning of vcsa bootstrap
-    // Check if vsan is enabled and if disabled then enable it
-    var enableVsan = function() {
+      var _hostname = AuthService.getProvidedHostname();
+      var _port = AuthService.getProvidedPort();
+      var _csrfToken = StorageManager.get('csrf_token', null);
+
       var deferred = $q.defer();
 
-      VIMService.getVSANConfig().then(function(config) {
-        if (config.enabled) {
-          deferred.resolve();
-          return;
-        }
-        config.enabled = true;
-        config.storageInfo = null;
-        config.clusterInfo = null;
-        config.networkInfo = null;
-        VIMService.setVSANConfig(config).then(function(task) {
-          TaskService.registerTaskListener(function(result) {
-            if (result.state.value === 'error') {
-              $log.error('update VSAN task failed', result);
-              TaskService.removeTaskListener(this, task);
-              deferred.reject(result);
+      var version = vers;
+      if (angular.isUndefined(version)) {
+        version = '5.1';
+      }
 
-              NotificationService.fire(APPLICATION_EVENTS.NOTIFICATION_APP.key, [{
-                type: vuiConstants.notifications.type.ERROR,
-                msg: result.error.localizedMessage
-              }]);
-            } else if (result.state.value === 'success') {
-              $log.debug('update VSAN task success');
-              // Defer resolution by 5 seconds, as vsan mgmt daemon isn't
-              // ready yet when VSAN task completes.
-              $timeout(function() {
-                deferred.resolve();
-              }, 5000);
-              TaskService.removeTaskListener(this, task);
-            } else {
-              $log.error('update VSAN task:' + result.state.value);
-            }
-          }, task);
-        }, function(error) {
-          deferred.reject(error);
-        });
-      }, function(error) {
-        deferred.reject(error);
-      });
+      var soapReq = '';
+      soapReq += '<?xml version="1.0" encoding="UTF-8"?>';
+      soapReq += '<soapenv:Envelope xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" ';
+      soapReq += 'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ';
+      soapReq += 'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ';
+      soapReq += 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
+      soapReq += '<soapenv:Body>';
+      soapReq += '<' + methodName + ' xmlns="urn:vim25">';
+      soapReq += '<_this type="' + type + '" >' + moid + '</_this>';
+      if (angular.isDefined(args)) {
+        soapReq += args;
+      }
+      soapReq += '</' + methodName + '>';
+      soapReq += '</soapenv:Body>';
+      soapReq += '</soapenv:Envelope>';
+
+      var xhr = new XMLHttpRequest(),
+        host = _hostname + ':' + _port,
+        proxy = false;
+
+      /* deal with proxying requests */
+      if (host !== $location.host()) {
+        host = $location.host() + ':' + $location.port() + '/vsan';
+        proxy = true;
+      } else {
+        host = host + '/vsan';
+      }
+
+      xhr.open('POST', 'https://' + host, true);
+
+      if (proxy) {
+        $log.debug('using proxy ' + host);
+        xhr.setRequestHeader('x-vsphere-proxy',
+           'https://' + _hostname + ':' + _port + '/vsan');
+      }
+
+      xhr.setRequestHeader('Content-Type', 'text/xml; charset=utf-8');
+      xhr.setRequestHeader('SOAPAction', 'urn:vim25/' + version);
+      xhr.setRequestHeader('VMware-CSRF-Token', _csrfToken);
+      xhr.send(soapReq);
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            deferred.resolve(xhr.response);
+          } else {
+            deferred.reject();
+          }
+        }
+      };
 
       return deferred.promise;
+
     };
 
+    this.getTenants = function() {
 
-    var p = enableVsan();
-    p.then(function() {
-      console.log('enableVsan resolved');
-    }, function(e) {
-      console.log('enableVsan rejected: ' + e);
-    });
+      var p = performRawSOAPRequest(
+        'VimHostVsanDockerPersistentVolumeSystem',
+        'vsan-docker-persistent-volumes',
+        'GetTenantList',
+        '6.0',
+        ''
+      );
+
+      return p;
+
+    };
 
   };
 

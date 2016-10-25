@@ -25,7 +25,7 @@ define([], function() {
       var deferred = $q.defer();
 
       var traverse = function(menu, opaque) {
-        menu.forEach(function(menuItem) {  // (menuItem, index)
+        menu.forEach(function(menuItem) {
           if (menuItem.update) {
             menuItem.update(opaque);
           }

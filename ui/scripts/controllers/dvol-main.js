@@ -4,20 +4,30 @@ define([], function() {
   'use strict';
 
   return function($rootScope, $scope, $log, $state, $filter, $timeout, GridUtils, vuiConstants, DialogService,
-    DvolTenantService, DvolTenantGridService, VsanService) {
+    DvolTenantService, DvolTenantGridService, DvolVsanService) {
 
-    VsanService.getTenants()
+    // -----------------------------
+    //
+    // Temporary
+    //
+    // Here when the app is loaded we're temporarily making
+    // a call to DvolVsanService to test connectivity
+    //
+    // TODO: remove this
+    //
+
+    DvolVsanService.getTenants()
     .then(function(res) {
       console.log('getTenants: ' + res);
     }, function(err) {
       console.log('ERROR getTenants: ' + err);
     });
 
-    var translate = $filter('translate');
+    //
+    // -----------------------------
+    //
 
-    //
-    // TENANT GRID
-    //
+    var translate = $filter('translate');
 
     var tenantGridActions = [
       {
@@ -26,7 +36,7 @@ define([], function() {
         iconClass: 'vui-icon-action-add',
         tooltipText: 'Add Tenant',
         enabled: true,
-        onClick: function() {  // has 1st param evt and also has 2nd param action
+        onClick: function() {
           DialogService.showDialog('dvol.add-tenant', {
             tenant: {},
             save: function(newTenant, vms) {
@@ -131,14 +141,12 @@ define([], function() {
         label: translate('dvol.tenantDetailTabs.vms.label'),
         tooltipText: translate('dvol.tenantDetailTabs.vms.tooltip'),
         contentUrl: 'plugins/docker-volume-plugin/views/dvol-vms.html'
-        // onClick: tabClickFunction
       },
       datastores: {
         label: translate('dvol.tenantDetailTabs.datastores.label'),
         tooltipText: translate(
           'dvol.tenantDetailTabs.datastores.tooltip'),
         contentUrl: 'plugins/docker-volume-plugin/views/dvol-datastores.html'
-        // onClick: tabClickFunction
       }
     };
 

@@ -12,7 +12,7 @@ define([], function() {
       }
     };
 
-    this.showDialog = function(dialog) {  // (dialog, opaque)
+    this.showDialog = function(dialog) {
       switch (dialog) {
       case 'dvol.add-tenant':
         return {

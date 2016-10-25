@@ -58,8 +58,6 @@ define([], function() {
     ];
 
     function filterVmsForThisTenant(allVms) {
-      // NOTE: selectedTenants from the grid doesn't have new vms added (will not until grid refresh)
-      // we don't want to refresh the grid because we'll lose tenant row selection
       var selectedTenantRow = $scope.tenantsGrid.selectedItems[0];
       if (!selectedTenantRow) return [];
       var selectedTenant = DvolTenantService.state.tenants[selectedTenantRow.id];
