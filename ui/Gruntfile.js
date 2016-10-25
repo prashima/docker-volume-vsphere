@@ -27,8 +27,25 @@ module.exports = function(grunt) {
   }
 
   var uglyfiles = (env === 'dev') ? [] : [{
+    //
+    // these services should not have interdependencies
+    //
+    'build/dist/scripts/services/dvol-context-menu.js': 'scripts/services/dvol-context-menu.js',
+    'build/dist/scripts/services/dvol-dialog-service.js': 'scripts/services/dvol-dialog-service.js',
+    'build/dist/scripts/services/dvol-datacenter-vm-service.js': 'scripts/services/dvol-datacenter-vm-service.js',
+    'build/dist/scripts/services/dvol-tenant-service.js': 'scripts/services/dvol-tenant-service.js',
+    'build/dist/scripts/services/dvol-datastore-service.js': 'scripts/services/dvol-datastore-service.js',
+    'build/dist/scripts/services/dvol-vsan-service.js': 'scripts/services/dvol-vsan-service.js',
+    'build/dist/scripts/services/VsanService.js': 'scripts/services/VsanService.js',
+    //
+    // Grid services depend on other services
+    //
+    'build/dist/scripts/services/dvol-vms-grid-service.js': 'scripts/services/dvol-vms-grid-service.js',
+    'build/dist/scripts/services/dvol-datastore-grid-service.js': 'scripts/services/dvol-datastore-grid-service.js',
+    'build/dist/scripts/services/dvol-tenant-grid-service.js': 'scripts/services/dvol-tenant-grid-service.js'
+  }, {
     expand: true,
-    src: 'scripts/**/*.js',
+    src: 'scripts/controllers/*.js',
     dest: 'build/dist/'
   }, {
     'build/dist/plugin.js': 'plugin.js'
@@ -47,6 +64,16 @@ module.exports = function(grunt) {
       }
     },
     uglify: {
+      //
+      // mangle obfuscation is disabled for now
+      // it's breaking, likely causing problems for overall esxui angular dependency mgmt
+      //
+      options: {
+        mangle: false
+      },
+      //
+      //
+      //
       dist: {
         files: uglyfiles
       }
