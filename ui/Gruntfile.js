@@ -66,7 +66,7 @@ module.exports = function(grunt) {
       //
       // mangle obfuscation is disabled for now
       // it causes the app to be non-functional,
-      // ;ikely causing problems for overall esxui angular dependency mgmt
+      // likely causing problems for overall esxui angular dependency mgmt
       //
       options: {
         mangle: false
