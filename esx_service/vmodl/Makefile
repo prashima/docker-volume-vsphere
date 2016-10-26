@@ -7,28 +7,32 @@
 # ESX=10.132.15.22 make test # deploys to ESX, runs *_test.py files to validate the stuff
 # 
 
+# ssh/scp commands. Use 'DEBUG=echo make' to print info instead of copying files or running ssh
+SSH := $(DEBUG) ssh -kTax -o StrictHostKeyChecking=no
+SCP := $(DEBUG) scp -r -q -o StrictHostKeyChecking=no
+
+# Site libraries for Python 2 and Python 3
 PY3_COMMON = /lib64/python3.5
 PY2_COMMON = /lib/python2.7
+TARGET2 := $(PY2_COMMON)/site-packages/pyMo/vim/vsan
+TARGET3 := $(PY3_COMMON)/site-packages/pyMo/vim/vsan
 
-# MOIDFY THIS LINE TO POINT TO CORRECT PYTHON VERSION
-TARGET_LOC = $(PY3_COMMON)/site-packages/pyMo/vim/vsan
+# find the target location for the correct python version 
+TARGET_LOC = $(shell $(SSH) root@$(ESX) \
+	"if [ -d $(TARGET2) ] ; then echo $(TARGET2) ; else echo $(TARGET3); fi")
 
 # Note: in ESX source, here are the location: 
 #bora/vsan/<component>/esx/pyMo (Impl and __init)
 #bora/vsan/pyvmodl (model)
 
-NAME := VsanDockerPersistentVolumeSystem
-MODEL = $(NAME).py
-EXT = $(NAME)__ext_init__.py
-IMPL = $(NAME)Impl.py
+NAME  := VsanDockerPersistentVolumeSystem
+MODEL := $(NAME).py
+EXT   := $(NAME)__ext_init__.py
+IMPL  := $(NAME)Impl.py
 
-PYFILES = $(MODEL) $(EXT) $(IMPL)
+PYFILES   := $(MODEL) $(EXT) $(IMPL)
 TESTFILES := $(shell find . -name '*_test.py')
-TMP_LOC    := $(shell echo /tmp/dockvol-vmodl_unittest$$RANDOM)
-
-SSH := $(DEBUG) ssh -kTax -o StrictHostKeyChecking=no
-SCP := $(DEBUG) scp -r -q -o StrictHostKeyChecking=no
-
+TMP_LOC   := $(shell echo /tmp/dockvol-vmodl_unittest$$RANDOM)
 
 deploy: 
 	@echo Making test dir...
